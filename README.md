@@ -23,3 +23,5 @@ Website Bookking là một nền tảng cho phép người dùng đặt phòng k
 7. **index.php:** Trang này là trang chính của dự án, nơi bạn có thể cấu hình và hiển thị thông tin đầu trang web. Nó có thể chứa liên kết đến các trang khác trên trang web và bắt đầu quá trình đặt phòng.
 
 Dự án Bookking là một dự án quan trọng để cung cấp dịch vụ đặt phòng khách sạn trực tuyến, và cấu trúc thư mục này có thể giúp bạn quản lý và phát triển trang web một cách hiệu quả.
+
+Ghi chú: T lười quá nên vất cho Bot viết lại.
