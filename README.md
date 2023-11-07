@@ -12,7 +12,7 @@ Website Bookking là một nền tảng cho phép người dùng đặt phòng k
    - **Ảnh CCCD xác minh:** Để xác minh danh tính của người dùng.
    - **Ảnh chụp người xác nhận:** Có thể là ảnh chụp người sử dụng dịch vụ khách sạn.
 
-3. **node_modules:** Thư mục này chứa các file icon HTML. Có lẽ bạn sử dụng các icon này để trang trí và tạo điểm nhấn trên trang web.
+3. **node_modules:** Bộ icon của bootstrap. Tải về để dùng dưới dạng text chứ không phải link img cho lằng nhằng. Để xem chi tiết nhấn [ĐÂY](https://icons.getbootstrap.com/)
 
 4. **phpMailer:** Thư mục này chứa thư viện dùng để gửi email. Chức năng gửi email có thể được sử dụng để xác nhận đặt phòng, gửi thông tin đặt phòng đến khách hàng hoặc khách sạn.
 
