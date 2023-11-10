@@ -1,5 +1,0 @@
-<?php 
-
-index.php
-
-?>
