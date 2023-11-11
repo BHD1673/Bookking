@@ -40,3 +40,8 @@ CREATE TABLE dat_phong_dich_vu (
     FOREIGN KEY (ma_dat_phong) REFERENCES dat_phong(ma_dat_phong),
     FOREIGN KEY (ma_dich_vu) REFERENCES dich_vu_phong(ma_dich_vu)
 );
+
+ALTER TABLE dat_phong
+ADD COLUMN ten_khach_hang VARCHAR(100),
+ADD COLUMN tien_dat_coc DECIMAL(10, 2),
+ADD COLUMN anh_khach_hang VARCHAR(255); -- Lưu đường dẫn đến ảnh khách hàng
