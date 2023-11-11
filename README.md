@@ -27,10 +27,10 @@
 
 
 4. **Tương Tác Cơ Sở Dữ Liệu:**
-   - Viết các truy vấn SQL trong kịch bản PHP của bạn để thực hiện các hoạt động như SELECT, INSERT, UPDATE và DELETE trên cơ sở dữ liệu.
-   - Đảm bảo rằng cấu trúc cơ sở dữ liệu của bạn phản ánh các yêu cầu được mô tả trước đó.
+   - Xử ly các câu truy vấn SQL trong code PHP để thực hiện các hoạt động gồm SELECT INSERT DELETE UPDATE
+   - Đảm bảo rằng cấu trúc cơ sở dữ liệu xử lý đúng yêu cầu trước đấy trong các hàm đã dựng
 
-5. **Biện Pháp Bảo Mật:**
+5. **Xử lý bảo mật:**
    - Loại bỏ thông tin người dùng trong các file PHP để bảo vệ khỏi tấn công SQL injection.
    - Triển khai trang login cho trang admin và login, đảm bảo phải đăng nhập thì không bị phá bởi tham số URL (Như người dùng nếu nhập /admin/ mà session login chưa đặt thì sẽ bị chuyển về trang đăng nhập)
 

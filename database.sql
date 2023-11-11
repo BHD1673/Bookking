@@ -11,7 +11,7 @@ CREATE TABLE phong (
     so_phong VARCHAR(10) NOT NULL,
     loai_phong VARCHAR(50) NOT NULL,
     gia DECIMAL(10, 2) NOT NULL,
-    tinh_trang BOOLEAN DEFAULT true,
+    tinh_trang BOOLEAN DEFAULT false,
     ma_loai_phong INT,
     FOREIGN KEY (ma_loai_phong) REFERENCES loai_phong(ma_loai_phong)
 );
