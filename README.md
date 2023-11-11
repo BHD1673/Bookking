@@ -139,4 +139,52 @@ echo "Đặt phòng thành công!";
 ?>
 
 ```
+https://www.youtube.com/watch?v=uAVL07p8cmc&ab_channel=CatDragon Video về PHPMailer
+```php
+<?php
+require 'vendor/autoload.php'; // Đường dẫn đến autoload.php của PHPMailer
 
+// ... Các bước xử lý dữ liệu như trước
+
+// Gửi email thông báo
+try {
+    $mail = new PHPMailer\PHPMailer\PHPMailer();
+    
+    // Cấu hình thông tin SMTP của bạn
+    $mail->isSMTP();
+    $mail->Host = 'your-smtp-host';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'your-smtp-username';
+    $mail->Password = 'your-smtp-password';
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = 587;
+
+    // Cấu hình thông tin email
+    $mail->setFrom('your-email@example.com', 'Your Name');
+    $mail->addAddress('recipient@example.com', 'Recipient Name');
+    $mail->isHTML(true);
+    $mail->Subject = 'Đặt Phòng Thành Công';
+
+    // Nội dung email
+    $message = "
+        <p><strong>Tên Khách Hàng:</strong> $ten_khach_hang</p>
+        <p><strong>Số Điện Thoại:</strong> $so_dien_thoai_khach_hang</p>
+        <p><strong>Ảnh Chứng Minh:</strong> <img src='$target_file' alt='Chứng Minh Khách Hàng'></p>
+        <p><strong>Tiền Đặt Cọc:</strong> $tien_dat_coc</p>
+        <p><strong>Tiền Tổng Thanh Toán:</strong> $tong_tien</p>
+    ";
+    
+    $mail->Body = $message;
+
+    // Gửi email
+    if ($mail->send()) {
+        echo "Đặt phòng thành công! Email thông báo đã được gửi.";
+    } else {
+        echo "Có lỗi khi gửi email: " . $mail->ErrorInfo;
+    }
+} catch (Exception $e) {
+    echo "Có lỗi xảy ra: " . $e->getMessage();
+}
+?>
+
+```
