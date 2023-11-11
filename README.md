@@ -104,5 +104,39 @@ Trong đoạn mã trên:
 - `FROM ten_bang` chỉ ra bảng dữ liệu bạn đang sử dụng.
 - `WHERE ...` là nơi bạn có thể thêm điều kiện tùy chọn nếu cần thiết.
 ```
+### Mở rộng bảng đặt phòng 
+- Mở rộng để chứa thông tin khách hàng mới
+```sql
+ALTER TABLE dat_phong
+ADD COLUMN ten_khach_hang VARCHAR(100),
+ADD COLUMN tien_dat_coc DECIMAL(10, 2),
+ADD COLUMN anh_khach_hang VARCHAR(255); -- Lưu đường dẫn đến ảnh khách hàng
+```
+- Xử lý qua dữ liệu bằng PHP
+```php
+<?php
+// Bước 1: Lấy thông tin từ form
+$ten_khach_hang = $_POST['ten_khach_hang'];
+$tien_dat_coc = $_POST['tien_dat_coc'];
+$anh_khach_hang = $_FILES['anh_khach_hang']['name'];
 
+// Bước 2: Upload ảnh khách hàng vào thư mục và lưu đường dẫn vào cơ sở dữ liệu
+$upload_directory = 'uploads/'; // Thư mục lưu trữ ảnh
+$target_file = $upload_directory . basename($anh_khach_hang);
+
+move_uploaded_file($_FILES['anh_khach_hang']['tmp_name'], $target_file);
+
+// Bước 3: Lưu thông tin vào cơ sở dữ liệu
+// Thêm các biến mới vào câu truy vấn SQL
+$sql = "INSERT INTO dat_phong (ngay_checkin, ngay_checkout, ma_phong, ten_khach_hang, tien_dat_coc, anh_khach_hang) 
+        VALUES ('$ngay_checkin', '$ngay_checkout', '$ma_phong', '$ten_khach_hang', '$tien_dat_coc', '$target_file')";
+
+// Thực hiện câu truy vấn SQL và xử lý lỗi nếu có
+// ...
+
+// Hiển thị thông báo xác nhận cho người dùng
+echo "Đặt phòng thành công!";
+?>
+
+```
 
