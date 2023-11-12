@@ -31,6 +31,8 @@ CREATE TABLE GanDichVuPhong (
     PRIMARY KEY (IDPhong, IDDichVuPhong)
 );
 
+
+
 -- Bảng LoaiPhong
 INSERT INTO LoaiPhong (ID, TenLoai, MoTaLoai, GiaPhongChung)
 VALUES (1, 'Phòng Standard', 'Phòng tiêu chuẩn', 100.00),
