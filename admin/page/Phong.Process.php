@@ -33,7 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "</pre>";
 }
 
+$AllPhong = getAllPhong();
 
+function getAllPhong(){
+    $sql = "SELECT * FROM Phong";
+    return pdo_query($sql);
+}
 
 //Xử lý xóa
 
@@ -56,6 +61,7 @@ function UpdatePhong($TenPhong, $TrangThaiPhong, $loaiPhongID) {
     header("Location: Phong.View.php");
     exit(); 
 }
+
 
 
 
