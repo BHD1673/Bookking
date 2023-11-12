@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="wIDth=device-wIDth, initial-scale=1.0">
     <title>Quản lý Loại Phòng</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -27,6 +27,8 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Tên Loại Phòng</th>
+            <th scope="col">Mô tả</th>
+            <th scope="col">Giá Phòng Chung</th>
             <th scope="col">Thao tác</th>
         </tr>
         </thead>
@@ -39,13 +41,16 @@
 
         foreach ($allLoaiPhong as $row) {
             echo "<tr>";
-            echo "<td>{$row['Id']}</td>";
-            echo "<td>{$row['TenLoaiPhong']}</td>";
+            echo "<td>{$row['ID']}</td>";
+            echo "<td>{$row['TenLoai']}</td>";
+            echo "<td>{$row['MoTaLoai']}</td>";
+            echo "<td>{$row['GiaPhongChung']}</td>";
             echo "<td>";
-            echo "<a href='LoaiPhong.Process.php?deleteId={$row['Id']}' class='btn btn-danger'>Xóa</a>";
-            echo "<a href='LoaiPhong.Update.php?editId={$row['Id']}' class='btn btn-info'>Sửa</a>";
+            echo "<a href='LoaiPhong.Process.php?deleteID={$row['ID']}' class='btn btn-danger'>Xóa</a>";
+            echo "<a href='LoaiPhong.Update.php?editID={$row['ID']}' class='btn btn-info'>Sửa</a>";
             echo "</td>";
             echo "</tr>";
+
         }
         
         ?>
@@ -54,12 +59,12 @@
 </div>
 
 <!-- Add Modal -->
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" ID="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hIDden="true">
     <!-- ... (Các phần của modal để thêm mới) -->
 </div>
 
 <!-- Update Modal -->
-<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" ID="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hIDden="true">
     <!-- ... (Các phần của modal để cập nhật) -->
 </div>
 

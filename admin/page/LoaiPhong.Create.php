@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="wIDth=device-wIDth, initial-scale=1.0">
     <title>Thêm Loại Phòng</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,8 +19,12 @@
 
     <form method="POST" action="LoaiPhong.Process.php">
         <div class="mb-3">
-            <label for="tenLoaiPhong" class="form-label">Tên Loại Phòng</label>
-            <input type="text" class="form-control" id="tenLoaiPhong" name="tenLoaiPhong" required>
+            <label for="TenLoaiPhong" class="form-label">Tên Loại Phòng</label>
+            <input type="text" class="form-control" ID="TenLoaiPhong" name="TenLoaiPhong" required>
+            <label for="MoTaLoai" class="form-label">Mô tả : </label>
+            <input type="text" class="form-control" ID="MoTaLoai" name="MoTaLoai" required>
+            <label for="GiaPhongChung" class="form-label">Giá phòng chung</label>
+            <input type="number" class="form-control" ID="GiaPhongChung" name="GiaPhongChung" required>
         </div>
         <button type="submit" class="btn btn-primary" name="addLoaiPhong">Thêm</button>
     </form>

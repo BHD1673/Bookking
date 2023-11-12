@@ -69,7 +69,6 @@ function pdo_query_one($sql){
     }
 }
 
-// ... (Các hàm kết nối và truy vấn PDO của bạn)
 
 
 ?>
