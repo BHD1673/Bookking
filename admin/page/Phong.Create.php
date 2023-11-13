@@ -19,8 +19,8 @@
     <form method="POST" action="Phong.Process.php">
     <div class="container mt-4">
         <div class="mb-3">
-            <label for="TenLoaiPhong" class="form-label">Tên phòng</label>
-            <input type="text" class="form-control" id="TenLoaiPhong" name="TenLoaiPhong" required>
+            <label for="TenLPhong" class="form-label">Tên phòng</label>
+            <input type="text" class="form-control" id="TenLoaiPhong" name="TenPhong" required>
         </div>
 
         <div class="mb-3">
@@ -73,7 +73,7 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary" name="addLoaiPhong">Thêm</button>
+        <button type="submit" class="btn btn-primary" name="addPhong">Thêm</button>
     </div>
 </form>
 
