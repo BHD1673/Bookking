@@ -11,11 +11,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addPhong"])) {
     $TenPhong = $_POST["TenPhong"];
     $ViTriPhong = $_POST["ViTriPhong"];
     $TrangThaiPhong = $_POST["TrangThaiPhong"];
-    $AnhPhong = $_POST["AnhPhong"];
+    // Xử lý input hình ảnh
+    $uploadDirectory = "uploads/";
+    $anhPhong = $uploadDirectory . basename($_FILES["AnhPhong"]["name"]);
+
+    if (move_uploaded_file($_FILES["AnhPhong"]["tmp_name"], $anhPhong)) {
+        echo "File uploaded successfully.";
+    } else {
+        echo "Error uploading file.";
+    }
+
     $SoLuongDichVu = $_POST["SoLuongDichVu"];
+    $TongGiaDichVu = $_POST["TongGiaDichVu"];
     $LoaiPhongID = $_POST["LoaiPhongID"];
 
     InsertPhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $SoLuongDichVu, $LoaiPhongID);
+    header("Location: Phong.View.php");
     // Access form data
     $submittedData = $_POST;
 
@@ -43,7 +54,8 @@ function getAllPhong(){
 
 //Thêm mới
 function InsertPhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $SoLuongDichVu, $LoaiPhongID) {
-    $sql = "INSERT INTO `phong`(`ID`, `TenPhong`, `ViTriPhong`, `TrangThaiPhong`, `AnhPhong`, `SoLuongDichVu`, `TongGiaDichVu`, `ThuocLoaiPhong`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO TenBang (TenPhong, ViTriPhong, TrangThaiPhong, AnhPhong, SoLuongDichVu, TongGiaDichVu, LoaiPhongID) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     pdo_execute($sql, $TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $SoLuongDichVu, $LoaiPhongID);
 
     // Thêm thành công, có thể thực hiện các hành động khác nếu cần

@@ -31,7 +31,31 @@ CREATE TABLE GanDichVuPhong (
     PRIMARY KEY (IDPhong, IDDichVuPhong)
 );
 
+--Phần này sẽ còn phải sửa lại, viết hơi lỗi.
+CREATE TABLE DatPhong (
+    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    IDKhachHang INT,
+    NgayDat DATE,
+    NgayCheckIn DATE,
+    NgayCheckOut DATE,
+    SoNguoiLon INT,
+    SoTreEm INT,
+    TienPhongChuaDichVu DECIMAL(10, 2),
+    DaThanhToan BOOLEAN,
+    IDPhong INT,
+    FOREIGN KEY (IDKhachHang) REFERENCES KhachHang(ID),
+    FOREIGN KEY (IDPhong) REFERENCES Phong(ID)
+);
 
+CREATE TABLE KhachHang (
+    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    Email VARCHAR(255) UNIQUE NOT NULL,
+    TenDangNhap VARCHAR(50) NOT NULL,
+    MatKhau VARCHAR(50) NOT NULL,
+    NgaySinh DATE,
+    DiaChi VARCHAR(225) NULL,
+    HinhAnhXacMinh VARCHAR(225) NULL
+);
 
 -- Bảng LoaiPhong
 INSERT INTO LoaiPhong (ID, TenLoai, MoTaLoai, GiaPhongChung)
