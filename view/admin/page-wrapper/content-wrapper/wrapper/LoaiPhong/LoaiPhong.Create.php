@@ -1,3 +1,4 @@
+
 <div class="container mt-5">
     <h2>Thêm Loại Phòng</h2>
     <a href="LoaiPhong.View.php">

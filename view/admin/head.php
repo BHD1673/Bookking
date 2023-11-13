@@ -1,4 +1,4 @@
-<?php 
+gi<?php 
 //Trang này là trang chứa thông tin bên trong file head, bao gồm link css
 //link js cơ bản. Nếu cảm thấy ổn thì có thể thêm một file chứa thông tin
 //thẻ <title> nếu như cần. 

@@ -42,12 +42,11 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Các trang chính bao gồm:</h6>
-                        <a class="collapse-item" href="table_own.html">Bảng mẫu</a>
-                        <a class="collapse-item" href="404.html">Trang lỗi 4040</a>
-                        <a href="forgot-password.html" class="collapse-item">Trang quên mật khẩu</a>
-                        <a href="login.html" class="collapse-item">Trang đăng nhập</a>
-                        <a href="register.html" class="collapse-item">Trang đăng ký</a>
+                        <a class="collapse-item" href="?act=QuanLyLoaiPhong">Trang quản lý loại phòng</a>
+                        <a class="collapse-item" href="?act=QuanLyPhong">Trang quản lý phòng</a>
+                        <a href="?act=QuanLyDonDatPhong" class="collapse-item">Trang quản lý đơn đặt phòng</a>
+                        <a href="?act=QuanLyTaiKhoan" class="collapse-item">Trang quản lý tài khoản</a>
+                        <a href="?act=QuanLyDichVu" class="collapse-item">Trang quản lý dịch vụ</a>
                     </div>
                 </div>
             </li>
