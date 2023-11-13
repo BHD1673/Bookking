@@ -40,7 +40,7 @@ CREATE TABLE DatPhong (
     NgayCheckOut DATE,
     SoNguoiLon INT,
     SoTreEm INT,
-    TienPhongChuaDichVu DECIMAL(10, 2),
+    TienPhongChuaDichVu DECIMAL(10, 2),                                                                           
     DaThanhToan BOOLEAN,
     IDPhong INT,
     FOREIGN KEY (IDKhachHang) REFERENCES KhachHang(ID),
