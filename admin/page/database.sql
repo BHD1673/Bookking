@@ -32,7 +32,7 @@ CREATE TABLE GanDichVuPhong (
 );
 
 --Phần này sẽ còn phải sửa lại, viết hơi lỗi.
-CREATE TABLE DatPhong (
+/* CREATE TABLE DatPhong (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     IDKhachHang INT,
     NgayDat DATE,
@@ -55,7 +55,7 @@ CREATE TABLE KhachHang (
     NgaySinh DATE,
     DiaChi VARCHAR(225) NULL,
     HinhAnhXacMinh VARCHAR(225) NULL
-);
+); */
 
 -- Bảng LoaiPhong
 INSERT INTO LoaiPhong (ID, TenLoai, MoTaLoai, GiaPhongChung)

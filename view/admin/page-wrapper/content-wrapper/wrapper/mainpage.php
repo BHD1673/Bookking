@@ -16,6 +16,9 @@ if (isset($_GET['act'])) {
 
     // Xử lý các trường hợp dựa trên giá trị của 'act'
     switch ($act) {
+        case 'AddLoaiPhong':
+            include('LoaiPhong.Create.php');
+            
         }
 } else {
     include("404/404.php");
