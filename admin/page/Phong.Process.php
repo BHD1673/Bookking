@@ -9,21 +9,13 @@ require_once("PDO.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addPhong"])) {
     // Lấy dữ liệu từ form
     $TenPhong = $_POST["TenPhong"];
+    $ViTriPhong = $_POST["ViTriPhong"];
     $TrangThaiPhong = $_POST["TrangThaiPhong"];
+    $AnhPhong = $_POST["AnhPhong"];
+    $SoLuongDichVu = $_POST["SoLuongDichVu"];
     $LoaiPhongID = $_POST["LoaiPhongID"];
 
-
-    // Kiểm tra xem up cái gì
-    echo "Tên phòng: " . $TenPhong . "<br>";
-    echo "Trạng thái phòng: " . $TrangThaiPhong . "<br>";
-    echo "Loại phòng ID: " . $LoaiPhongID . "<br>";
-
-}
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Form submitted through POST method
-
+    InsertPhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $SoLuongDichVu, $LoaiPhongID);
     // Access form data
     $submittedData = $_POST;
 
@@ -31,33 +23,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "<pre>";
     print_r($submittedData);
     echo "</pre>";
+
 }
+
 
 $AllPhong = getAllPhong();
 
-function getAllPhong(){
-    $sql = "SELECT * FROM Phong";
-    return pdo_query($sql);
-}
+
 
 //Xử lý xóa
 
 //Xử lý cập nhật
 
 //Lấy tất cả dữ liệu
+function getAllPhong(){
+    $sql = "SELECT * FROM Phong";
+    return pdo_query($sql);
+}
 
 //Thêm mới
-
-function InsertPhong($TenPhong, $TrangThaiPhong, $loaiPhongID) {
-    $sql = "INSERT INTO Phong (TenPhong, TrangThaiPhong, LoaiPhongID) VALUES (?, ?, ?)";
-    pdo_execute($sql, $TenPhong, $TrangThaiPhong, $loaiPhongID);
+function InsertPhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $SoLuongDichVu, $LoaiPhongID) {
+    $sql = "INSERT INTO `phong`(`ID`, `TenPhong`, `ViTriPhong`, `TrangThaiPhong`, `AnhPhong`, `SoLuongDichVu`, `TongGiaDichVu`, `ThuocLoaiPhong`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    pdo_execute($sql, $TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $SoLuongDichVu, $LoaiPhongID);
 
     // Thêm thành công, có thể thực hiện các hành động khác nếu cần
     echo "Thêm phòng thành công!";
 }
-function UpdatePhong($TenPhong, $TrangThaiPhong, $loaiPhongID) {
+function UpdatePhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $SoLuongDichVu, $LoaiPhongID) {
     $sql = "UPDATE `phong` SET `TenPhong`=?,`TrangThaiPhong`=?,`LoaiPhongID`=? WHERE ID= ?";
-    pdo_execute($sql, $TenPhong, $TrangThaiPhong, $loaiPhongID);
+    pdo_execute($sql, $TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $SoLuongDichVu, $LoaiPhongID);
     header("Location: Phong.View.php");
     exit(); 
 }
