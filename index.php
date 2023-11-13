@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đéo show gì nữa thì chịu</title>
-</head>
-<body>
-    aklsdjalsdjk
-</body>
-</html>
+<?php
+include "view/head.php";
+include "view/loader.php";
+include "view/header.php";
+include 'view/banner.php';
+include "view/review.php";
+include "view/room.php";
+include "view/gallery.php";
+include "view/footer.php";
+?>
