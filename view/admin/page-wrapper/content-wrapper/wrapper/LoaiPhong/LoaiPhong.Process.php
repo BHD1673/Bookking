@@ -1,5 +1,5 @@
 <?php
-require_once("../PDO.php");
+require_once("PDO.php");
 // Xử lý thêm mới
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addLoaiPhong"])) {
     $TenLoaiPhong = $_POST["TenLoaiPhong"];

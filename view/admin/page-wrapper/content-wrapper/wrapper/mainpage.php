@@ -16,12 +16,18 @@ if (isset($_GET['act'])) {
 
     // Xử lý các trường hợp dựa trên giá trị của 'act'
     switch ($act) {
+        case 'QuanLyLoaiPhong':
+            include('LoaiPhong/LoaiPhong.View.php');
+        break;
         case 'AddLoaiPhong':
-            include('LoaiPhong.Create.php');
-            
-        }
-} else {
-    include("404/404.php");
+            include('LoaiPhong/LoaiPhong.Create.php');
+        break;
+        case 'UpdateLoaiPhong':
+            include('LoaiPhong/LoaiPhong.Update.php');
+        break;
+        default: 
+
+    }
 }
 
 ?>

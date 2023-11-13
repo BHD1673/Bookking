@@ -7,7 +7,7 @@
         </button>
     </a>
     <?php
-    include '../PDO.php';
+    include 'PDO.php';
     include 'LoaiPhong.Process.php';
 
     if(isset($_GET['editID'])) {
