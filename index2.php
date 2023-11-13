@@ -1,7 +1,10 @@
 <?php
+    session_start();
 include "view/head.php";
 include "view/loader.php";
 include "view/header.php";
+include "model/pdo.php";
+include "model/taikhoan.php";
 
 if(isset($_GET['act'])&&($_GET['act']!="")){
     $act=$_GET['act'];
