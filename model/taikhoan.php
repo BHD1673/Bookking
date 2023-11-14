@@ -13,8 +13,8 @@ function checkuser($user,$pass) {
     $sp=pdo_query_one($sql);
     return $sp;
 }
-function checkemail($email) {
-    $sql="select * from taikhoan where email='".$email."'";
+function checkemail($email,$pass) {
+    $sql="select * from taikhoan where email='".$email."' AND  pass='".$pass."'";
     $sp=pdo_query_one($sql);
     return $sp;
 }
