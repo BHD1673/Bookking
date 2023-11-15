@@ -33,7 +33,7 @@
             echo "<td>{$row['TenPhong']}</td>";
             echo "<td>{$row['ViTriPhong']}</td>";
             echo "<td>{$row['TrangThaiPhong']}</td>";
-            echo "<td><img style='width:150px'; src='upload/{$row['AnhPhong']}'></td>";
+            echo "<td><img style='width:150px'; src='../../../../../../../../upload/{$row['AnhPhong']}'></td>";
             echo "<td>{$row['TenLoai']} - {$row['GiaPhongChung']}</td>"; // Modified to include TenLoai and GiaPhongChung
             echo "<td>";
             echo "<a href='LoaiPhong.Process.php?deleteID={$row['ID']}' class='btn btn-danger'>Xóa</a>";
