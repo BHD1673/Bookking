@@ -76,6 +76,9 @@
                               <li class="nav-item">
                                  <a class="nav-link" href="contact.html">Contact Us</a>
                               </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="index.php?act=dangnhap">Login</a>
+                              </li>
                            </ul>
                         </div>
                      </nav>
