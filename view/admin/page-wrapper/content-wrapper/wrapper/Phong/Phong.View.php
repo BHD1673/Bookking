@@ -17,8 +17,6 @@
             <th scope="col">Trạng thái phòng</th>
             <th scope="col">Ảnh phòng</th>
             <th scope="col">Thuộc danh mục phòng</th>
-            <th scope="col">Số lượng dịch vụ đi kèm</th>
-            <th scope="col">Tổng giá dịch vụ</th>
             <th scope="col">Thao tác</th>
         </tr>
         </thead>
@@ -36,16 +34,14 @@
             echo "<td>{$row['ViTriPhong']}</td>";
             echo "<td>{$row['TrangThaiPhong']}</td>";
             echo "<td><img style='width:150px'; src='upload/{$row['AnhPhong']}'></td>";
-            echo "<td>{$row['ThuocLoaiPhong']}</td>";
-            echo "<td>{$row['SoLuongDichVu']}</td>";
-            echo "<td>{$row['TongGiaDichVu']}</td>";
+            echo "<td>{$row['TenLoai']} - {$row['GiaPhongChung']}</td>"; // Modified to include TenLoai and GiaPhongChung
             echo "<td>";
             echo "<a href='LoaiPhong.Process.php?deleteID={$row['ID']}' class='btn btn-danger'>Xóa</a>";
             echo "<a href='LoaiPhong.Update.php?editID={$row['ID']}' class='btn btn-info'>Sửa</a>";
             echo "</td>";
             echo "</tr>";
-
         }
+        
         
         ?>
         </tbody>

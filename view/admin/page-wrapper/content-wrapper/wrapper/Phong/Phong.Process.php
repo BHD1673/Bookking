@@ -20,12 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addPhong"])) {
     } else {
         echo "Error uploading file.";
     }
-
-    $SoLuongDichVu = $_POST["SoLuongDichVu"];
-    $TongGiaDichVu = $_POST["TongGiaDichVu"];
     $LoaiPhongID = $_POST["LoaiPhongID"];
 
-    InsertPhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $SoLuongDichVu, $LoaiPhongID);
+    InsertPhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $LoaiPhongID);
     header("Location: Phong.View.php");
     // Access form data
     $submittedData = $_POST;
@@ -48,22 +45,35 @@ $AllPhong = getAllPhong();
 
 //Lấy tất cả dữ liệu
 function getAllPhong(){
-    $sql = "SELECT * FROM Phong";
+    $sql = "
+    SELECT 
+        Phong.ID,
+        Phong.TenPhong,
+        Phong.ViTriPhong,
+        Phong.TrangThaiPhong,
+        Phong.AnhPhong,
+        LoaiPhong.TenLoai,
+        LoaiPhong.GiaPhongChung
+    FROM 
+        Phong
+    JOIN 
+        LoaiPhong ON Phong.ThuocLoaiPhong = LoaiPhong.ID;
+";
     return pdo_query($sql);
 }
 
 //Thêm mới
-function InsertPhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $SoLuongDichVu, $LoaiPhongID) {
-    $sql = "INSERT INTO TenBang (TenPhong, ViTriPhong, TrangThaiPhong, AnhPhong, SoLuongDichVu, TongGiaDichVu, LoaiPhongID) 
+function InsertPhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $LoaiPhongID) {
+    $sql = "INSERT INTO TenBang (TenPhong, ViTriPhong, TrangThaiPhong, AnhPhong, LoaiPhongID) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    pdo_execute($sql, $TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $SoLuongDichVu, $LoaiPhongID);
+    pdo_execute($sql, $TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $LoaiPhongID);
 
     // Thêm thành công, có thể thực hiện các hành động khác nếu cần
     echo "Thêm phòng thành công!";
 }
-function UpdatePhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $SoLuongDichVu, $LoaiPhongID) {
+function UpdatePhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $LoaiPhongID) {
     $sql = "UPDATE `phong` SET `TenPhong`=?,`TrangThaiPhong`=?,`LoaiPhongID`=? WHERE ID= ?";
-    pdo_execute($sql, $TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $SoLuongDichVu, $LoaiPhongID);
+    pdo_execute($sql, $TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $LoaiPhongID);
     header("Location: Phong.View.php");
     exit(); 
 }
