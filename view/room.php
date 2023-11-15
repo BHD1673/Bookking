@@ -16,7 +16,7 @@
                         <figure><img src="images/room1.jpg" alt="#"/></figure>
                      </div>
                      <div class="bed_room">
-                        <h3><a href="index2.php?act=sanphamct">Bed Room</a></h3>
+                        <h3>Bed Room</h3>
                         <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
                      </div>
                   </div>

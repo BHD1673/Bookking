@@ -1,8 +1,5 @@
-    <?php
-    include "head.php";
-    ?>
-    <!-- about -->
-    <div class="about">
+  <!-- about -->
+  <div class="about">
          <div class="container-fluid">
             <div class="row">
                <div class="col-md-5">
@@ -103,8 +100,8 @@
          </div>
       </div>
       <!-- end our_room -->
-           <!-- gallery -->
-           <div  class="gallery">
+      <!-- gallery -->
+      <div  class="gallery">
          <div class="container">
             <div class="row">
                <div class="col-md-12">
