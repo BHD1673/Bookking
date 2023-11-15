@@ -37,12 +37,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addPhong"])) {
 
 $AllPhong = getAllPhong();
 
-
-
 //Xử lý xóa
 
 //Xử lý cập nhật
 
+//Lấy một dữ liệu
+function getPhongByID($editID) {
+    $sql = "SELECT * FROM Phong WHERE ID = ?";
+    return pdo_query_one($sql, $editID);
+
+}
 //Lấy tất cả dữ liệu
 function getAllPhong(){
     $sql = "

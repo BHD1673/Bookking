@@ -26,9 +26,11 @@
         include 'PDO.php';
         include 'Phong.Process.php';
 
-        $AllPhong = getAllPhong();
-
-        foreach ($AllPhong as $row) {
+        if(isset($_GET['editID'])) {
+            $editID = $_GET['editID'];
+            $Phong = getPhongByID($editID);
+    
+            if($Phong) {
             echo "<tr>";
             echo "<td>{$row['ID']}</td>";
             echo "<td>{$row['TenPhong']}</td>";
@@ -44,8 +46,12 @@
             echo "</td>";
             echo "</tr>";
 
+            } else {
+                echo "Không tìm thấy Loại Phòng.";
+            }
+        } else {
+            echo "ID không được cung cấp.";
         }
-        
         ?>
         </tbody>
     </table>
