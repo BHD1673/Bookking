@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width= , initial-scale=1.0">
-   <title>Document</title>
-   <style>
-      
-   </style>
-</head>
-<body>
-         <!-- banner -->
-         <section class="banner_main">
+ <!-- banner -->
+ <section class="banner_main">
          <div id="myCarousel" class="carousel slide banner" data-ride="carousel">
             <ol class="carousel-indicators">
                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -69,5 +58,3 @@
          </div>
       </section>
       <!-- end banner -->
-</body>
-</html>
