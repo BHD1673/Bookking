@@ -25,6 +25,12 @@ if (isset($_GET['act'])) {
         case 'UpdateLoaiPhong':
             include('LoaiPhong/LoaiPhong.Update.php');
         break;
+        case 'AddPhong':
+            include('Phong/Phong.Create.php');
+        break;
+        case 'QuanLyPhong':
+            include('Phong/Phong.View.php');
+        break;
         default: 
 
     }

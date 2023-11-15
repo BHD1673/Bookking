@@ -1,79 +1,36 @@
-CREATE TABLE LoaiPhong (
-    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    TenLoai VARCHAR(225) NULL,
-    MoTaLoai VARCHAR(225) NULL,
-    GiaPhongChung DECIMAL(10, 2)
+
+CREATE TABLE `phong` (
+  `ID` int NOT NULL,
+  `TenPhong` varchar(20) DEFAULT NULL,
+  `ViTriPhong` varchar(225) DEFAULT NULL,
+  `TrangThaiPhong` varchar(225) DEFAULT NULL,
+  `AnhPhong` varchar(225) DEFAULT NULL,
+  `ThuocLoaiPhong` int DEFAULT NULL
 );
 
-CREATE TABLE Phong (
-    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    TenPhong VARCHAR(20) NULL,
-    ViTriPhong VARCHAR(225) NULL,
-    TrangThaiPhong VARCHAR(225) NULL,
-    AnhPhong Varchar(225) NULL,
-    SoLuongDichVu INT,
-    TongGiaDichVu DECIMAL(10, 2),
-    ThuocLoaiPhong INT, 
-    FOREIGN KEY (ThuocLoaiPhong) REFERENCES LoaiPhong(ID)
-);
 
-CREATE TABLE DichVuPhong (
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    TenDichVu VARCHAR(225) NULL,
-    GiaDichVu DECIMAL(10,2) NULL
-);
+INSERT INTO `phong` (`ID`, `TenPhong`, `ViTriPhong`, `TrangThaiPhong`, `AnhPhong`, `ThuocLoaiPhong`) VALUES
+(102, '202B', 'Tầng 2', 'Đang ở', 'image2.jpg', 2),
+(103, '301A', 'Tầng 3', 'Trống', NULL, 1),
+(104, '102B', 'Tầng 1', 'Đang ở', NULL, 2),
+(105, '401A', 'Tầng 4', 'Trống', 'image4.jpg', 1),
+(106, 'VIP001', 'Tầng VIP', 'Trống', 'vip_room.jpg', 3),
+(107, '201C', 'Tầng 2', 'Đang ở', NULL, 1),
+(108, '103A', 'Tầng 1', 'Trống', NULL, 2),
+(109, '301A', 'Tầng 3', 'Trống', NULL, 1),
+(110, '102B', 'Tầng 1', 'Đang ở', NULL, 2),
+(111, '401A', 'Tầng 4', 'Trống', 'image4.jpg', 1),
+(112, 'VIP001', 'Tầng VIP', 'Trống', 'vip_room.jpg', 3),
+(113, '201C', 'Tầng 2', 'Đang ở', NULL, 1),
+(114, '103A', 'Tầng 1', 'Trống', NULL, 2);
 
-CREATE TABLE GanDichVuPhong (
-    IDPhong INT,
-    IDDichVuPhong INT,
-    FOREIGN KEY (IDPhong) REFERENCES Phong(ID),
-    FOREIGN KEY (IDDichVuPhong) REFERENCES DichVuPhong(ID),
-    PRIMARY KEY (IDPhong, IDDichVuPhong)
-);
+ALTER TABLE `phong`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `ThuocLoaiPhong` (`ThuocLoaiPhong`);
 
---Phần này sẽ còn phải sửa lại, viết hơi lỗi.
-/* CREATE TABLE DatPhong (
-    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    IDKhachHang INT,
-    NgayDat DATE,
-    NgayCheckIn DATE,
-    NgayCheckOut DATE,
-    SoNguoiLon INT,
-    SoTreEm INT,
-    TienPhongChuaDichVu DECIMAL(10, 2),                                                                           
-    DaThanhToan BOOLEAN,
-    IDPhong INT,
-    FOREIGN KEY (IDKhachHang) REFERENCES KhachHang(ID),
-    FOREIGN KEY (IDPhong) REFERENCES Phong(ID)
-);
+ALTER TABLE `phong`
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
-CREATE TABLE KhachHang (
-    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    Email VARCHAR(255) UNIQUE NOT NULL,
-    TenDangNhap VARCHAR(50) NOT NULL,
-    MatKhau VARCHAR(50) NOT NULL,
-    NgaySinh DATE,
-    DiaChi VARCHAR(225) NULL,
-    HinhAnhXacMinh VARCHAR(225) NULL
-); */
-
--- Bảng LoaiPhong
-INSERT INTO LoaiPhong (ID, TenLoai, MoTaLoai, GiaPhongChung)
-VALUES (1, 'Phòng Standard', 'Phòng tiêu chuẩn', 100.00),
-       (2, 'Phòng Deluxe', 'Phòng sang trọng', 150.00);
-
--- Bảng Phong
-INSERT INTO Phong (ID, TenPhong, ViTriPhong, TrangThaiPhong, AnhPhong, SoLuongDichVu, TongGiaDichVu, ThuocLoaiPhong)
-VALUES (101, '101A', 'Tầng 1', 'Trống', 'path/to/image1.jpg', 3, 50.00, 1),
-       (102, '202B', 'Tầng 2', 'Đang ở', 'path/to/image2.jpg', 2, 30.00, 2);
-
--- Bảng DichVuPhong
-INSERT INTO DichVuPhong (ID, TenDichVu, GiaDichVu)
-VALUES (1, 'Dịch vụ Wifi', 5.00),
-       (2, 'Dịch vụ đồ ăn sáng', 10.00);
-
--- Bảng GanDichVuPhong
-INSERT INTO GanDichVuPhong (IDPhong, IDDichVuPhong)
-VALUES (101, 1),
-       (102, 2);
-
+ALTER TABLE `phong`
+  ADD CONSTRAINT `phong_ibfk_1` FOREIGN KEY (`ThuocLoaiPhong`) REFERENCES `loaiphong` (`ID`);
+COMMIT;
