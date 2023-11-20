@@ -2,7 +2,7 @@
     <h2>Quản lý Phòng</h2>
 
     <!-- Button trigger modal -->
-    <a href="Phong.Create.php">
+    <a href="?act=AddPhong">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
             Thêm Phòng
         </button>
@@ -22,9 +22,6 @@
         </thead>
         <tbody>
         <?php
-        include 'PDO.php';
-        include 'Phong.Process.php';
-
         $AllPhong = getAllPhong();
 
         foreach ($AllPhong as $row) {
@@ -33,16 +30,14 @@
             echo "<td>{$row['TenPhong']}</td>";
             echo "<td>{$row['ViTriPhong']}</td>";
             echo "<td>{$row['TrangThaiPhong']}</td>";
-            echo "<td><img style='width:150px'; src='../../../../../../../../upload/{$row['AnhPhong']}'></td>";
-            echo "<td>{$row['TenLoai']} - {$row['GiaPhongChung']}</td>"; // Modified to include TenLoai and GiaPhongChung
+            echo "<td><img style='width:150px'; src='../../../../../upload/{$row['AnhPhong']}'></td>";
+            echo "<td>{$row['TenLoai']} - {$row['GiaPhongChung']}</td>";
             echo "<td>";
-            echo "<a href='Phong.Process.php?deleteID={$row['ID']}' class='btn btn-danger'>Xóa</a>";
-            echo "<a href='Phong.Update.php?editID={$row['ID']}' class='btn btn-info'>Sửa</a>";
+            echo "<a href='?act=?deleteID={$row['ID']}' class='btn btn-danger'>Xóa</a>";
+            echo "<a href='?act=UpdatePhong&editID={$row['ID']}' class='btn btn-info'>Sửa</a>";
             echo "</td>";
             echo "</tr>";
         }
-        
-        
         ?>
         </tbody>
     </table>

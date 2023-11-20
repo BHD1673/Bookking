@@ -1,21 +1,61 @@
 
-<div class="container mt-5">
-    <h2>Thêm Loại Phòng</h2>
-    <a href="LoaiPhong.View.php">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-            Quay lại xem danh sách loại phòng
-        </button>
-    </a>
+<?php 
+//Đã xong, cấm động.
+// include("LoaiPhong.Process.php");
+// Xử lý thêm mới
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addLoaiPhong"])) {
+    // Lấy dữ liệu từ form
+    $TenLoaiPhong = $_POST["TenLoaiPhong"];
+    $MoTaLoai = $_POST["MoTaLoai"];
+    $GiaPhongChung = $_POST["GiaPhongChung"];
 
-    <form method="POST" action="LoaiPhong.Process.php">
+    // Debugging: Print data to HTML page
+    // echo "TenLoaiPhong: $TenLoaiPhong, MoTaLoai: $MoTaLoai, GiaPhongChung: $GiaPhongChung";
+
+    // Thực hiện thêm dữ liệu vào cơ sở dữ liệu
+    insertLoaiPhong($TenLoaiPhong, $MoTaLoai, $GiaPhongChung);
+
+    // Chuyển hướng người dùng về trang quản lý sau khi xử lý
+    $redirectUrl = 'admin.php?act=QuanLyLoaiPhong';
+    echo '<!DOCTYPE html>';
+    echo '<html lang="en">';
+    echo '<head>';
+    echo '<meta charset="UTF-8">';
+    echo '<meta http-equiv="refresh" content="5;url=' . $redirectUrl . '">';
+    echo '<title>Redirecting...</title>';
+    echo '</head>';
+    echo '<body>';
+    echo '<p>Please wait while you are redirected.</p>';
+    echo '</body>';
+    echo '</html>';
+    exit;
+}
+?>
+
+<div class="container mt-5">
+    <h3>Thêm loại phòng mới</h3>
+
+    <div class="mb-3">
+        <a href="?act=QuanLyLoaiPhong"><button class="btn btn-primary">Quay về trang tổng hợp loại phòng</button></a>
+    </div>
+    <form method="post" action="">
+
+
         <div class="mb-3">
-            <label for="TenLoaiPhong" class="form-label">Tên Loại Phòng</label>
-            <input type="text" class="form-control" ID="TenLoaiPhong" name="TenLoaiPhong" required>
-            <label for="MoTaLoai" class="form-label">Mô tả : </label>
-            <input type="text" class="form-control" ID="MoTaLoai" name="MoTaLoai" required>
-            <label for="GiaPhongChung" class="form-label">Giá phòng chung</label>
-            <input type="number" class="form-control" ID="GiaPhongChung" name="GiaPhongChung" required>
+            <label for="TenLoaiPhong" class="form-label">Tên Loại:</label>
+            <input type="text" class="form-control" id="TenLoaiPhong" name="TenLoaiPhong" required>
         </div>
-        <button type="submit" class="btn btn-primary" name="addLoaiPhong">Thêm</button>
+
+        <div class="mb-3">
+            <label for="MoTaLoai" class="form-label">Mô Tả Loại:</label>
+            <input type="text" class="form-control" id="MoTaLoai" name="MoTaLoai">
+        </div>
+
+        <div class="mb-3">
+            <label for="GiaPhongChung" class="form-label">Giá Phòng Chung:</label>
+            <input type="number" step="1" class="form-control" id="GiaPhongChung" name="GiaPhongChung">
+        </div>
+
+        <button type="submit" class="btn btn-primary" name="addLoaiPhong">Gửi</button>
     </form>
 </div>

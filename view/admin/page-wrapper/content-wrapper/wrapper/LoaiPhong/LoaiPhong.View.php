@@ -24,20 +24,24 @@
         </thead>
         <tbody>
         <?php
-        include 'PDO.php';
         include 'LoaiPhong.Process.php';
 
         $allLoaiPhong = getAllLoaiPhong();
 
+
+
         foreach ($allLoaiPhong as $row) {
+            extract($row);
+            $EditLoaiPhong = "admin.php?act=UpdateLoaiPhong&ID=".$ID;
+            $DeleteLoaiPhong = "admin.php?act=DeleteLoaiPhong&ID=".$ID;
             echo "<tr>";
             echo "<td>{$row['ID']}</td>";
             echo "<td>{$row['TenLoai']}</td>";
             echo "<td>{$row['MoTaLoai']}</td>";
             echo "<td>{$row['GiaPhongChung']}</td>";
             echo "<td>";
-            echo "<a href='?act=LoaiPhong.Delete.php?deleteID={$row['ID']}' class='btn btn-danger'>Xóa</a>";
-            echo "<a href='?act=LoaiPhong.Update.php?editID={$row['ID']}' class='btn btn-info'>Sửa</a>";
+            echo "<a href='$DeleteLoaiPhong' class='btn btn-danger'>Xóa</a>";
+            echo "<a href='$EditLoaiPhong' class='btn btn-info'>Sửa</a>";
             echo "</td>";
             echo "</tr>";
 

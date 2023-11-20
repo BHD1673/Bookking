@@ -17,7 +17,7 @@
                 <div class="modal-body">Nhấn đăng xuất nếu bạn thực sự muốn thoát</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
-                    <a class="btn btn-primary" href="login.html">đăng xuất</a>
+                    <a class="btn btn-primary" href="login.html">Đăng xuất</a>
                 </div>
             </div>
         </div>

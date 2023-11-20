@@ -1,13 +1,5 @@
 <?php
-require_once("PDO.php");
-// Xử lý thêm mới
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addLoaiPhong"])) {
-    $TenLoaiPhong = $_POST["TenLoaiPhong"];
-    $MoTaLoai = $_POST["MoTaLoai"];
-    $GiaPhongChung = $_POST["GiaPhongChung"];
-    insertLoaiPhong($TenLoaiPhong, $MoTaLoai, $GiaPhongChung);
-    header("LOCATION: LoaiPhong.View.php");
-}
+
 
 // Xóa phòng nối đến danh mục phòng
 function deletePhongFromDanhMucPhong($loaiPhongID) {
@@ -24,7 +16,7 @@ function deleteLoaiPhong($ID){
     $sql = "DELETE FROM LoaiPhong WHERE ID = ?";
     pdo_execute($sql, $ID);
 
-    header("Location: LoaiPhong.View.php");
+    header("Location: ?act=QuanLyLoaiPhong");
     exit(); 
 }
 
@@ -65,12 +57,6 @@ function updateLoaiPhong($ID, $TenLoaiPhong, $MoTaLoai, $GiaPhongChung){
     exit(); 
 }
 
-// function deleteLoaiPhong($ID){
-//     $sql = "DELETE FROM loaiphong WHERE loaiphong.ID = ?";
-//     pdo_execute($sql, $ID);
-//     header("Location: LoaiPhong.View.php");
-//     exit(); 
-// }
 
 // Lấy tất cả dữ liệu
 function getAllLoaiPhong(){

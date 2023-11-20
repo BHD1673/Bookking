@@ -1,46 +1,5 @@
 <?php 
-require_once("PDO.php");
-
-//Xử lý thêm mới 
-
-// Import kết nối và các hàm PDO từ file khác nếu cần
-// ...
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addPhong"])) {
-    // Lấy dữ liệu từ form
-    $TenPhong = $_POST["TenPhong"];
-    $ViTriPhong = $_POST["ViTriPhong"];
-    $TrangThaiPhong = $_POST["TrangThaiPhong"];
-    // Xử lý input hình ảnh
-    $uploadDirectory = "uploads/";
-    $anhPhong = $uploadDirectory . basename($_FILES["AnhPhong"]["name"]);
-
-    if (move_uploaded_file($_FILES["AnhPhong"]["tmp_name"], $anhPhong)) {
-        echo "File uploaded successfully.";
-    } else {
-        echo "Error uploading file.";
-    }
-    $LoaiPhongID = $_POST["LoaiPhongID"];
-
-    InsertPhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $LoaiPhongID);
-    header("Location: Phong.View.php");
-    // Access form data
-    $submittedData = $_POST;
-
-    // Print or display the result
-    echo "<pre>";
-    print_r($submittedData);
-    echo "</pre>";
-
-}
-
-
 $AllPhong = getAllPhong();
-
-//Xử lý xóa
-
-//Xử lý cập nhật
-
 //Lấy một dữ liệu
 function getPhongByID($editID) {
     $sql = "SELECT * FROM Phong WHERE ID = ?";
@@ -75,12 +34,15 @@ function InsertPhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $LoaiPh
     // Thêm thành công, có thể thực hiện các hành động khác nếu cần
     echo "Thêm phòng thành công!";
 }
+
+//Cập nhật
 function UpdatePhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $LoaiPhongID) {
     $sql = "UPDATE `phong` SET `TenPhong`=?,`TrangThaiPhong`=?,`LoaiPhongID`=? WHERE ID= ?";
     pdo_execute($sql, $TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $LoaiPhongID);
     header("Location: Phong.View.php");
     exit(); 
 }
+
 
 
 
