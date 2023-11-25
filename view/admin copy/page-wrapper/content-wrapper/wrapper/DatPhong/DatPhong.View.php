@@ -40,12 +40,12 @@
 
                             echo '<tr>';
                             echo '<td>' . $rows["ID"] . '</td>';
-                            echo '<td>' . $rows["IDKhachHang"] . ' - John</td>';
+                            echo '<td>' . $rows["IDKhachHang"] . '</td>';
                             echo '<td>' . $rows["NgayCheckIn"] . '</td>';
                             echo '<td>' . $rows["NgayCheckOut"] . '</td>';
                             echo '<td>' . $rows["SoNgayO"] . '</td>';
-                            echo '<td>2</td>';
-                            echo '<td>P101, P102</td>';
+                            echo '<td>' . $rows["SoLuongPhong"] . '</td>';
+                            echo '<td>' . $rows['PhongDuocChon'] . '</td>';
                             echo '<td>' . $rows["TongTien"] . '</td>';
                             echo '<td>' . $rows["TienCoc"] . '</td>';
                             echo '<td>' . $rows["TrangThaiDon"] . '</td>';

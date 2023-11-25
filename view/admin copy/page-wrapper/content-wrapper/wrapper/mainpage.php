@@ -40,10 +40,8 @@ if (isset($_GET['act'])) {
         case 'TimPhongTrong':
             include('DatPhong/DatPhong.Trong.php');
         break;
-        case 'AddPhongIntoAddNewDonHang':
-            isset($_GET['&ID=RoomchoiceID']) && $_GET['&ID=RoomchoiceID']  && $_GET['&ID=RoomchoiceID']  && $_GET['&ID=RoomchoiceID']  && $_GET['&ID=RoomchoiceID']; {
-                
-            }
+        case 'AddDonDatPhong':
+
             include('DatPhong/DatPhong.Add.php');
         break;
         case 'UpdateDonDatPhong':

@@ -34,14 +34,9 @@ if (isset($_GET['loaiPhongID'])) {
         <div class="mb-3">
             <label for="LuaChonTaiKhoanKhachHang" class="form-label">Lựa chọn tài khoản khách hàng <br> (Sử dụng trong trường hợp khách hàng đã có tài khoản từ trước nhưng đến làm trực tiếp) <br></label>
             <select class="form-select" name="LuaChonTaiKhoanKhachHang">
-                <option value="#">Chọn khách hàng ở đây</option>
+                <option >Chọn khách hàng ở đây</option>
                 <option value="1">Khách 1</option>
             </select>
-        </div>
-
-        <div class="mb-3">
-            <label for="TenKhachHang" class="form-label">Ảnh xác nhận khách hàng</label>
-            <input type="file" accept="image/.jpg, image/.jpeg, image/.png, image/.webp" class="form-control" name="TenKhachHang">
         </div>
 
         <div class="mb-3">
@@ -60,14 +55,31 @@ if (isset($_GET['loaiPhongID'])) {
         </div>
 
         <div class="mb-3">
-            <label for="AmountOfDay" class="form-label">Tổng tiền dự kiến cho 1 ngày: </label>
-            <input type="text" class="form-control" value="300.000 VND" disabled>
+            <label for="LoaiPhong" class="form-label">Loại Phòng</label>
+            <select class="form-select" id="LoaiPhong" onchange="getPhongIDs()">
+            
+                <?php 
+                function getAllLoaiPhongOnForm(
+                    $sql = "SELECT ID, Ten FROM loaiphong";
+                    pdo_query($sql);
+                )
+
+                $allLoaiPhongOnForm = getAllLoaiPhongOnForm();
+
+                foreach ($allLoaiPhongOnForm as $rows) {
+                    echo "<option value='".$row["ID"]."'>".$row["Ten"]."</option>";
+                }
+
+                
+                ?>
+            </select>
         </div>
 
-
         <div class="mb-3">
-            <label for="AmountOfDay" class="form-label">Số tiền cần phải cọc: </label>
-            <input type="text" class="form-control" value="90.000 VND" disabled>
+            <label for="SoPhong" class="form-label">Số Phòng</label>
+            <select class="form-select" id="SoPhong">
+                <!-- Options will be dynamically populated using AJAX -->
+            </select>
         </div>
 
         <div class="mb-3">
@@ -93,18 +105,13 @@ if (isset($_GET['loaiPhongID'])) {
 
         <div class="mb-3">
             <label for="PhuongThucThanhToan" class="form-label">Phương thức thanh toán</label>
-            <select name="PhuongThucThanhToan" id="PhuongThucThanhToan" class="form-select">
-                    <option value="#">Vui lòng chọn</option>
-                    <option value="1">Thanh toán trực tiếp</option>
-                    <option value="2">Chuyển khoản qua QR</option>
-                    <option value="3">Quẹt thẻ POS</option>
+            <select class="form-select" id="PhuongThucThanhToan">
+                <option value="Thanh toán trực tiếp">Thanh toán trực tiếp</option>
+                <option value="Thanh toán chuyển khoản">Thanh toán chuyển khoản</option>
             </select>
         </div>
-
-        
         <!-- <button type="submit" class="btn btn-primary">Gửi</button> -->
-        <!-- <a href="?act=QuanLyDonDatPhong"><button class="btn btn-primary">Gửi</button> -->
-        <a href="?act=QuanLyDonDatPhong">Gửi</a>
+        <a href="?act=QuanLyDonDatPhong"><button type="" class="btn btn-primary">Gửi</button></a>
     </form>
 </div>
 <script>
