@@ -20,7 +20,7 @@ function getAllPhongTrong($NgayCheckInDuKien, $NgayCheckoutDuKien) {
         WHERE (
                 (dp.NgayCheckIn IS NULL OR dp.NgayCheckOut IS NULL OR dp.NgayCheckIn > ? OR dp.NgayCheckOut < ?)
                 OR 
-                (dp.TrangThaiDon = 'Đã hoàn thiện' AND p.TrangThaiPhong = 'Còn trống')
+                (dp.TrangThaiDon = '1' AND p.TrangThaiPhong = 'Còn trống')
             )
            AND (
                 dp2.ID IS NULL
