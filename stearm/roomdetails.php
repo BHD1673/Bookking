@@ -243,12 +243,20 @@ img {
 					<div class="preview col-md-6">
 						
 						<div class="preview-pic tab-content">
+<<<<<<< HEAD
               <?php  echo '<div class="tab-pane active" id="pic-1"><img src="'.$AnhPhong.'" alt="#"/></div>'?>
 						  
 						  <!-- <div class="tab-pane" id="pic-2"><img src="images/room2.jpg" alt="#"/></div>
 						  <div class="tab-pane" id="pic-3"><img src="images/room3.jpg" alt="#"/></div>
 						  <div class="tab-pane" id="pic-4"><img src="images/room4.jpg" alt="#"/></div>
 						  <div class="tab-pane" id="pic-5"><img src="images/room5.jpg" alt="#"/></div> -->
+=======
+						  <div class="tab-pane active" id="pic-1"><img src="images/room1.jpg" alt="#"/></div>
+						  <div class="tab-pane" id="pic-2"><img src="images/room2.jpg" alt="#"/></div>
+						  <div class="tab-pane" id="pic-3"><img src="images/room3.jpg" alt="#"/></div>
+						  <div class="tab-pane" id="pic-4"><img src="images/room4.jpg" alt="#"/></div>
+						  <div class="tab-pane" id="pic-5"><img src="images/room5.jpg" alt="#"/></div>
+>>>>>>> 89c2d0a5ec0d5e74a63f8b1e548070681bec67b2
 						</div>
 						<ul class="preview-thumbnail nav nav-tabs">
 						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="images/room1.jpg" alt="#"/></a></li>
@@ -260,7 +268,11 @@ img {
 						
 					</div>
 					<div class="details col-md-6">
+<<<<<<< HEAD
 						<h3 class="product-title"></h3>
+=======
+						<h3 class="product-title">DOUBLE ROOM </h3>
+>>>>>>> 89c2d0a5ec0d5e74a63f8b1e548070681bec67b2
 						<div class="rating">
 							<div class="stars">
 								<span class="fa fa-star checked"></span>
@@ -299,8 +311,14 @@ img {
     include "view/comment.php";
     ?>
     <?php
+<<<<<<< HEAD
     include "view/room.php";
     include "view/gallery.php";
+=======
+    include "view/gallery.php";
+    include "view/room.php";
+    
+>>>>>>> 89c2d0a5ec0d5e74a63f8b1e548070681bec67b2
     ?>
   </body>
 </html>
