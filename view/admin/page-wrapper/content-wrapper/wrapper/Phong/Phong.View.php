@@ -36,8 +36,13 @@
             echo "<td><img style='width:150px'; src='../../../../../../../../upload/{$row['AnhPhong']}'></td>";
             echo "<td>{$row['TenLoai']} - {$row['GiaPhongChung']}</td>"; // Modified to include TenLoai and GiaPhongChung
             echo "<td>";
+<<<<<<< HEAD
+            echo "<a href='LoaiPhong.Process.php?deleteID={$row['ID']}' class='btn btn-danger'>Xóa</a>";
+            echo "<a href='LoaiPhong.Update.php?editID={$row['ID']}' class='btn btn-info'>Sửa</a>";
+=======
             echo "<a href='Phong.Process.php?deleteID={$row['ID']}' class='btn btn-danger'>Xóa</a>";
             echo "<a href='Phong.Update.php?editID={$row['ID']}' class='btn btn-info'>Sửa</a>";
+>>>>>>> 89c2d0a5ec0d5e74a63f8b1e548070681bec67b2
             echo "</td>";
             echo "</tr>";
         }
