@@ -1,10 +1,11 @@
-<!-- Bắt đầu vào trang chính -->
+
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Bảng quản lý đơn đặt phòng</h1>
-    <p class="mb-4">Quản lý thông tin các đơn đặt phòng chung.</a>.</p>
+    <a href="?act=AddPhongIntoAddNewDonHang"><button class="btn btn-primary">Thêm đơn đặt phòng mới</button></a>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -18,11 +19,11 @@
                         <tr>
                             <th>ID</th>
                             <th>Tên khách hàng đặt phòng</th>
-                            <th>SDT </th>
-                            <th>Địa chỉ nhà</th>
-                            <th>Ngày vào</th>
-                            <th>Ngày ra</th>
+                            <th>Ngày check in</th>
+                            <th>Ngày check out</th>
                             <th>Tổng số ngày</th>
+                            <th>Số lượng phòng</th>
+                            <th>Các phòng đã chọn cho đơn</th>
                             <th>Tổng tiền </th>
                             <th>Tiền cọc</th>
                             <th>Trạng thái thanh toán</th>
@@ -30,38 +31,31 @@
                         </tr>
                     </thead>
                     <tfoot>
-                        <tr>
-                            <td>1</td>
-                            <td>Dương</td>
-                            <td>0123456789</td>
-                            <td>Hà Nội</td>
-                            <td>30/7/2023</td>
-                            <td>31/7/2023</td>
-                            <td>1</td>
-                            <td>150.000 VND</td>
-                            <td>50.000 VND</td>
-                            <td>Đã thanh toán</td>
-                            <td>
-                                <a href='?act=?deleteID={$row['ID']}  class='btn btn-info'>Sửa</a>
-                                <a href='?act=?deleteID={$row['ID']}  class='btn btn-danger'>Xóa</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Dương</td>
-                            <td>0123456789</td>
-                            <td>Hà Nội</td>
-                            <td>30/7/2023</td>
-                            <td>31/7/2023</td>
-                            <td>1</td>
-                            <td>150.000 VND</td>
-                            <td>50.000 VND</td>
-                            <td>Đã thanh toán</td>
-                            <td>
-                                <a href='?act=?deleteID={$row['ID']}  class='btn btn-info'>Sửa</a>
-                                <a href='?act=?deleteID={$row['ID']}  class='btn btn-danger'>Xóa</a>
-                            </td>
-                        </tr>
+                    <?php 
+
+                        $allDonDatPhong = getAllDatPhong();
+
+                        foreach ($allDonDatPhong as $rows) {
+                            extract($rows);
+
+                            echo '<tr>';
+                            echo '<td>' . $rows["ID"] . '</td>';
+                            echo '<td>' . $rows["IDKhachHang"] . ' - John</td>';
+                            echo '<td>' . $rows["NgayCheckIn"] . '</td>';
+                            echo '<td>' . $rows["NgayCheckOut"] . '</td>';
+                            echo '<td>' . $rows["SoNgayO"] . '</td>';
+                            echo '<td>2</td>';
+                            echo '<td>P101, P102</td>';
+                            echo '<td>' . $rows["TongTien"] . '</td>';
+                            echo '<td>' . $rows["TienCoc"] . '</td>';
+                            echo '<td>' . $rows["TrangThaiDon"] . '</td>';
+                            echo '<td>';
+                            echo '<a href="?act=?deleteID=' . $rows["ID"] . '" class="btn btn-info">Sửa</a>';
+                            echo '<a href="?act=?deleteID=' . $rows["ID"] . '" class="btn btn-danger">Xóa</a>';
+                            echo '</td>';
+                            echo '</tr>';
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>

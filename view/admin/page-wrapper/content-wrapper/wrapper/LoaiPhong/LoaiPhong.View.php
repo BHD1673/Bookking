@@ -24,8 +24,6 @@
         </thead>
         <tbody>
         <?php
-        include 'LoaiPhong.Process.php';
-
         $allLoaiPhong = getAllLoaiPhong();
 
 
@@ -36,8 +34,8 @@
             $DeleteLoaiPhong = "admin.php?act=DeleteLoaiPhong&ID=".$ID;
             echo "<tr>";
             echo "<td>{$row['ID']}</td>";
-            echo "<td>{$row['TenLoai']}</td>";
-            echo "<td>{$row['MoTaLoai']}</td>";
+            echo "<td>{$row['Ten']}</td>";
+            echo "<td>{$row['MoTa']}</td>";
             echo "<td>{$row['GiaPhongChung']}</td>";
             echo "<td>";
             echo "<a href='$DeleteLoaiPhong' class='btn btn-danger'>Xóa</a>";

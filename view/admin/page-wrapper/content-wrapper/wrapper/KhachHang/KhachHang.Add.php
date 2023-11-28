@@ -1,7 +1,7 @@
 <form action="KhachHang.Process.php" method="POST" enctype="multipart/form-data" class="p-3">
     <div class="form-group">
         <!-- Username -->
-        <label for="username">Username:</label>
+        <label for="username">Tên tài khoản:</label>
         <input type="text" class="form-control" id="username" name="username" required>
     </div>
 

@@ -1,8 +1,5 @@
-<head>
-    <title>Thêm Phòng</title>
-</head>
-<body>
-    <h1>Thêm Phòng Mới</h1>
+<title>Thêm Phòng</title>
+    <h1 style="text-align: center;">Thêm Phòng Mới</h1>
     <div class="container mt-5">
     <form action="" method="post" enctype="multipart/form-data">
         <div class="mb-3">
@@ -25,7 +22,7 @@
             <input type="file" class="form-control" id="AnhPhong" name="AnhPhong">
         </div>
 
-        <button type="submit" class="btn btn-primary">Thêm Phòng</button>
+
 
         <div class="mb-3">
             <label for="LoaiPhongID" class="form-label">Thuộc Loại Phòng:</label>
@@ -33,14 +30,12 @@
                 <?php
                 $loaiPhongList = getAllLoaiPhong();
                 foreach ($loaiPhongList as $loaiPhong) {
-                    echo "<option value='" . $loaiPhong['ID'] . "'>" . $loaiPhong['TenLoai'] . "</option>";
+                    echo "<option value='" . $loaiPhong['ID'] . "'>" . $loaiPhong['Ten'] . "</option>";
                 }
                 ?>
             </select>
         </div>
         
-        
+        <button type="submit" class="btn btn-primary">Thêm Phòng</button>
     </form>
 </div>
-</body>
-</html>

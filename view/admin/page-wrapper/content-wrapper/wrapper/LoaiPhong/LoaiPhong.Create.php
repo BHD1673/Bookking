@@ -5,15 +5,15 @@
 // Xử lý thêm mới
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addLoaiPhong"])) {
     // Lấy dữ liệu từ form
-    $TenLoaiPhong = $_POST["TenLoaiPhong"];
-    $MoTaLoai = $_POST["MoTaLoai"];
+    $Ten = $_POST["Ten"];
+    $MoTa = $_POST["MoTa"];
     $GiaPhongChung = $_POST["GiaPhongChung"];
 
     // Debugging: Print data to HTML page
-    // echo "TenLoaiPhong: $TenLoaiPhong, MoTaLoai: $MoTaLoai, GiaPhongChung: $GiaPhongChung";
+    echo "TenLoaiPhong: $Ten, MoTaLoai: $MoTa, GiaPhongChung: $GiaPhongChung";
 
     // Thực hiện thêm dữ liệu vào cơ sở dữ liệu
-    insertLoaiPhong($TenLoaiPhong, $MoTaLoai, $GiaPhongChung);
+    insertLoaiPhong($Ten, $MoTa, $GiaPhongChung);
 
     // Chuyển hướng người dùng về trang quản lý sau khi xử lý
     $redirectUrl = 'admin.php?act=QuanLyLoaiPhong';
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addLoaiPhong"])) {
     echo '<title>Redirecting...</title>';
     echo '</head>';
     echo '<body>';
-    echo '<p>Please wait while you are redirected.</p>';
+    echo '<p style="text-align:center;">Please wait while you are redirected.</p>';
     echo '</body>';
     echo '</html>';
     exit;
@@ -42,13 +42,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addLoaiPhong"])) {
 
 
         <div class="mb-3">
-            <label for="TenLoaiPhong" class="form-label">Tên Loại:</label>
-            <input type="text" class="form-control" id="TenLoaiPhong" name="TenLoaiPhong" required>
+            <label for="Ten" class="form-label">Tên Loại:</label>
+            <input type="text" class="form-control" id="Ten" name="Ten" required>
         </div>
 
         <div class="mb-3">
-            <label for="MoTaLoai" class="form-label">Mô Tả Loại:</label>
-            <input type="text" class="form-control" id="MoTaLoai" name="MoTaLoai">
+            <label for="MoTa" class="form-label">Mô Tả Loại:</label>
+            <input type="text" class="form-control" id="MoTa" name="MoTa">
         </div>
 
         <div class="mb-3">

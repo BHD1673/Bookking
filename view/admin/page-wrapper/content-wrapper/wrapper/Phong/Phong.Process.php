@@ -1,43 +1,17 @@
 <?php 
 $AllPhong = getAllPhong();
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 89c2d0a5ec0d5e74a63f8b1e548070681bec67b2
-//Xử lý xóa
-
-//Xử lý cập nhật
-
-<<<<<<< HEAD
-=======
->>>>>>> b8996f7a9dc98a2fa1922d98e7316447e912a4f4
+// $OnePhong = getPhongByID($EditId);
 //Lấy một dữ liệu
-function getPhongByID($editID) {
+function getPhongByID($EditId) {
     $sql = "SELECT * FROM Phong WHERE ID = ?";
-    return pdo_query_one($sql, $editID);
+    return pdo_query_one($sql, $EditId);
 
 }
 >>>>>>> 89c2d0a5ec0d5e74a63f8b1e548070681bec67b2
 //Lấy tất cả dữ liệu
 function getAllPhong(){
-    $sql = "
-    SELECT 
-        Phong.ID,
-        Phong.TenPhong,
-        Phong.ViTriPhong,
-        Phong.TrangThaiPhong,
-        Phong.AnhPhong,
-        LoaiPhong.TenLoai,
-        LoaiPhong.GiaPhongChung
-    FROM 
-        Phong
-    JOIN 
-        LoaiPhong ON Phong.ThuocLoaiPhong = LoaiPhong.ID;
-";
+    $sql = "SELECT phong.*, loaiphong.Ten, loaiphong.GiaPhongChung FROM phong JOIN loaiphong ON phong.ID = loaiphong.ID";
     return pdo_query($sql);
 }
 

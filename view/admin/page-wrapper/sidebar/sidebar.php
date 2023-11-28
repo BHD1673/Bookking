@@ -37,10 +37,10 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="?act=QuanLyLoaiPhong">Trang quản lý loại phòng</a>
-                <a class="collapse-item" href="?act=QuanLyPhong">Trang quản lý phòng</a>
                 <a href="?act=QuanLyDonDatPhong" class="collapse-item">Trang quản lý đơn đặt<br> phòng</a>
                 <a href="?act=QuanLyTaiKhoan" class="collapse-item">Trang quản lý tài khoản</a>
+                <a class="collapse-item" href="?act=QuanLyLoaiPhong">Trang quản lý loại phòng</a>
+                <a class="collapse-item" href="?act=QuanLyPhong">Trang quản lý phòng</a>
                 <a href="?act=QuanLyDichVu" class="collapse-item">Trang quản lý dịch vụ</a>
             </div>
         </div>
@@ -64,7 +64,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Phần này sẽ làm <br> nếu còn thời gian</h6>
                 <a class="collapse-item" href="?act=Banner">Xử lý banner</a>
-                <a class="collapse-item" href="?act=Policy">Xử lý policy</a>
+                <a class="collapse-item" href="?act=Policy">Xử lý chính sách <br> khách sạn</a>
                 <a class="collapse-item" href="?act=ContactForm">Đọc yêu cầu hợp tác</a>
             </div>
         </div>
