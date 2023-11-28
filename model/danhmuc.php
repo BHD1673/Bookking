@@ -6,4 +6,10 @@ function loadall_danhmuc_home(){
     return $listdm;
 }
 
+<<<<<<< HEAD
+
+
 ?>
+=======
+?>
+>>>>>>> 89c2d0a5ec0d5e74a63f8b1e548070681bec67b2
