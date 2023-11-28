@@ -311,25 +311,30 @@
 </head>
 
 <body>
+
     <br>
     <br>
     <div class="cont">
         <div class="form sign-in">
-            <form action="index.php?act=dangnhap" method="post">
-                <h2>Welcome</h2>
-                <label>
-                    <span>Email</span>
-                    <input type="text" id="emailSignInInput" name="email" />
-                    <p class="error-message" id="emailSignInError"></p>
-                </label>
-                <label>
-                    <span>Password</span>
-                    <input type="password" id="passwordSignInInput" name="pass" />
-                    <p class="error-message" id="passwordSignInError"></p>
-                </label>
-                <p class="forgot-pass"><a href="index.php?act=forgot">Forgot password?</a></p>
-                <input type="submit" name="dangnhap" class="submit" value="Sign In" onclick="signIn()"></input>
+        <h2>Welcome</h2>
+       
+            <form action="index.php?act=dangnhap" method="post" >
+            <label>
+                <span>Email</span>
+                <input type="email" name="email" id="emailSignInInput" />
+                <p class="error-message" id="emailSignInError"></p>
+            </label>
+            <label>
+                <span>Password</span>
+                <input type="password" name="pass" id="passwordSignInInput" />
+                <p class="error-message" id="passwordSignInError"></p>  
+            </label>
+            <p class="forgot-pass"><a href="index.php?act=forgot">Forgot password?</a></p>
+            <button type="button" class="submit"  onclick="signIn()"><input type="submit" name="dangnhap" value="Dang Nhap"></button>
+           
             </form>
+
+           
         </div>
         <div class="sub-cont">
             <div class="img">
@@ -351,7 +356,7 @@
                     <h2>Create your Account</h2>
                     <label>
                         <span>Name</span>
-                        <input type="text" id="nameSignUp" name="username" />
+                        <input type="text" id="nameSignUp" name="user" />
                         <p class="error-message" id="nameSignUpError"></p>
                     </label>
                     <label>
@@ -364,7 +369,7 @@
                         <input type="password" id="passwordSignUp" name="pass" />
                         <p class="error-message" id="passwordSignUpError"></p>
                     </label>
-                    <input type="submit" name="dangky" class="submit" value="Sign Up" onclick="signUp()"><a href="index.php?act=dangnhap"></a></input>
+                    <button type="button"  class="submit" onclick="signUp()"><input type="submit" name="dangky" value="Dang Ky"><a href="index.php?act=dangnhap"></a></button>
                 </form>
             </div>
         </div>

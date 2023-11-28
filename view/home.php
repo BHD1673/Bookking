@@ -18,30 +18,46 @@
          </div>
       </div>
       <!-- end about -->
-      <!-- our_room -->
-      <div  class="our_room">
+       <!-- our_room -->
+       <div  class="our_room">
          <div class="container">
             <div class="row">
                <div class="col-md-12">
                   <div class="titlepage">
-                     <h2>Our Room</h2>
-                     <p>Lorem Ipsum available, but the majority have suffered </p>
+                     <p  class="margin_0" style="font-family: 'Arial', sans-serif; font-size: 16px; color: #333; line-height: 1.5;">
+                           Chào mừng đến với Danh Mục Phòng của chúng tôi
+                         - nơi mà sự thoải mái gặp gỡ với sự đa dạng. Từ phòng Standard thoải 
+                         mái cho đến Suite sang trọng, chúng tôi mang đến cho bạn trải nghiệm lưu trú
+                          tối ưu. Khám phá không gian sống và làm việc tiện nghi, được thiết kế để đáp 
+                          ứng mọi nhu cầu của bạn. Hãy dành thời gian để chìm đắm trong sự đẳng cấp và 
+                          sự ấm áp mỗi khi bạn chọn lựa một trong những không gian tuyệt vời của chúng tôi." </p>
                   </div>
                </div>
             </div>
             <div class="row">
+            <?php
+                 foreach($roomdm as $dm){
+                    extract($dm);
+                  //   $hinh = $img_path.$img;
+                  
+               
+                 
+                ?>
+                  
                <div class="col-md-4 col-sm-6">
                   <div id="serv_hover"  class="room">
-                     <div class="room_img">
-                        <figure><img src="images/room1.jpg" alt="#"/></figure>
-                     </div>
+                     <!-- <div class="room_img">
+                        <figure><img src="<?php echo $hinh ?>" alt="#"/></figure>
+                     </div> -->
                      <div class="bed_room">
-                        <h3>Bed Room</h3>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
+                        <a href="index.php?act=danhmuc"><h3><?php echo $Ten ?></h3></a>
+                        <p><?php echo $MoTa ?></p>
+                        <p><?php echo $GiaPhongChung ?></p>
                      </div>
                   </div>
                </div>
-               <div class="col-md-4 col-sm-6">
+               <?php }?>
+               <!-- <div class="col-md-4 col-sm-6">
                   <div id="serv_hover"  class="room">
                      <div class="room_img">
                         <figure><img src="images/room2.jpg" alt="#"/></figure>
@@ -95,63 +111,103 @@
                         <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
                      </div>
                   </div>
-               </div>
+               </div> -->
             </div>
          </div>
       </div>
       <!-- end our_room -->
-      <!-- gallery -->
-      <div  class="gallery">
+      <!-- our_room -->
+      <div  class="our_room">
          <div class="container">
             <div class="row">
                <div class="col-md-12">
                   <div class="titlepage">
-                     <h2>gallery</h2>
+                     <h2>Các Phòng Của Khách Sạn</h2>
+                     <p>Khám phá sự hoàn hảo trong sự đơn giản tinh thế tại khách sạn chúng tôi, nơi mỗi chi tiết được chăm chút kỹ
+                        lưỡng để tạo nên không gian ấm cúng và thân thiện. Với vị trí thuận lợi và tiện nghi hiện đại, chúng tôi tự 
+                        hào là điểm đến lý tưởng cho những chuyến công tác hoặc du lịch đầy thoải mái. </p>
                   </div>
                </div>
             </div>
             <div class="row">
-               <div class="col-md-3 col-sm-6">
-                  <div class="gallery_img">
-                     <figure><img src="images/gallery1.jpg" alt="#"/></figure>
+                
+          <?php
+            foreach ($roomnew as $room) {
+               $id = isset($room['ID']) ? $room['ID'] : null; // Gán giá trị mặc định nếu 'id' không tồn tại
+               extract($room);
+               $hinh = $img_path . $AnhPhong;
+               $linksp = "index.php?act=sanphamct&idsp=" . $id;
+               echo '<div class="col-md-4 col-sm-6">
+                       <div id="serv_hover" class="room">
+                           <div class="room_img">
+                               <figure><img src="' . $AnhPhong . '" alt="#"/></figure>
+                           </div>
+                           <div class="bed_room">
+                           <a href="' . $linksp . '"><h3>' . $TenPhong . '</h3></a>
+                           <a href="' . $linksp . '"> <p>' . $ViTriPhong . '</p></a>
+                           </div>
+                       </div>
+                   </div>';
+           }
+           
+            ?>
+
+               <!-- <div class="col-md-4 col-sm-6">
+                  <div id="serv_hover"  class="room">
+                     <div class="room_img">
+                        <figure><img src="images/room2.jpg" alt="#"/></figure>
+                     </div>
+                     <div class="bed_room">
+                        <h3>Bed Room</h3>
+                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
+                     </div>
                   </div>
                </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="gallery_img">
-                     <figure><img src="images/gallery2.jpg" alt="#"/></figure>
+               <div class="col-md-4 col-sm-6">
+                  <div id="serv_hover"  class="room">
+                     <div class="room_img">
+                        <figure><img src="images/room3.jpg" alt="#"/></figure>
+                     </div>
+                     <div class="bed_room">
+                        <h3>Bed Room</h3>
+                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
+                     </div>
                   </div>
                </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="gallery_img">
-                     <figure><img src="images/gallery3.jpg" alt="#"/></figure>
+               <div class="col-md-4 col-sm-6">
+                  <div id="serv_hover"  class="room">
+                     <div class="room_img">
+                        <figure><img src="images/room4.jpg" alt="#"/></figure>
+                     </div>
+                     <div class="bed_room">
+                        <h3>Bed Room</h3>
+                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
+                     </div>
                   </div>
                </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="gallery_img">
-                     <figure><img src="images/gallery4.jpg" alt="#"/></figure>
+               <div class="col-md-4 col-sm-6">
+                  <div id="serv_hover"  class="room">
+                     <div class="room_img">
+                        <figure><img src="images/room5.jpg" alt="#"/></figure>
+                     </div>
+                     <div class="bed_room">
+                        <h3>Bed Room</h3>
+                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
+                     </div>
                   </div>
                </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="gallery_img">
-                     <figure><img src="images/gallery5.jpg" alt="#"/></figure>
+               <div class="col-md-4 col-sm-6">
+                  <div id="serv_hover"  class="room">
+                     <div class="room_img">
+                        <figure><img src="images/room6.jpg" alt="#"/></figure>
+                     </div>
+                     <div class="bed_room">
+                        <h3>Bed Room</h3>
+                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
+                     </div>
                   </div>
-               </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="gallery_img">
-                     <figure><img src="images/gallery6.jpg" alt="#"/></figure>
-                  </div>
-               </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="gallery_img">
-                     <figure><img src="images/gallery7.jpg" alt="#"/></figure>
-                  </div>
-               </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="gallery_img">
-                     <figure><img src="images/gallery8.jpg" alt="#"/></figure>
-                  </div>
-               </div>
+               </div> -->
             </div>
          </div>
       </div>
-      <!-- end gallery -->
+      <!-- end our_room -->
