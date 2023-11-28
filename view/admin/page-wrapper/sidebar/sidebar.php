@@ -37,11 +37,10 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a href="?act=TimPhongTrong" class="collapse-item">Trang tìm phòng trống <br> dựa trên truy vấn</a>
-                <a class="collapse-item" href="?act=QuanLyLoaiPhong">Trang quản lý loại phòng</a>
-                <a class="collapse-item" href="?act=QuanLyPhong">Trang quản lý phòng</a>
                 <a href="?act=QuanLyDonDatPhong" class="collapse-item">Trang quản lý đơn đặt<br> phòng</a>
                 <a href="?act=QuanLyTaiKhoan" class="collapse-item">Trang quản lý tài khoản</a>
+                <a class="collapse-item" href="?act=QuanLyLoaiPhong">Trang quản lý loại phòng</a>
+                <a class="collapse-item" href="?act=QuanLyPhong">Trang quản lý phòng</a>
                 <a href="?act=QuanLyDichVu" class="collapse-item">Trang quản lý dịch vụ</a>
             </div>
         </div>

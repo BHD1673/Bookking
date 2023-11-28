@@ -1,20 +1,93 @@
 <?php 
-if (isset($_GET['loaiPhongID'])) {
-    $loaiPhongID = $_GET['loaiPhongID'];
+// if (isset($_GET['loaiPhongID'])) {
+//     $loaiPhongID = $_GET['loaiPhongID'];
 
-    // Query to get phong IDs based on the selected loaiPhongID
-    $sql = "SELECT ID, TenPhong FROM phong WHERE ID_LoaiPhong = ?";
-    $phongList = pdo_query($sql, $loaiPhongID);
+//     // Query to get phong IDs based on the selected loaiPhongID
+//     $sql = "SELECT ID, TenPhong FROM phong WHERE ID_LoaiPhong = ?";
+//     $phongList = pdo_query($sql, $loaiPhongID);
 
-    // Build the options for the SoPhong dropdown
-    $options = "";
-    foreach ($phongList as $phong) {
-        $options .= "<option value='{$phong['ID']}'>{$phong['TenPhong']}</option>";
-    }
+//     // Build the options for the SoPhong dropdown
+//     $options = "";
+//     foreach ($phongList as $phong) {
+//         $options .= "<option value='{$phong['ID']}'>{$phong['TenPhong']}</option>";
+//     }
 
-    echo $options;
-}
+//     echo $options;
+// }
 ?>
+<div class="container mt-5">
+    <h2 class="mb-4">Check Room Availability</h2>
+    <form action="" method="POST">
+        <div class="form-group">
+            <label for="checkInDate">Check-in Date:</label>
+            <input type="date" class="form-control" id="checkInDate" name="checkInDate" required>
+        </div>
+        <div class="form-group">
+            <label for="checkOutDate">Check-out Date:</label>
+            <input type="date" class="form-control" id="checkOutDate" name="checkOutDate" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Check Availability</button>
+    </form>
+
+    <!-- Display the results in a table -->
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Get the form data and perform the query
+        $checkInDate = $_POST["checkInDate"];
+        $checkOutDate = $_POST["checkOutDate"];
+
+        $sql = "SELECT lp.*, p.*
+                FROM loaiphong lp
+                LEFT JOIN phong AS p ON lp.ID = p.ID_LoaiPhong
+                WHERE NOT EXISTS (
+                    SELECT 1
+                    FROM ganphong gp
+                    JOIN datphong dp ON gp.IDDatPhong = dp.ID
+                    WHERE gp.IDPhong = p.ID
+                    AND (
+                        (dp.NgayCheckIn <= ? AND dp.NgayCheckOut >= ?) OR
+                        (dp.NgayCheckIn < ? AND dp.NgayCheckOut >= ?) OR
+                        (dp.NgayCheckIn >= ? AND dp.NgayCheckOut <= ?)
+                    )
+                )";
+
+        try {
+            $results = pdo_query($sql, $checkInDate, $checkOutDate, $checkInDate, $checkOutDate, $checkInDate, $checkOutDate);
+
+            // Check if there are results to display
+            if (!empty($results)) {
+                echo '<table class="table mt-3">';
+                echo '<thead>';
+                echo '<tr>';
+                // Adjust column headers based on your data structure
+                echo '<th>Room ID</th>';
+                echo '<th>Room Name</th>';
+                // Add more headers as needed
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
+
+                foreach ($results as $row) {
+                    echo '<tr>';
+                    // Adjust column names based on your data structure
+                    echo '<td>' . $row['ID'] . '</td>';
+                    echo '<td>' . $row['RoomName'] . '</td>';
+                    // Add more columns as needed
+                    echo '</tr>';
+                }
+
+                echo '</tbody>';
+                echo '</table>';
+            } else {
+                echo '<p>No available rooms for the selected dates.</p>';
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+    ?>
+
+</div>
 <div class="container mt-5">
     <h2>Form đặt phòng</h2>
     <a href="?act=QuanLyDonDatPhong"><button class="btn btn-primary">Quay lại phần quản lý đơn đặt phòng</button></a>
