@@ -311,14 +311,8 @@ img {
     include "view/comment.php";
     ?>
     <?php
-<<<<<<< HEAD
     include "view/room.php";
     include "view/gallery.php";
-=======
-    include "view/gallery.php";
-    include "view/room.php";
-    
->>>>>>> 89c2d0a5ec0d5e74a63f8b1e548070681bec67b2
     ?>
   </body>
 </html>

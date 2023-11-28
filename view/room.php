@@ -12,11 +12,7 @@
                </div>
             </div>
             <div class="row">
-<<<<<<< HEAD
             <?php
-=======
-                <?php
->>>>>>> 89c2d0a5ec0d5e74a63f8b1e548070681bec67b2
                  foreach($roomnew as $room){
                     extract($room);
                     $hinh = $img_path.$AnhPhong;
@@ -30,14 +26,10 @@
                      </div>
                      <div class="bed_room">
                         <a href="index.php?act=sanphamct"><h3><?php echo $TenPhong ?></h3></a>
-<<<<<<< HEAD
                         
                         <a href="index.php?act=sanphamct"><h3 style="color: #e74c3c;"><?php echo $ViTriPhong ?></h3>
                      
                         
-=======
-                        <p><?php echo $TrangThaiPhong ?></p>
->>>>>>> 89c2d0a5ec0d5e74a63f8b1e548070681bec67b2
                      </div>
                   </div>
                </div>

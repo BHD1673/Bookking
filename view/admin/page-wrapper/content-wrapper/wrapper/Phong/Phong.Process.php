@@ -8,7 +8,6 @@ function getPhongByID($EditId) {
     return pdo_query_one($sql, $EditId);
 
 }
->>>>>>> 89c2d0a5ec0d5e74a63f8b1e548070681bec67b2
 //Lấy tất cả dữ liệu
 function getAllPhong(){
     $sql = "SELECT phong.*, loaiphong.Ten, loaiphong.GiaPhongChung FROM phong JOIN loaiphong ON phong.ID = loaiphong.ID";
