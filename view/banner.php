@@ -21,11 +21,11 @@
             </div>
             <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
+            <span class="sr-only">Trước</span>
             </a>
             <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
+            <span class="sr-only">Sang</span>
             </a>
          </div>
          <div class="booking_ocline">
@@ -33,21 +33,21 @@
                <div class="row">
                   <div class="col-md-5">
                      <div class="book_room">
-                        <h1>Book a Room Online</h1>
-                        <form class="book_now">
+                        <h1>Hãy đặt một phòng lúc này !</h1>
+                        <form class="book_now" method="post">
                            <div class="row">
                               <div class="col-md-12">
-                                 <span>Arrival</span>
+                                 <span>Ngày đến</span>
                                  <img class="date_cua" src="images/date.png">
-                                 <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="dd/mm/yyyy">
+                                 <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="DateIn">
                               </div>
                               <div class="col-md-12">
-                                 <span>Departure</span>
+                                 <span>Ngày đi</span>
                                  <img class="date_cua" src="images/date.png">
-                                 <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="dd/mm/yyyy">
+                                 <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="DateOut">
                               </div>
                               <div class="col-md-12">
-                                 <button class="book_btn">Book Now</button>
+                                 <button class="book_btn">Tìm phòng ngay</button>
                               </div>
                            </div>
                         </form>

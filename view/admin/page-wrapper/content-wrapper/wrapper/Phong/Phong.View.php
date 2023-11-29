@@ -17,6 +17,7 @@
             <th scope="col">Trạng thái phòng</th>
             <th scope="col">Ảnh phòng</th>
             <th scope="col">Thuộc danh mục phòng</th>
+            <th scope="col">Mô tả loại phòng</th>
             <th scope="col">Thao tác</th>
         </tr>
         </thead>
@@ -24,8 +25,8 @@
         <?php
         $AllPhong = getAllPhong();
 
-        $updateUrl = "?act=UpdatePhong&editID=" . urlencode($row['ID']);
-        echo "<a href='?act=?deleteID={$row['ID']}' class='btn btn-danger'>Xóa</a>";
+        // $updateUrl = "?act=UpdatePhong&editID=" . urlencode($row['ID']);
+        // echo "<a href='?act=?deleteID={$row['ID']}' class='btn btn-danger'>Xóa</a>";
         foreach ($AllPhong as $row) {
             echo "<tr>";
             echo "<td>{$row['ID']}</td>";
@@ -33,9 +34,10 @@
             echo "<td>{$row['ViTriPhong']}</td>";
             echo "<td>{$row['TrangThaiPhong']}</td>";
             echo "<td><img style='width:150px'; src='../../../../../upload/{$row['AnhPhong']}'></td>";
-            echo "<td>{$row['Ten']} - {$row['GiaPhongChung']}</td>";
+            echo "<td>{$row['ten']} - {$row['GiaPhongChung']}</td>";
+            echo "<td>{$row['MoTa']}</td>";
             echo "<td>";
-            echo "<a href='" . $updateUrl . "' class='btn btn-info'>Sửa</a>";
+            echo "<a href='' class='btn btn-info'>Sửa</a>";
             echo "</td>";
             echo "</tr>";
         }

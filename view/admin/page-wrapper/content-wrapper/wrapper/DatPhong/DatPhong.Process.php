@@ -20,6 +20,7 @@
 //     return pdo_query($sql, $NgayCheckInDuKien, $NgayCheckoutDuKien);
 // }
 
+
 $allDonDatPhong = getAllDatPhong();
 function getAllDatPhong() {
     $sql = "SELECT * FROM datphong";

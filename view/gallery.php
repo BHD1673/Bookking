@@ -30,15 +30,9 @@
                      </div> -->
                   <div class="bed_room">
                      <a href="index.php?act=danhmuc&ID=<?php echo $dm['ID']; ?>">
-<<<<<<< HEAD
-                        <h3><?php echo $Ten ?></h3>
-                     </a>
-                     <p><?php echo $MoTa?></p>
-=======
                         <h3><?php echo $TenLoai ?></h3>
                      </a>
                      <p><?php echo $MoTaLoai ?></p>
->>>>>>> 89c2d0a5ec0d5e74a63f8b1e548070681bec67b2
                      <p><?php echo $GiaPhongChung ?></p>
                   </div>
                </div>

@@ -7,7 +7,7 @@ include "model/danhmuc.php";
 include "model/sanphamtheodanhmuc.php";
 include "global.php";
 include "view/header.php";
-include "view/banner.php";
+
 include "model/taikhoan.php";
 $roomnew = loadall_room_home();
 $roomdm = loadall_danhmuc_home();
@@ -15,9 +15,10 @@ $sptheodm = loadall_sanphamtheodanhmuc_home();
 if (isset($_GET['act']) && ($_GET['act'] != "")) {
     $act = $_GET['act'];
     switch ($act) {
-        case "about":
-            include "view/review.php";
-            break;
+        case 'roomlist':
+
+            include('view/roomlist.php');
+        break;
         case "sanpham":
             // lấy dữ liệu
             if (isset($_GET['ID']) && ($_GET['ID'] > 0)) {
@@ -40,7 +41,6 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             include "view/gallery.php";
             break;
         case "thoat":
-
             session_unset();
             header('location: index.php');
             break;
@@ -76,8 +76,12 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         case "thongtin":
             include "stearm/checkout.php";
             break;
+        case "about":
+            include "view/review.php";
+        break;
     }
 } else {
+    include "view/banner.php";
     include "view/home.php";
 }
 

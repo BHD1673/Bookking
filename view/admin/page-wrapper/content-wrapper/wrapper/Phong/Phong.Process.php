@@ -10,7 +10,11 @@ function getPhongByID($EditId) {
 }
 //Lấy tất cả dữ liệu
 function getAllPhong(){
-    $sql = "SELECT phong.*, loaiphong.Ten, loaiphong.GiaPhongChung FROM phong JOIN loaiphong ON phong.ID = loaiphong.ID";
+    $sql = "SELECT 
+    p.ID, p.TenPhong,p.ViTriPhong,p.TrangThaiPhong,p.AnhPhong,
+    lp.ten, lp.MoTa, lp.GiaPhongChung
+    FROM phong p 
+    LEFT JOIN loaiphong lp ON p.ID_LoaiPhong = lp.ID";
     return pdo_query($sql);
 }
 
