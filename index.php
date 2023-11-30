@@ -16,7 +16,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
     $act = $_GET['act'];
     switch ($act) {
         case 'roomlist':
-
+            if (isset($_GET['ID']))
             include('view/roomlist.php');
         break;
         case "sanpham":

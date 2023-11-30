@@ -1,20 +1,3 @@
-<h1 class="mt-4 mb-4">Tìm các phòng trống</h1>
-
-<form action="" method="post">
-    <div class="form-group">
-        <label for="checkin">Ngày bắt đầu ở:</label>
-        <input type="date" id="checkin" name="checkin" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label for="checkout">Ngày bắt đầu rời đi:</label>
-        <input type="date" id="checkout" name="checkout" class="form-control" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Tìm</button>
-</form>
-
-<h2 class="mt-4">Kết quả tìm phòng</h2>
-
-
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $NgayCheckInDuKien = $_POST["checkin"];
