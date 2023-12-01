@@ -26,7 +26,8 @@ WHERE
         FROM ganphong gp
         JOIN datphong dp ON gp.IDDatPhong = dp.ID
         WHERE gp.IDPhong = p.ID
-        AND dp.NgayCheckOut > ? AND dp.NgayCheckIn < ?
+        AND dp.NgayCheckOut > STR_TO_DATE(?, '%d-%m-%Y') 
+        AND dp.NgayCheckIn < STR_TO_DATE(?, '%d-%m-%Y')
     )
 GROUP BY 
     lp.Ten, lp.MoTa, lp.GiaPhongChung;";

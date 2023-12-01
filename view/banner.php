@@ -41,12 +41,12 @@
                               <div class="col-md-12">
                                     <span>Ngày đến</span>
                                     <img class="date_cua" src="images/date.png">
-                                    <input class="online_book" placeholder="yyyy/mm/dd" type="" name="DateIn">
+                                    <input class="online_book" placeholder="yyyy/mm/dd" type="date" name="DateIn">
                               </div>
                               <div class="col-md-12">
                                     <span>Ngày đi</span>
                                     <img class="date_cua" src="images/date.png">
-                                    <input class="online_book" placeholder="yyyy/mm/dd" type="" name="DateOut">
+                                    <input class="online_book" placeholder="yyyy/mm/dd" type="date" name="DateOut">
                               </div>
                               <div class="col-md-12">
                                     <button type="submit" class="book_btn">Tìm phòng ngay</button>
