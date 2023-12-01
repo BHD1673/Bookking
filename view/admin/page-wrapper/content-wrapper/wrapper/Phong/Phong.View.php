@@ -25,7 +25,6 @@
         <?php
         $AllPhong = getAllPhong();
 
-        // $updateUrl = "?act=UpdatePhong&editID=" . urlencode($row['ID']);
         // echo "<a href='?act=?deleteID={$row['ID']}' class='btn btn-danger'>Xóa</a>";
         foreach ($AllPhong as $row) {
             echo "<tr>";
@@ -37,7 +36,7 @@
             echo "<td>{$row['ten']} - {$row['GiaPhongChung']}</td>";
             echo "<td>{$row['MoTa']}</td>";
             echo "<td>";
-            echo "<a href='' class='btn btn-info'>Sửa</a>";
+            echo "<a href='admin.php?act=UpdatePhong&id={$row['ID']}' class='btn btn-info'>Sửa</a>";
             echo "</td>";
             echo "</tr>";
         }

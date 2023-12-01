@@ -1,11 +1,10 @@
 <?php 
-$AllPhong = getAllPhong();
+// $AllPhong = getAllPhong();
 
-// $OnePhong = getPhongByID($EditId);
 //Lấy một dữ liệu
-function getPhongByID($EditId) {
+function getPhongByID($editID) {
     $sql = "SELECT * FROM Phong WHERE ID = ?";
-    return pdo_query_one($sql, $EditId);
+    return pdo_query_one($sql, $editID);
 
 }
 //Lấy tất cả dữ liệu
@@ -32,7 +31,7 @@ function InsertPhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $LoaiPh
 function UpdatePhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $LoaiPhongID) {
     $sql = "UPDATE `phong` SET `TenPhong`=?,`TrangThaiPhong`=?,`LoaiPhongID`=? WHERE ID= ?";
     pdo_execute($sql, $TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $LoaiPhongID);
-    header("Location: Phong.View.php");
+    //Header là không cần thiết vì đơn giản là nó có cái action ở form rồi.
     exit(); 
 }
 

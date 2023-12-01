@@ -28,6 +28,7 @@ WHERE
         WHERE gp.IDPhong = p.ID
         AND dp.NgayCheckOut > STR_TO_DATE(?, '%d-%m-%Y') 
         AND dp.NgayCheckIn < STR_TO_DATE(?, '%d-%m-%Y')
+        AND dp.TrangThaiDon = '1'
     )
 GROUP BY 
     lp.Ten, lp.MoTa, lp.GiaPhongChung;";

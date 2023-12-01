@@ -9,7 +9,7 @@ include("DatPhong/DatPhong.Process.php");
 <!-- Bắt đầu vào trang chính -->
 
 <?php 
-// include("LoaiPhong/LoaiPhong.Process.php");
+
 // Kiểm tra xem biến 'act' có được đặt hay không
 if (isset($_GET['act'])) {
     $act = $_GET['act'];
@@ -26,12 +26,17 @@ if (isset($_GET['act'])) {
             include('LoaiPhong/LoaiPhong.Update.php');
         break;
         case 'AddPhong':
+            
             include('Phong/Phong.Create.php');
         break;
         case 'QuanLyPhong':
             include('Phong/Phong.View.php');
         break;
         case 'UpdatePhong':
+            // if (isset($_GET['id'])) {
+            //     $editID = $_GET['id'];
+                
+            // }
             include('Phong/Phong.Update.php');
         break;
         case 'QuanLyDonDatPhong':
