@@ -1,39 +1,20 @@
-<div class="container">
-    <div class="row">
-        <!-- Form Section (Left Side) -->
-        <div class="col-md-3">
-            <h2 class="mb-4">Khoảng thời gian đặt phòng</h2>
-            <form action="" method="post">
-                <div class="mb-3">
-                    <label for="checkin" class="form-label">Ngày Check-In:</label>
-                    <input type="date" class="form-control" id="checkin" name="checkin">
-                </div>
-                <div class="mb-3">
-                    <label for="checkout" class="form-label">Ngày Check-Out:</label>
-                    <input type="date" class="form-control" id="checkout" name="checkout">
-                </div>
-                <div class="mb-3">
-                    <label for="AmountOfDay" class="form-label">Số ngày ở dựa trên ngày check</label>
-                    <input type="number" name="AmountOfDay" id="AmountOfDay" disabled>
-                </div>
-                <a href="?Nha"></a>
-                <button type="submit" class="btn btn-primary">Tìm loại phòng mới</button>
-            </form>
-        </div>
-    
-
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $checkInDate = $_POST["checkin"];
-    $checkOutDate = $_POST["checkout"];
 
-    header("location: Link dẫn đến cái file hiển thị danh mục");
-    //Rồi dùng $_
+// Check if DateIn and DateOut session variables are set
+if (isset($_SESSION['DateIn']) && isset($_SESSION['DateOut'])) {
+    // Retrieve the values from the session
+    $dateIn = $_SESSION['DateIn'];
+    $dateOut = $_SESSION['DateOut'];
+
+} else {
+    echo "Session variables not set.";
+}
     $sql = 
-"SELECT 
+    "SELECT 
     lp.Ten, 
     lp.MoTa, 
-    lp.GiaPhongChung, 
+    lp.GiaPhongChung,
+    GROUP_CONCAT(p.ID) AS RoomIDs,
     COUNT(p.ID) AS RoomCount
 FROM 
     loaiphong lp
@@ -45,64 +26,122 @@ WHERE
         FROM ganphong gp
         JOIN datphong dp ON gp.IDDatPhong = dp.ID
         WHERE gp.IDPhong = p.ID
-        AND (
-            (dp.NgayCheckIn <= ? AND dp.NgayCheckOut >= ?) OR
-            (dp.NgayCheckIn < ? AND dp.NgayCheckOut >= ?) OR
-            (dp.NgayCheckIn >= ? AND dp.NgayCheckOut <= ?)
-        )
+        AND dp.NgayCheckOut > ? AND dp.NgayCheckIn < ?
     )
 GROUP BY 
-    lp.Ten, lp.MoTa, lp.GiaPhongChung";
+    lp.Ten, lp.MoTa, lp.GiaPhongChung;";
 
     try {
-        $results = pdo_query($sql, $checkInDate, $checkOutDate, $checkInDate, $checkOutDate, $checkInDate, $checkOutDate);
+        $results = pdo_query($sql, $dateIn, $dateOut);
         if (!empty($results)) {
-            displayRooms($results);
+            foreach($results as $rows);
         }
     } catch (Exception $e) {
         echo $e->getMessage();
     }
-}
-
-function displayRooms($rooms) {
-    foreach ($rooms as $row) {
-        displayRoomCard($row);
-    }
-}
-
-function displayRoomCard($room) {
-    echo '<div class="card d-flex flex-row">';
-    echo '<img src="images/about.png" class="card-img-top" alt="Ảnh phòng" style="border: 1px solid black; width: 30%;">';
-    echo '<div class="card-body d-flex flex-column">';
-    echo '<h2 class="card-title mb-3">Tên loại phòng: ' . $room['Ten'] . '</h2>';
-    displayRoomDetails($room);
-    displaySelectionOptions($room);
-    echo '</div></div>';
-}
-
-function displayRoomDetails($room) {
-    echo '<div class="row">';
-    echo '<div class="col-md">';
-    echo '<p class="card-text">Giá phòng chung: ' . $room['GiaPhongChung'] . ' VNĐ</p>';
-    echo '<p class="card-text">Mô tả: ' . $room['MoTa'] . '</p>';
-    echo '</div></div>';
-}
-
-function displaySelectionOptions($room) {
-    echo '<div class="row justify-content-end">';
-    echo '<div class="col-md">';
-    echo '<div class="form-check">';
-    echo '<input class="form-check-input" type="radio" name="paymentMethod" id="choiceroom" checked>';
-    echo '<label class="form-check-label" for="choiceroom">Chọn loại phòng này</label>';
-    echo '</div></div>';
-    echo '<div class="col-md">';
-    echo '<div class="form-group">';
-    echo '<label for="amountInput">Số lượng phòng còn lại: ' . $room['RoomCount'] . '</label>';
-    echo '</div></div></div>';
-}
+    
+    
 ?>
 
-        
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <h2 class="mb-4">Khoảng thời gian đặt phòng</h2>
+            <form action="" method="post">
+                <div class="mb-3">
+                    <label for="checkin" class="form-label">Ngày Check-In:</label>
+                    <input type="date" class="form-control" id="checkin" name="checkin" value="<?php echo isset($_SESSION['DateIn']) ? $_SESSION['DateIn'] : ''; ?>">
+                </div>
+                <div class="mb-3">
+                    <label for="checkout" class="form-label">Ngày Check-Out:</label>
+                    <input type="date" class="form-control" id="checkout" name="checkout" value="<?php echo isset($_SESSION['DateOut']) ? $_SESSION['DateOut'] : ''; ?>">
+                </div>
+                <div class="mb-3">
+                    <label for="AmountOfDay" class="form-label">Số ngày ở dựa trên ngày check</label>
+                    <input type="number" name="AmountOfDay" id="AmountOfDay" disabled>
+                </div>
+                <a href="index.php?act=XacNhanDonDatPhong">Xác nhận lựa chọn</a>
+                <button type="submit" class="btn btn-primary">Sửa lại khoảng thời gian</button>
+            </form>
+        </div>
+
+        <div class="col-md-6 border">
+            <h2 class="mb-4">Thông tin đặt phòng</h2>
+            <form action="" method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="TenLoaiPhong" class="form-label">Tên loại phòng đang chọn</label>
+                        <input type="text" name="TenLoaiPhong" id="TenLoaiPhong" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="RoomAmount" class="form-label">Số lượng phòng</label>
+                        <input type="number" name="RoomAmount" id="RoomAmount" class="form-control" disabled>
+                    </div>
+                </div>
+                <div class="row" style="display: none;">
+                    <div class="col-md-6 mb-3">
+                        <label for="TenLoaiPhong" class="form-label">Tên loại phòng đang chọn</label>
+                        <input type="text" name="TenLoaiPhong" id="TenLoaiPhong" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="RoomAmount" class="form-label">Số lượng phòng</label>
+                        <input type="number" name="RoomAmount" id="RoomAmount" class="form-control" disabled>
+                    </div>
+                </div>
+                <a href="index.php?act=XacNhanDonDatPhong">Xác nhận đơn đặt phòng</a>
+            </form>
+        </div>
+
+<?php if (!empty($results)): ?>
+<?php foreach ($results as $row): ?>
+    <?php
+    // Access individual fields in the result row
+    $roomName = $row['Ten'];
+    $description = $row['MoTa'];
+    $price = $row['GiaPhongChung'];
+    $roomIDs = explode(',', $row['RoomIDs']); // Convert comma-separated IDs to an array
+    $roomCount = $row['RoomCount'];
+    ?>
+        <div class="card d-flex flex-row">
+    <div class="col-md-3 d-flex align-items-center ">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="paymentMethod" id="choiceroom" checked>
+            <label class="form-check-label" for="choiceroom">Chọn loại phòng này</label>
+        </div>
+    </div>
+    <img src="images/about.png" class="card-img-top" alt="Ảnh phòng" style="border: 1px solid black; width: 30%;">
+    <div class="card-body d-flex flex-column col-md-8">
+        <h2 class="card-title mb-3">Tên loại phòng: <?php echo $roomName; ?></h2>
+        <p class="price">Giá Phòng: <?php echo $price; ?></p>
+        <p class="description">Mô tả: <?php echo $description; ?></p>
+
+        <!-- Selection options -->
+        <div class="row justify-content-end">
+            <div class="col-md">
+                <div class="mb-3">
+                    <label for="amountInput" class="form-label">Số lượng phòng còn lại: 5</label>
+                </div>
+                <div class="mb-3">
+                    <label for="RoomChoice" class="form-label">Lựa chọn số lượng phòng</label>
+                    <select name="RoomChoice" id="RoomChoice" class="form-select">
+                        <option selected>Lựa chọn</option>
+                        <?php foreach ($roomIDs as $roomID): ?>
+                        <!-- Using explode and foreach to print the value here -->
+                        <option value="<?php echo $roomID; ?>"><?php echo $roomID; ?></option>
+                        <?php endforeach; ?>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <?php endforeach; ?>
+<?php else: ?>
+    <p>No results found.</p>
+<?php endif; ?>
+
+
 
 </div>
 

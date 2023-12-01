@@ -29,16 +29,16 @@
                         extract($rows);
 
                         echo '<tr>';
-                        echo '<td>' . $rows[" "] . '</td>';
-                        echo '<td>' . $rows[" "] . '</td>';
-                        echo '<td>' . $rows[" "] . '</td>';
-                        echo '<td>' . $rows[" "] . '</td>';
-                        echo '<td>' . $rows[" "] . '</td>';
-                        echo '<td>' . $rows[" "] . '</td>';
-                        echo '<td>' . $rows[" "] . '</td>';
-                        echo '<td>' . $rows[" "] . '</td>';
+                        echo '<td>' . $rows["ID"] . '</td>';
+                        echo '<td>' . $rows["TenKhachHang"] . '</td>';
+                        echo '<td>' . $rows["NgaySinh"] . '</td>';
+                        echo '<td>' . $rows["DiaChiNha"] . '</td>';
+                        echo '<td>' . $rows["AnhXacNhan"] . '</td>';
+                        echo '<td>' . $rows["Email"] . '</td>';
+                        echo '<td>' . $rows["TenDangNhap"] . '</td>';
+                        echo '<td>' . $rows["MatKhau"] . '</td>';
                         echo '<td>';
-                        echo '<a href="?act=?deleteID=' . $rows["ID"] . '" class="btn btn-info">Sửa</a>';
+                        echo '<a href="?act=?updateID=' . $rows["ID"] . '" class="btn btn-info">Sửa</a>';
                         echo '<a href="?act=?deleteID=' . $rows["ID"] . '" class="btn btn-danger">Xóa</a>';
                         echo '</td>';
                         echo '</tr>';

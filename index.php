@@ -5,6 +5,7 @@ include "model/pdo.php";
 include "model/sanpham.php";
 include "model/danhmuc.php";
 include "model/sanphamtheodanhmuc.php";
+include "model/redirect.php";
 include "global.php";
 include "view/header.php";
 
@@ -16,7 +17,6 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
     $act = $_GET['act'];
     switch ($act) {
         case 'roomlist':
-            if (isset($_GET['ID']))
             include('view/roomlist.php');
         break;
         case "sanpham":
@@ -79,9 +79,19 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         case "about":
             include "view/review.php";
         break;
+        
     }
 } else {
     include "view/banner.php";
+    // Check if the form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+       $dateIn = $_POST['DateIn'];
+       $dateOut = $_POST['DateOut']; 
+       $_SESSION['DateIn'] = $dateIn;
+       $_SESSION['DateOut'] = $dateOut;
+       var_dump($_SESSION);
+    }
+
     include "view/home.php";
 }
 

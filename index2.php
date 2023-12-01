@@ -47,8 +47,6 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     $name = $_POST['visitor_name'];
                     $email = $_POST['visitor_email'];
                     $phone = $_POST['visitor_phone'];
-                    $checkin = $_POST['checkin'];
-                    $checkout = $_POST['checkout'];
                     
                     // Gọi hàm để thêm dữ liệu vào cơ sở dữ liệu
                     // insertData($checkin, $checkout, $name, $email,$phone);

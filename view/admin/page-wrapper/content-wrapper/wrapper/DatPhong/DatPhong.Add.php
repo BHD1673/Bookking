@@ -29,28 +29,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $sql = 
 "SELECT 
-    lp.Ten, 
-    lp.MoTa, 
-    lp.GiaPhongChung, 
-    COUNT(p.ID) AS RoomCount
+lp.Ten, 
+lp.MoTa, 
+lp.GiaPhongChung,
+GROUP_CONCAT(p.ID) AS InRaIDPhong,
+COUNT(p.ID) AS DemSoPhong
 FROM 
-    loaiphong lp
+loaiphong lp
 LEFT JOIN 
-    phong AS p ON lp.ID = p.ID_LoaiPhong
+phong AS p ON lp.ID = p.ID_LoaiPhong
 WHERE 
-    NOT EXISTS (
-        SELECT 1
-        FROM ganphong gp
-        JOIN datphong dp ON gp.IDDatPhong = dp.ID
-        WHERE gp.IDPhong = p.ID
-        AND (
-            (dp.NgayCheckIn <= ? AND dp.NgayCheckOut >= ?) OR
-            (dp.NgayCheckIn < ? AND dp.NgayCheckOut >= ?) OR
-            (dp.NgayCheckIn >= ? AND dp.NgayCheckOut <= ?)
-        )
+NOT EXISTS (
+    SELECT 1
+    FROM ganphong gp
+    JOIN datphong dp ON gp.IDDatPhong = dp.ID
+    WHERE gp.IDPhong = p.ID
+    AND (
+        (dp.NgayCheckIn <= '?' AND dp.NgayCheckOut >= '?') OR
+        (dp.NgayCheckIn < '?' AND dp.NgayCheckOut >= '?') OR
+        (dp.NgayCheckIn >= '?' AND dp.NgayCheckOut <= '?')
     )
+)
 GROUP BY 
-    lp.Ten, lp.MoTa, lp.GiaPhongChung";
+lp.Ten, lp.MoTa, lp.GiaPhongChung
+";
 
     try {
         $results = pdo_query($sql, $checkInDate, $checkOutDate, $checkInDate, $checkOutDate, $checkInDate, $checkOutDate);
