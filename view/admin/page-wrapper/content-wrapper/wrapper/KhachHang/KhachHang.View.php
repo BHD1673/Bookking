@@ -12,38 +12,35 @@
                         <th>Tên khách hàng</th>
                         <th>Sinh nhật</th>
                         <th>Địa chỉ khách hàng</th>
-                        <th>Ảnh xác nhận</th>
-                        <th>Các phòng đã chọn cho đơn</th>
-                        <th>Tổng tiền khách hàng đặt phòng </th>
-                        <th>Tiền cọc</th>
-                        <th>Ảnh xác nhận đi kèm</th>
+                        <th>Email khách hàng</th>
+                        <th>Tên tài khoản</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tfoot>
+
                 <?php 
-
-                    $allDonDatPhong = getAllDatPhong();
-
-                    foreach ($allDonDatPhong as $rows) {
-                        extract($rows);
-
-                        echo '<tr>';
-                        echo '<td>' . $rows["ID"] . '</td>';
-                        echo '<td>' . $rows["TenKhachHang"] . '</td>';
-                        echo '<td>' . $rows["NgaySinh"] . '</td>';
-                        echo '<td>' . $rows["DiaChiNha"] . '</td>';
-                        echo '<td>' . $rows["AnhXacNhan"] . '</td>';
-                        echo '<td>' . $rows["Email"] . '</td>';
-                        echo '<td>' . $rows["TenDangNhap"] . '</td>';
-                        echo '<td>' . $rows["MatKhau"] . '</td>';
-                        echo '<td>';
-                        echo '<a href="?act=?updateID=' . $rows["ID"] . '" class="btn btn-info">Sửa</a>';
-                        echo '<a href="?act=?deleteID=' . $rows["ID"] . '" class="btn btn-danger">Xóa</a>';
-                        echo '</td>';
-                        echo '</tr>';
-                    }
+                $allKhachang = getAllKhachHang();
+                foreach ($allKhachang as $row) {
+                    extract($row);
                     ?>
+                
+                    <tr>
+                        <td><?php echo $row['ID']; ?></td>
+                        <td><?php echo $row['TenKhachHang']; ?></td>
+                        <td><?php echo $row['NgaySinh']; ?></td>
+                        <td><?php echo $row['DiaChiNha']; ?></td>
+                        <td><?php echo $row['Email']; ?></td>
+                        <td><?php echo $row['TenDangNhap']; ?></td>
+                        <td><?php echo $filePath, $row['AnhXacNhan']; ?></td>
+                
+                        <td>
+                            <a href="?act=?updateID='<?php echo $row['ID']; ?>'" class="btn btn-info">Sửa</a>
+                            <a href="?act=?deleteID='<?php echo $row['ID']; ?>'" class="btn btn-danger">Xóa</a>
+                        </td>
+                    </tr>
+                
+                <?php } ?>
                 </tbody>
             </table>
         </div>

@@ -1,1 +1,1 @@
-<?php $filePath = "image/  "; ?>
+<?php $filePath = "../image/";  ?>

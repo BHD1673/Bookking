@@ -4,8 +4,8 @@ include("PDO.php");
 include("Phong/Phong.Process.php");
 include("LoaiPhong/LoaiPhong.Process.php");
 include("DatPhong/DatPhong.Process.php");
-// include("global.php");
-// include("KhachHang/KhachHang.Process.php");
+include("global.php");
+include("KhachHang/KhachHang.Process.php");
 ?>
 <!-- Bắt đầu vào trang chính -->
 
@@ -50,7 +50,9 @@ if (isset($_GET['act'])) {
             include('DatPhong/DatPhong.Update.php');
         break;
         case 'QuanLyTaiKhoan':
+
             include('KhachHang/KhachHang.View.php');
+
         break;
         case 'AddTaiKhoan':
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -62,7 +64,7 @@ if (isset($_GET['act'])) {
                 $fileName = "";  // Thêm đường fileName
 
                 // Đường dẫn tệp tin được tải lên
-                $filePath = "../image/";  
+                 
                 $FilePush = $filePath . basename($_FILES['AnhXacNhan']['name']);
                 $uploadOk = 1;
                 $imageFileType = strtolower(pathinfo($FilePush, PATHINFO_EXTENSION));
