@@ -1,35 +1,38 @@
-<form action="" method="POST" enctype="multipart/form-data" class="p-3">
-    <h1>Tạo một tài khoản tạm thời</h1>
-    <div class="form-group">
-        <!-- Username -->
-        <label for="username">Tên tài khoản:</label>
-        <input type="text" class="form-control" id="username" name="username" required>
-    </div>
+<div class="container-md">
+    <form action="" method="POST" enctype="multipart/form-data" class="p-3">
+        <h1>Tạo Tài Khoản Tạm Thời</h1>
 
-    <div class="form-group">
+        <!-- Tên Khách Hàng -->
+        <div class="form-group">
+            <label for="TenKhachHang">Tên khách hàng:</label>
+            <input type="text" class="form-control" id="TenKhachHang" name="TenKhachHang" required>
+        </div>
+
+        <!-- Địa Chỉ Nhà -->
+        <div class="form-group">
+            <label for="DiaChiNha">Địa chỉ nhà:</label>
+            <input type="text" class="form-control" id="DiaChiNha" name="DiaChiNha">
+        </div>
+
+        <!-- Ngày Sinh -->
+        <div class="form-group">
+            <label for="NgaySinh">Ngày sinh:</label>
+            <input type="date" class="form-control" id="NgaySinh" name="NgaySinh">
+        </div>
+
         <!-- Email -->
-        <label for="email">Email:</label>
-        <input type="email" class="form-control" id="email" name="email" required>
-    </div>
+        <div class="form-group">
+            <label for="Email">Email:</label>
+            <input type="email" class="form-control" id="Email" name="Email" required>
+        </div>
 
-    <div class="form-group">
-        <!-- Password -->
-        <label for="password">Mật khẩu :</label>
-        <input type="password" class="form-control" id="password" name="password" required>
-    </div>
+        <!-- Hình Ảnh Xác Nhận -->
+        <div class="form-group">
+            <label for="AnhXacNhan">Hình ảnh xác nhận:</label>
+            <input type="file" class="form-control-file" id="AnhXacNhan" name="AnhXacNhan">
+        </div>
 
-    <div class="form-group">
-        <!-- Address -->
-        <label for="address">Địa chỉ nhà:</label>
-        <input type="text" class="form-control" id="address" name="address">
-    </div>
-
-    <div class="form-group">
-        <!-- Image Upload -->
-        <label for="image">Hình ảnh xác nhận:</label>
-        <input type="file" class="form-control-file" id="image" name="image">
-    </div>
-
-    <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary">Tạo tài khoản mới</button>
-</form>
+        <!-- Nút Submit -->
+        <button type="submit" class="btn btn-primary">Tạo Tài Khoản Mới</button>
+    </form>
+</div>
