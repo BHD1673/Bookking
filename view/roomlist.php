@@ -1,13 +1,11 @@
 <?php
 
-// Check if DateIn and DateOut session variables are set
 if (isset($_SESSION['DateIn']) && isset($_SESSION['DateOut'])) {
-    // Retrieve the values from the session
     $dateIn = $_SESSION['DateIn'];
     $dateOut = $_SESSION['DateOut'];
 
 } else {
-    echo "Session variables not set.";
+    echo "Session không được gán";
 }
     $sql = 
     "SELECT 
@@ -41,8 +39,6 @@ GROUP BY
     } catch (Exception $e) {
         echo $e->getMessage();
     }
-    
-    
 ?>
 
 <div class="container">

@@ -9,6 +9,7 @@ include "model/redirect.php";
 include "global.php";
 include "view/header.php";
 
+
 include "model/taikhoan.php";
 $roomnew = loadall_room_home();
 $roomdm = loadall_danhmuc_home();
