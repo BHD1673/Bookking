@@ -37,6 +37,9 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                <form action="?act=PhaSession" method="post">
+                    <input type="submit" class="form-control" name="logout" value="Logout">
+                </form>
                 <a href="?act=QuanLyDonDatPhong" class="collapse-item">Trang quản lý đơn đặt<br> phòng</a>
                 <a href="?act=QuanLyTaiKhoan" class="collapse-item">Trang quản lý tài khoản</a>
                 <a class="collapse-item" href="?act=QuanLyLoaiPhong">Trang quản lý loại phòng</a>

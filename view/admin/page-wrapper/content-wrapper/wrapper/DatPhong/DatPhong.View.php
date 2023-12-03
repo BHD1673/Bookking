@@ -5,7 +5,7 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Bảng quản lý đơn đặt phòng</h1>
-    <a href="?act=AddPhongIntoAddNewDonHang"><button class="btn btn-primary">Thêm đơn đặt phòng mới</button></a>
+    <a href="?act=QuanLyTaiKhoan"><button class="btn btn-primary">Thêm đơn đặt phòng mới</button></a>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -48,19 +48,67 @@
                             echo '<td>P101, P102</td>';
                             echo '<td>' . $rows["TongTien"] . '</td>';
                             echo '<td>' . $rows["TienCoc"] . '</td>';
-                            echo '<td>' . $rows["TrangThaiDon"] . '</td>';
+
+                            // Xử lý trạng thái đơn
+                            $trangThaiDon = $rows["TrangThaiDon"];
+                            $trangThaiText = '';
+                            switch($trangThaiDon) {
+                                case 1:
+                                    $trangThaiText = 'Đã hoàn thiện';
+                                    break;
+                                case 2:
+                                    $trangThaiText = 'Đã hủy';
+                                    break;
+                                case 3:
+                                    $trangThaiText = 'Đã cọc';
+                                    break;
+                                case 0:
+                                    $trangThaiText = 'Đang thực hiện';
+                                    break;
+                                default:
+                                    $trangThaiText = 'Không xác định';
+                            }
+                            echo '<td>' . $trangThaiText . '</td>';
+
+                            // Các cột khác
                             echo '<td>';
                             echo '<a href="?act=?deleteID=' . $rows["ID"] . '" class="btn btn-info">Sửa</a>';
-                            echo '<a href="?act=?deleteID=' . $rows["ID"] . '" class="btn btn-danger">Xóa</a>';
                             echo '</td>';
                             echo '</tr>';
                         }
                         ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+                        </tbody>
+                        </table>
+                        </div>
+                        </div>
+                        </div>
 
-</div>
+                        </div>
+
+<script>
+    window.onload = function() {
+        let tds = document.querySelectorAll('.TrangThaiDon');
+
+        tds.forEach(function(td) {
+            let trangThaiDon = parseInt(td.innerHTML);
+
+            switch(trangThaiDon) {
+                case 1:
+                    td.innerHTML = 'Đã hoàn thiện';
+                    break;
+                case 2:
+                    td.innerHTML = 'Đã hủy';
+                    break;
+                case 3:
+                    td.innerHTML = 'Đã cọc';
+                    break;
+                case 0:
+                    td.innerHTML = 'Đang thực hiện';
+                    break;
+                default:
+                    td.innerHTML = 'Không xác định';
+            }
+        });
+    };
+</script>
 <!-- /.container-fluid -->
