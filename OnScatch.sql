@@ -1,139 +1,77 @@
-CREATE TABLE `datphong` (
-  `ID` int NOT NULL,
-  `IDKhachHang` int DEFAULT NULL,
-  `IDGanPhong` int DEFAULT NULL,
-  `NgayCheckIn` date DEFAULT NULL,
-  `NgayCheckOut` date DEFAULT NULL,
-  `SoNgayO` int DEFAULT NULL,
-  `TongTien` decimal(10,3) DEFAULT NULL,
-  `TienCoc` decimal(10,3) DEFAULT NULL,
-  `TrangThaiDon` varchar(225) DEFAULT NULL
+CREATE TABLE LoaiPhong (
+    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    Ten VARCHAR(225),
+    MoTa TEXT,
+    GiaPhongChung DECIMAL(10,3)
 );
 
-
-INSERT INTO `datphong` (`ID`, `IDKhachHang`, `IDGanPhong`, `NgayCheckIn`, `NgayCheckOut`, `SoNgayO`, `TongTien`, `TienCoc`, `TrangThaiDon`) VALUES
-(1, 4, 4, '2023-01-01', '2023-01-03', 3, 300.000, 90.000, '0'),
-(3, 3, 5, '2023-02-01', '2023-02-05', 5, 300.000, 90.000, '0'),
-(7, 1, 1, '2023-01-01', '2023-01-05', 5, 500.000, 150.000, '2'),
-(8, 2, 2, '2023-02-10', '2023-02-15', 5, 500.000, 150.000, '1');
-
-
-CREATE TABLE `ganphong` (
-  `ID` int NOT NULL,
-  `IDDatPhong` int DEFAULT NULL,
-  `IDPhong` int DEFAULT NULL
+CREATE TABLE Phong (
+    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    TenPhong VARCHAR(225),
+    ViTriPhong VARCHAR(225),
+    TrangThaiPhong VARCHAR(50),
+    AnhPhong TEXT,
+    ID_LoaiPhong INT,
+    FOREIGN KEY (ID_LoaiPhong) REFERENCES LoaiPhong(ID)
 );
 
-
-INSERT INTO `ganphong` (`ID`, `IDDatPhong`, `IDPhong`) VALUES
-(1, 7, 1),
-(2, 8, 3),
-(4, 1, 2),
-(5, 3, 3);
-
-
-CREATE TABLE `khachhang` (
-  `ID` int NOT NULL,
-  `TenKhachHang` varchar(225) DEFAULT NULL,
-  `NgaySinh` date DEFAULT NULL,
-  `DiaChiNha` text,
-  `AnhXacNhan` text,
-  `Email` varchar(225) DEFAULT NULL,
-  `TenDangNhap` varchar(225) DEFAULT NULL,
-  `MatKhau` varchar(225) DEFAULT NULL
+CREATE TABLE KhachHang (
+    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    TenKhachHang VARCHAR(225) NULL,
+    NgaySinh DATE NULL,
+    DiaChiNha TEXT,
+    AnhXacNhan TEXT,
+    Email VARCHAR(225) NULL,
+    TenDangNhap VARCHAR(225) NULL,
+    MatKhau VARCHAR(225) NULL
 );
 
-
-INSERT INTO `khachhang` (`ID`, `TenKhachHang`, `NgaySinh`, `DiaChiNha`, `AnhXacNhan`, `Email`, `TenDangNhap`, `MatKhau`) VALUES
-(1, 'John Doe', '1990-01-15', '123 Đường Chính, Thành Phố A', 'duong_dan_anh.jpg', 'john.doe@example.com', 'john_doe', 'password123'),
-(2, 'Jane Smith', '1985-05-20', '456 Đường Sồi, Thị Xã B', 'duong_dan_anh.jpg', 'jane.smith@example.com', 'jane_smith', 'pass456'),
-(3, 'John Doe', '1990-01-15', '123 Đường Chính, Thành Phố A', 'duong_dan_anh.jpg', 'john.doe@example.com', 'john_doe', 'password123'),
-(4, 'Jane Smith', '1985-05-20', '456 Đường Sồi, Thị Xã B', 'duong_dan_anh.jpg', 'jane.smith@example.com', 'jane_smith', 'pass456'),
-(5, 'John Doe', '1990-01-01', '123 Main Street', 'path_to_image.jpg', 'john.doe@email.com', 'john_doe', 'password123'),
-(6, 'Jane Smith', '1985-05-15', '456 Oak Avenue', 'path_to_image.jpg', 'jane.smith@email.com', 'jane_smith', 'pass456');
-
-
-
-CREATE TABLE `loaiphong` (
-  `ID` int NOT NULL,
-  `Ten` varchar(225) DEFAULT NULL,
-  `MoTa` text,
-  `GiaPhongChung` decimal(10,3) DEFAULT NULL
+CREATE TABLE DatPhong (
+    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    IDKhachHang INT,
+    IDGanPhong INT,
+    NgayCheckIn DATE NULL,
+    NgayCheckOut DATE NULL,
+    TongTien DECIMAL(10,3),
+    TienCoc DECIMAL(10,3),
+    TrangThaiDon VARCHAR(225)
 );
 
-
-INSERT INTO `loaiphong` (`ID`, `Ten`, `MoTa`, `GiaPhongChung`) VALUES
-(1, 'Phòng Đơn', 'Một phòng đơn ấm cúng với tầm nhìn tuyệt vời', 75.000),
-(2, 'Phòng Đôi', 'Phòng rộng rãi cho hai khách', 100.000),
-(3, 'Suite', 'Suite sang trọng với tiện nghi cao cấp', 150.000),
-(4, 'Phòng Đơn', 'Một phòng đơn ấm cúng với tầm nhìn tuyệt vời', 75.000),
-(5, 'Phòng Đôi', 'Phòng rộng rãi cho hai khách', 100.000),
-(6, 'Suite', 'Suite sang trọng với tiện nghi cao cấp', 150.000),
-(603, 'Phòng tổng thống ', '2', 3333.000);
-
-
-CREATE TABLE `phong` (
-  `ID` int NOT NULL,
-  `TenPhong` varchar(225) DEFAULT NULL,
-  `ViTriPhong` varchar(225) DEFAULT NULL,
-  `TrangThaiPhong` varchar(50) DEFAULT NULL,
-  `AnhPhong` text,
-  `ID_LoaiPhong` int DEFAULT NULL
+CREATE TABLE GanPhong (
+    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    IDDatPhong INT,
+    IDPhong INT,
+    FOREIGN KEY (IDDatPhong) REFERENCES DatPhong(ID),
+    FOREIGN KEY (IDPhong) REFERENCES Phong(ID)
 );
 
+-- Add the foreign key constraint for DatPhong after GanPhong is created
+ALTER TABLE DatPhong
+ADD FOREIGN KEY (IDGanPhong) REFERENCES GanPhong(ID);
 
-INSERT INTO `phong` (`ID`, `TenPhong`, `ViTriPhong`, `TrangThaiPhong`, `AnhPhong`, `ID_LoaiPhong`) VALUES
-(1, 'Phòng 101', 'Tầng 1', '1', 'duong_dan_anh1.jpg', 1),
-(2, 'Phòng 102', 'Tầng 1', '1', 'duong_dan_anh2.jpg', 1),
-(3, 'Phòng 103', 'Tầng 1', '2', 'duong_dan_anh3.jpg', 1),
-(4, 'Phòng 201', 'Tầng 2', '2', 'duong_dan_anh1.jpg', 2),
-(5, 'Phòng 202', 'Tầng 2', '3', 'duong_dan_anh2.jpg', 2),
-(6, 'Phòng 202', 'Tầng 2', '3', 'duong_dan_anh3.jpg', 2),s
-(7, 'Phòng 301', 'Tầng 3', '3', 'path_to_image.jpg', 3),
-(8, 'Phòng 302', 'Tầng 3', '3', 'path_to_image.jpg', 3);
+-- Thêm vào bảng LoaiPhong
+INSERT INTO LoaiPhong (Ten, MoTa, GiaPhongChung)
+VALUES ('Phòng Đơn', 'Một phòng đơn ấm cúng với tầm nhìn tuyệt vời', 75.00),
+       ('Phòng Đôi', 'Phòng rộng rãi cho hai khách', 100.00),
+       ('Suite', 'Suite sang trọng với tiện nghi cao cấp', 150.00);
 
-ALTER TABLE `datphong`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `IDGanPhong` (`IDGanPhong`);
+-- Thêm vào bảng Phong
+INSERT INTO Phong (TenPhong, ViTriPhong, TrangThaiPhong, AnhPhong, ID_LoaiPhong)
+VALUES ('Phòng 101', 'Tầng 1', 'Còn trống', 'duong_dan_anh1.jpg', 1),
+       ('Phòng 202', 'Tầng 2', 'Đang sử dụng', 'duong_dan_anh2.jpg', 2),
+       ('Suite A', 'Tầng 3', 'Đã đặt trước', 'duong_dan_anh3.jpg', 3);
 
-ALTER TABLE `ganphong`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `IDDatPhong` (`IDDatPhong`),
-  ADD KEY `IDPhong` (`IDPhong`);
+-- Thêm vào bảng KhachHang
+INSERT INTO KhachHang (TenKhachHang, NgaySinh, DiaChiNha, AnhXacNhan, Email, TenDangNhap, MatKhau)
+VALUES ('John Doe', '1990-01-15', '123 Đường Chính, Thành Phố A', 'duong_dan_anh.jpg', 'john.doe@example.com', 'john_doe', 'password123'),
+       ('Jane Smith', '1985-05-20', '456 Đường Sồi, Thị Xã B', 'duong_dan_anh.jpg', 'jane.smith@example.com', 'jane_smith', 'pass456');
 
-ALTER TABLE `khachhang`
-  ADD PRIMARY KEY (`ID`);
+-- Thêm vào bảng DatPhong
+INSERT INTO DatPhong (IDKhachHang, IDGanPhong, NgayCheckIn, NgayCheckOut, TongTien, TienCoc, TrangThaiDon)
+VALUES (1, 1, '2023-01-01', '2023-01-05', 375.00, 50.00, 'Xác nhận'),
+       (2, 2, '2023-02-10', '2023-02-15', 500.00, 75.00, 'Chờ xác nhận');
 
-ALTER TABLE `loaiphong`
-  ADD PRIMARY KEY (`ID`);
-
-ALTER TABLE `phong`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID_LoaiPhong` (`ID_LoaiPhong`);
-
-ALTER TABLE `datphong`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10002;
-
-ALTER TABLE `ganphong`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
-ALTER TABLE `khachhang`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
-
-ALTER TABLE `loaiphong`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=604;
-
-ALTER TABLE `phong`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=503;
-
-ALTER TABLE `datphong`
-  ADD CONSTRAINT `datphong_ibfk_1` FOREIGN KEY (`IDGanPhong`) REFERENCES `ganphong` (`ID`);
-
-ALTER TABLE `ganphong`
-  ADD CONSTRAINT `FK_Phong` FOREIGN KEY (`IDPhong`) REFERENCES `phong` (`ID`),
-  ADD CONSTRAINT `ganphong_ibfk_1` FOREIGN KEY (`IDDatPhong`) REFERENCES `datphong` (`ID`),
-  ADD CONSTRAINT `ganphong_ibfk_2` FOREIGN KEY (`IDPhong`) REFERENCES `phong` (`ID`);
-
-ALTER TABLE `phong`
-  ADD CONSTRAINT `phong_ibfk_1` FOREIGN KEY (`ID_LoaiPhong`) REFERENCES `loaiphong` (`ID`);
-COMMIT;
+-- Thêm vào bảng GanPhong
+INSERT INTO GanPhong (IDDatPhong, IDPhong)
+VALUES (1, 1),
+       (2, 2);

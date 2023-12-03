@@ -25,8 +25,8 @@
             padding: 15px 30px;
             font-size: 1.2em;
             border: none;
-            background-color: #4CAF50;
-            color: #fff;
+            background-color: greenyellow;
+            color: black;
             cursor: pointer;
             border-radius: 5px;
             transition: background-color 0.3s ease;
@@ -47,26 +47,36 @@
     <div class="row">
         <div class="col-xs-12">
     		<div class="invoice-title">
-    			<h2>Invoice</h2><h3 class="pull-right">Order # 12345</h3>
+    			<h2>HOÁ ĐƠN</h2><h3 class="pull-right"></h3>
     		</div>
     		<hr>
     		<div class="row">
+			<?php
+				    if (isset($_SESSION['user'])){
+						// extract($taikhoan);
+						$name = $_SESSION['user']['name'];
+						$email = $_SESSION['user']['email'];
+						$tel = $_SESSION['user']['tel'];
+						$address = $_SESSION['user']['address'];
+					} else {
+						$name = "";
+						$email = "";
+						$tel = "";
+						$address = "";
+					}
+			
+			?>
+			<?php
+			
+			
+			?>
     			<div class="col-xs-6">
     				<address>
     				<strong>Billed To:</strong><br>
-    					John Smith<br>
-    					1234 Main<br>
-    					Apt. 4B<br>
-    					Springfield, ST 54321
-    				</address>
-    			</div>
-    			<div class="col-xs-6 text-right">
-    				<address>
-        			<strong>Shipped To:</strong><br>
-    					Jane Smith<br>
-    					1234 Main<br>
-    					Apt. 4B<br>
-    					Springfield, ST 54321
+    					Người đặt hàng: 
+    					Email: 
+    					Số điện thoại:
+    					Địa chỉ: 
     				</address>
     			</div>
     		</div>
@@ -74,8 +84,7 @@
     			<div class="col-xs-6">
     				<address>
     					<strong>Payment Method:</strong><br>
-    					Visa ending **** 4242<br>
-    					jsmith@email.com
+    					Thanh toán khi đến nhận phòng
     				</address>
     			</div>
     			<div class="col-xs-6 text-right">

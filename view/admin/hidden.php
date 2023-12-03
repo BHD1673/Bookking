@@ -17,7 +17,7 @@
                 <div class="modal-body">Nhấn đăng xuất nếu bạn thực sự muốn thoát</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
-                    <a class="btn btn-primary" href="login.html">đăng xuất</a>
+                    <a class="btn btn-primary" href="login.html">Đăng xuất</a>
                 </div>
             </div>
         </div>
@@ -32,13 +32,18 @@
 
     <!-- Custom scripts for all pages-->
     <script src="startbootstrap-sb-admin-2-gh-pages/js/sb-admin-2.min.js"></script>
-
+    
     <!-- Page level plugins -->
-    <script src="startbootstrap-sb-admin-2-gh-pages/vendor/chart.js/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Page level custom scripts -->
+    
+
     <script src="startbootstrap-sb-admin-2-gh-pages/js/demo/chart-area-demo.js"></script>
     <script src="startbootstrap-sb-admin-2-gh-pages/js/demo/chart-pie-demo.js"></script>
+    
+
+    
 
 </body>
 

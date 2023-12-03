@@ -6,6 +6,4 @@ function loadall_danhmuc_home(){
     return $listdm;
 }
 
-
-
 ?>

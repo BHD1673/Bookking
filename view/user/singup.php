@@ -330,7 +330,7 @@
                 <p class="error-message" id="passwordSignInError"></p>  
             </label>
             <p class="forgot-pass"><a href="index.php?act=forgot">Forgot password?</a></p>
-            <button type="button" class="submit"  onclick="signIn()"><input type="submit" name="dangnhap" value="Dang Nhap"></button>
+            <button type="button" class="submit"  onclick="signIn()"><input type="submit" name="dangnhap" value="ĐĂNG NHẬP"></button>
            
             </form>
 
@@ -369,7 +369,7 @@
                         <input type="password" id="passwordSignUp" name="pass" />
                         <p class="error-message" id="passwordSignUpError"></p>
                     </label>
-                    <button type="button"  class="submit" onclick="signUp()"><input type="submit" name="dangky" value="Dang Ky"><a href="index.php?act=dangnhap"></a></button>
+                    <button type="button"  class="submit" onclick="signUp()"><input type="submit" name="dangky" value="ĐĂNG KÝ"><a href="index.php?act=dangnhap"></a></button>
                 </form>
             </div>
         </div>

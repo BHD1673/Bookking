@@ -1,8 +1,11 @@
-gi<?php 
+<?php 
 //Trang này là trang chứa thông tin bên trong file head, bao gồm link css
 //link js cơ bản. Nếu cảm thấy ổn thì có thể thêm một file chứa thông tin
 //thẻ <title> nếu như cần. 
 //Ghi chú: Bắt buộc sẽ phải xóa dòng này khi đến cuối môn.
+
+//Có thể gán session ở đây
+session_start();
 ?>
 
 <head>

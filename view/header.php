@@ -31,6 +31,77 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
 <!-- body -->
+<style>
+   /* Add this CSS to your existing style.css file or create a new one */
+
+   /* Align the icon and menu items in a straight line */
+   .navbar-nav {
+      display: flex;
+      align-items: center;
+   }
+
+   /* Adjust the spacing between menu items */
+   .nav-item {
+      margin-right: 15px;
+      /* You can adjust this value as needed */
+   }
+
+   /* Remove the margin for the last menu item */
+   .nav-item:last-child {
+      margin-right: 0;
+   }
+
+   /* Style the dropdown container */
+   .user-dropdown {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 20px;
+   }
+
+   /* Style the dropdown content (hidden by default) */
+   .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+   }
+
+   /* Style the dropdown links */
+   .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+   }
+
+   /* Change color on hover */
+   .dropdown-content a:hover {
+      background-color: #f1f1f1;
+   }
+
+   /* Show the dropdown content when the user hovers over the container */
+   .user-dropdown:hover .dropdown-content {
+      display: block;
+   }
+
+   /* Style for smaller screens */
+   @media (max-width: 767px) {
+      .navbar-nav {
+         flex-direction: column;
+         align-items: flex-start;
+      }
+
+      .hamburger_container {
+         display: block;
+         margin-top: 10px;
+         /* Adjust the margin as needed */
+      }
+
+      /* You may need additional styles for the mobile menu */
+   }
+</style>
 
 <body class="main-layout">
    <!-- loader  -->
@@ -48,7 +119,7 @@
                   <div class="full">
                      <div class="center-desk">
                         <div class="logo">
-                           <a href="index.html"><img src="images/logo.png" alt="#" /></a>
+                           <a href="index.php"><img src="images/logo.png" alt="#" /></a>
                         </div>
                      </div>
                   </div>
@@ -89,8 +160,16 @@
                                  <a class="nav-link" href="index.php?act=dangnhap">Login</a>
                               </li>
                            <?php } else { ?>
-                              <?= $_SESSION['Email'] ?> 
-                              <a href="index.php?act=thoat" >Logout</a> 
+                              <li class="nav-item">
+                                 <div class="user-dropdown">
+                                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
+                                    <div class="dropdown-content">
+                                       <a href="index.php?act=thoat">Đăng Xuất</a>
+                                       <a href="admin.php">Admin</a>
+                                       <a href="index.php?act=thongtintk">Tài khoản</a>
+                                    </div>
+                                 </div>
+                              </li>
                            <?php } ?>
                         </ul>
                      </div>

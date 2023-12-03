@@ -1,7 +1,7 @@
 <?php
 // hiển thị các phòng
 function loadall_room_home(){
-    $sql = "SELECT * FROM phong WHERE 1 order by ID desc limit 0,9";
+    $sql = "SELECT * FROM phong";
     $listroom = pdo_query($sql);
     return $listroom;
 }
@@ -27,7 +27,5 @@ function loadone_zoom_home($id)
     $sp = pdo_query_one($sql);
     return $sp;
 }
-
-
 
 ?>
