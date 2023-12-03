@@ -66,6 +66,7 @@
             border-radius: 4px;
             cursor: pointer;
             padding: 0 12px;
+            margin-left: 175px;
         }
 
         button:hover {
