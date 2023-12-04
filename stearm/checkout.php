@@ -99,14 +99,14 @@
     <hr>
     <div class="elem-group inlined">
       <label for="checkin-date">Check-in Date</label>
-      <input type="date" id="checkin-date" name="DateIn" value="<?= isset($email['DateIn']) ? $email['DateIn'] : '' ?>">
+      <input type="date" id="checkin-date" name="DateIn" value="<?= isset($email['NgayCheckIn']) ? $email['NgayCheckIn'] : '' ?>">
     </div>
     <div class="elem-group inlined">
       <label for="checkout-date">Check-out Date</label>
-      <input type="date" id="checkout-date" name="DateOut" value="<?= isset($email['DateOut']) ? $email['DateOut'] : '' ?>">
+      <input type="date" id="checkout-date" name="DateOut" value="<?= isset($email['NgayCheckOut']) ? $email['NgayCheckOut'] : '' ?>">
     </div>
 
-    <!-- <?php
+    <?php
     // Lấy ID khách hàng từ session hoặc bất kỳ nguồn dữ liệu nào khác
     if (isset($_SESSION['user'])) {
       $user_id = $_SESSION['user']['ID'];
@@ -122,8 +122,8 @@
 
     // Tiếp theo, bạn có thể sử dụng $linkidkh để tạo liên kết
     echo '<a href="' . $linkidkh . '"><button type="button">Book The Rooms</button></a>';
-    ?> -->
-    <a href="index.php?act=bill"><button type="button">Book The Rooms</button></a>
+    ?>
+    <!-- <a href="index.php?act=bill"><button type="button">Book The Rooms</button></a> -->
 
 
   </form>

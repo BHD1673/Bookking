@@ -34,6 +34,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         case "sanphamct":
             if (isset($_GET['idsp']) && ($_GET['idsp'] > 0)) {
                 $id = $_GET['idsp'];
+                
                 $onesp = loadone_zoom_home($id);
                 extract($onesp);
             }

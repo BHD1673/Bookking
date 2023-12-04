@@ -54,6 +54,8 @@
 			$email = $_SESSION['email']['Email'];
 			$tel = $_SESSION['email']['tel'];
 			$address = $_SESSION['email']['DiaChiNha'];
+			// $dateIn = $_SESSION['email']['NgayCheckIn'];
+			// $dateOut = $_SESSION['email']['NgayCheckOut'];
 		
 		} else {
 			$name = "";
@@ -77,6 +79,8 @@
 							Email: <?php echo $email ?> <br>
 							Số điện thoại: <?php echo $tel ?> <br>
 							Địa chỉ: <?php echo $address ?> <br>
+							<!-- Ngày đến <?= $dateIn?> <br>
+							Ngày đi <?= $dateOut ?> -->
 						</address>
 					</div>
 				</div>
