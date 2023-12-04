@@ -237,7 +237,14 @@ img {
    
 	
   <div class="container">
-    <?php extract($onesp)?>
+    <?php 
+      if (isset($_SESSION['email'])) {
+        $email = $_SESSION['email'];
+        extract($onesp);
+    }
+    
+    
+    ?>
 		<div class="card">
 			<div class="container-fliud">
 				<div class="wrapper row">

@@ -132,9 +132,6 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             include "stearm/checkout.php";
             break;
         case "bill":
-            if (isset($_GET['idkh']) && ($_GET['idkh'] > 0)) {
-                $id = $_GET['idkh'];
-            }
             include "stearm/bill.php";
             break;
 
