@@ -111,74 +111,64 @@
    </div>
    <!-- end loader -->
    <!-- header -->
-   <header>
-      <!-- header inner -->
-      <div class="header">
-         <div class="container">
-            <div class="row">
-               <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
-                  <div class="full">
-                     <div class="center-desk">
-                        <div class="logo">
-                           <a href="index.php"><img src="images/logo.png" alt="#" /></a>
-                        </div>
+<?php
+// Phần PHP xử lý logic
+$loggedIn = isset($_SESSION) && !empty($_SESSION);
+$loginMessage = isset($login) && $login != '' ? $login : '';
+?>
+
+<header>
+   <!-- header inner -->
+   <div class="header">
+      <div class="container">
+         <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+               <div class="full">
+                  <div class="center-desk">
+                     <div class="logo">
+                        <a href="index.php"><img src="images/logo.png" alt="#" /></a>
                      </div>
                   </div>
                </div>
-               <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-                  <nav class="navigation navbar navbar-expand-md navbar-dark ">
-                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                     </button>
-                     <div class="collapse navbar-collapse" id="navbarsExample04">
-                        <ul class="navbar-nav mr-auto">
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+               <nav class="navigation navbar navbar-expand-md navbar-dark">
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarsExample04">
+                     <ul class="navbar-nav mr-auto">
+                        <!-- Đặt các mục menu tại đây -->
+                        <li class="nav-item active"><a class="nav-link" href="index.php">Trang chủ</a></li>
+                        <!-- Các mục khác -->
 
-                           <li class="nav-item active">
-                              <a class="nav-link" href="index.html">Home</a>
-                           </li>
+                        <?php if (!$loggedIn): ?>
+                           <!-- Đoạn này xuất hiện khi người dùng chưa đăng nhập -->
                            <li class="nav-item">
-                              <a class="nav-link" href="about.html">About</a>
+                              <a class="nav-link" href="index.php?act=dangnhap">Login</a>
                            </li>
+                           <?php echo $loginMessage; ?>
+                        <?php else: ?>
+                           <!-- Đoạn này xuất hiện khi người dùng đã đăng nhập -->
                            <li class="nav-item">
-                              <a class="nav-link" href="room.html">Our room</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="gallery.html">Gallery</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="blog.html">Blog</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="contact.html">Contact Us</a>
-                           </li>
-                           <?php if (!$_SESSION) { ?>
-                              <?php
-                              if (isset($login) && $login != '') {
-                                 echo $login;
-                              }
-                              ?>
-                              <li class="nav-item">
-                                 <a class="nav-link" href="index.php?act=dangnhap">Login</a>
-                              </li>
-                           <?php } else { ?>
-                              <li class="nav-item">
-                                 <div class="user-dropdown">
-                                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
-                                    <div class="dropdown-content">
-                                       <a href="index.php?act=thongtintk">Tài khoản</a>
-                                       <a href="admin.php">Admin</a>
-                                       <a href="index.php?act=thoat">Đăng Xuất</a>
-                                    </div>
+                              <div class="user-dropdown">
+                                 <a href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
+                                 <div class="dropdown-content">
+                                    <a href="index.php?act=thongtintk">Tài khoản</a>
+                                    <a href="admin.php">Admin</a>
+                                    <a href="index.php?act=thoat">Đăng Xuất</a>
                                  </div>
-                              </li>
-                           <?php } ?>
-                        </ul>
-                     </div>
-                  </nav>
-               </div>
+                              </div>
+                           </li>
+                        <?php endif; ?>
+                     </ul>
+                  </div>
+               </nav>
             </div>
          </div>
       </div>
-   </header>
+   </div>
+</header>
+
    <!-- end header inner -->
    <!-- end header -->
