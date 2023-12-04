@@ -125,7 +125,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     // Gọi hàm để thêm dữ liệu vào cơ sở dữ liệu
                     // insertData($checkin, $checkout, $name, $email,$phone);
                 } else {
-                    echo "Invalid data submitted.";
+                    echo "Bạn đang viết sai.";
                 }
             }
             include "stearm/checkout.php";
