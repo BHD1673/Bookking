@@ -18,6 +18,21 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
     $act = $_GET['act'];
     switch ($act) {
         case 'roomlist':
+            function QuickInsert($DayCheckIn, $DayCheckOut, $SoNgayO, $TongTien) {
+                $sql = "INSERT INTO `datphong` (`NgayCheckIn`, `NgayCheckOut`, `SoNgayO`, `TongTien`, `TrangThaiDon`) VALUES (?, ?, ?, ?, 2)";
+                // Sử dụng hàm pdo_execute bạn đã cung cấp
+                pdo_execute($sql, $DayCheckIn, $DayCheckOut, $SoNgayO, $TongTien);
+            }
+
+            if (isset($_POST['quickbookRoom'])) {
+                $DayCheckIn = $_POST['NgayCheckIn'];
+                $DayCheckOut = $_POST['NgayCheckOut'];
+                $SoNgayO = $_POST['SoNgayO'];
+                $TongTien = $_POST['TongTien'];
+
+                // Thực hiện hàm QuickInsert
+                QuickInsert($DayCheckIn, $DayCheckOut, $SoNgayO, $TongTien);
+            }
             include('view/roomlist.php');
         break;
         case "sanpham":

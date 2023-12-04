@@ -61,13 +61,9 @@ function QuickInsert($NgayCheckIn, $NgayCheckOut, $SoNgayO, $TongTien) {
         ?,
         ?,
         ?,
-        ?,
-        ?,
-        ?,
-        ?,
         2
     )";
-    return pdo_query($sql, $NgayCheckIn, $NgayCheckOut, $SoNgayO, $TongTien);
+    return pdo_execute($sql, $NgayCheckIn, $NgayCheckOut, $SoNgayO, $TongTien);
 }
 
 //Thêm phòng tạm thời vào trong hóa đơn
