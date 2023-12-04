@@ -102,8 +102,6 @@
                                             <input type="hidden" name="CheckOut" value="<?= $_SESSION["NgayCheckOut"]; ?>">
                                             <input type="hidden" name="SoNgayO" value="<?= $_SESSION["AmountOfDay"]; ?>">
                                             <input type="hidden" name="TongTien" value="<?= $_SESSION["AmountOfDay"]; ?>">
-
-                                            <!-- Thêm số lượng phòng dựa trên DemSoPhong -->
                                             <input type="hidden" name="soLuongPhong" value="<?= $room['DemSoPhong']; ?>">
 
                                             <button type="submit" class="btn btn-info">Chọn phòng này</button>
@@ -113,6 +111,23 @@
                                 else:
                                     echo "Không có phòng trống.";
                                 endif;
+                                if(isset($_POST["ChoVaoDonDatPhong"])) {
+                                    // Lấy dữ liệu từ form
+                                    $idKhachHang = $_POST["IDKhachHang"];
+                                    $idLoaiPhong = $_POST["IDLoaiPhong"];
+                                    $ngayCheckIn = $_POST["CheckIn"];
+                                    $ngayCheckOut = $_POST["CheckOut"];
+                                    $soNgayO = $_POST["SoNgayO"];
+                                    $tongTien = $_POST["TongTien"];
+                                    $soLuongPhong = $_POST["soLuongPhong"];
+                                
+                                    // Gọi hàm InsertRoomIntoDonDatPhong để thêm dữ liệu vào CSDL
+                                    InsertRoomIntoDonDatPhong($idKhachHang, $ngayCheckIn, $ngayCheckOut, $soNgayO, $soLuongPhong, $tongTien, $idLoaiPhong, $idDatPhong, $idPhong);
+                                    
+                                    // Điều hướng hoặc thực hiện các thao tác khác sau khi thêm dữ liệu thành công
+                                    header("Location: trang-thanh-cong.php");
+                                    exit();
+                                }
                             ?>
 
                         </tfoot>

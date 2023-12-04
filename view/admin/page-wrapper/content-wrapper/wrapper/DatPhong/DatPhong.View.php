@@ -72,7 +72,7 @@
 
                             // Các cột khác
                             echo '<td>';
-                            echo '<a href="?act=?deleteID=' . $rows["ID"] . '" class="btn btn-info">Sửa</a>';
+                            echo '<a href="?act=UpdateDonDatPhong?ID=' . $rows["ID"] . '" class="btn btn-info">Sửa</a>';
                             echo '</td>';
                             echo '</tr>';
                         }

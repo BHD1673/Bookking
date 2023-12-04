@@ -9,9 +9,9 @@
       <div class="col-md-12">
         <div class="titlepage">
           <p class="margin_0" style="font-family: 'Arial', sans-serif; font-size: 16px; color: #333; line-height: 1.5;">
-            Chào mừng đến với Danh Mục Phòng của chúng tôi
-            - nơi mà sự thoải mái gặp gỡ với sự đa dạng. Từ phòng Standard thoải
-            mái cho đến Suite sang trọng, chúng tôi mang đến cho bạn trải nghiệm lưu trú
+            Chào mừng đến với trang web của chúng tôi
+            - nơi mà sự thoải mái gặp gỡ với sự đa dạng. Từ các loại phòng dịch vụ thoải
+            mái cho đến sang trọng, chúng tôi mang đến cho bạn trải nghiệm lưu trú
             tối ưu. Khám phá không gian sống và làm việc tiện nghi, được thiết kế để đáp
             ứng mọi nhu cầu của bạn. Hãy dành thời gian để chìm đắm trong sự đẳng cấp và
             sự ấm áp mỗi khi bạn chọn lựa một trong những không gian tuyệt vời của chúng tôi." </p>
@@ -28,12 +28,12 @@
 
          ?>
 
-      <div class="col-md-4 col-sm-6">
-        <div id="serv_hover" class="room">
+      <!-- <div class="col-md-4 col-sm-6">
+        <div id="serv_hover" class="room"> -->
           <!-- <div class="room_img">
                         <figure><img src="<?php echo $hinh ?>" alt="#"/></figure>
                      </div> -->
-          <div class="bed_room">
+          <!-- <div class="bed_room">
             <a href="index.php?act=danhmuc&ID=<?php echo $dm['ID']; ?>">
               <h3><?php echo $TenLoai ?></h3>
             </a>
@@ -41,7 +41,7 @@
             <p><?php echo $GiaPhongChung ?></p>
           </div>
         </div>
-      </div>
+      </div> -->
       <?php } ?>
       <!-- <div class="col-md-4 col-sm-6">
                   <div id="serv_hover"  class="room">
@@ -108,7 +108,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="titlepage">
-          <h2>Các Phòng Của Khách Sạn</h2>
+          <h2>Nêu qua về khách sạn của chúng tôi</h2>
           <p>Khám phá sự hoàn hảo trong sự đơn giản tinh thế tại khách sạn chúng tôi, nơi mỗi chi tiết được chăm chút
             kỹ
             lưỡng để tạo nên không gian ấm cúng và thân thiện. Với vị trí thuận lợi và tiện nghi hiện đại, chúng tôi

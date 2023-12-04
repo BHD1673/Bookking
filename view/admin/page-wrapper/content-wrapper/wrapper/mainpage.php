@@ -43,6 +43,7 @@ if (isset($_GET['act'])) {
         case 'TimPhongTrong':
             //Gán khoảng thời gian đặt phòng vào session, lưu giá trị khoảng thời gian
             
+            
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $NgayCheckInDuKien = $_POST["checkin"];
                     $NgayCheckOutDuKien = $_POST["checkout"];
@@ -59,11 +60,11 @@ if (isset($_GET['act'])) {
                 echo '</h1>';
                 
                 // Nếu bạn muốn xử lý thêm các thông tin, bạn có thể làm như sau:
-                $idPhong = $_POST['idPhong'] ?? null;
+                // $idPhong = $_POST['idPhong'] ?? null;
                 // $checkin = $_POST['checkin'] ?? null;
                 // $checkout = $_POST['checkout'] ?? null;
-                $soNgayO = $_POST['soNgayO'] ?? null;
-                $soLuongPhong = $_POST['soLuongPhong'] ?? null;
+                // $soNgayO = $_POST['soNgayO'] ?? null;
+                // $soLuongPhong = $_POST['soLuongPhong'] ?? null;
                 }
 
             include('DatPhong/DatPhong.Find.php');
@@ -153,6 +154,7 @@ if (isset($_GET['act'])) {
             include('DatPhong/DatPhong.View.php');
         break;
         case 'AddDatPhong':
+
             include('DatPhong/DatPhong.Add.php');
         break;
         case 'UpdateDatPhong':

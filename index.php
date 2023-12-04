@@ -88,6 +88,8 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
        $dateIn = $_POST['DateIn'];
        $dateOut = $_POST['DateOut']; 
+       $AmountOfDay = $_POST['AmountOfDay'];
+       $_SESSION['AmountOfDay'] = $AmountOfDay;
        $_SESSION['DateIn'] = $dateIn;
        $_SESSION['DateOut'] = $dateOut;
        var_dump($_SESSION);

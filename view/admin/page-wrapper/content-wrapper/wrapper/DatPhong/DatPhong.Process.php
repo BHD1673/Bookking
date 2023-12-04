@@ -46,6 +46,30 @@ function HienThiThongTinKhach() {
     }
 }
 
+
+function QuickInsert($NgayCheckIn, $NgayCheckOut, $SoNgayO, $TongTien) {
+    $sql =
+    "INSERT INTO `datphong`(
+        `NgayCheckIn`,
+        `NgayCheckOut`,
+        `SoNgayO`,
+        `TongTien`,
+        `TrangThaiDon`
+    )
+    VALUES(
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        2
+    )";
+    return pdo_query($sql, $NgayCheckIn, $NgayCheckOut, $SoNgayO, $TongTien);
+}
+
 //Thêm phòng tạm thời vào trong hóa đơn
 function InsertRoomIntoDonDatPhong($idKhachHang, $ngayCheckIn, $ngayCheckOut, $soNgayO, $tongSoPhong, $tongTien, $id, $idDatPhong, $idPhong) {
     $sql = "
