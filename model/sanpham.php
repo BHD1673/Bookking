@@ -19,10 +19,12 @@ function showsp($ID){
 }
 function loadone_zoom_home($id)
 {
-    $sql = "SELECT * from phong where id=" . $id;
+    $sql = "SELECT phong.*, loaiphong.Ten AS TenLoaiPhong, loaiphong.MoTa AS MoTaLoaiPhong, loaiphong.GiaPhongChung AS GiaLoaiPhong
+            FROM phong
+            LEFT JOIN loaiphong ON phong.ID_LoaiPhong = loaiphong.ID
+            WHERE phong.ID=" . $id;
+
     $sp = pdo_query_one($sql);
     return $sp;
 }
-
-
 ?>

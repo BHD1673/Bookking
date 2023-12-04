@@ -5,7 +5,7 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Bảng quản lý đơn đặt phòng</h1>
-    <a href="?act=QuanLyTaiKhoan"><button class="btn btn-primary">Thêm đơn đặt phòng mới</button></a>
+    <a href="?act=AddPhongIntoAddNewDonHang"><button class="btn btn-primary">Thêm đơn đặt phòng mới</button></a>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -77,6 +77,7 @@
                             echo '</tr>';
                         }
                         ?>
+
                         </tbody>
                         </table>
                         </div>

@@ -1,4 +1,5 @@
 <div class="container-md">
+    <form action="" method="POST" enctype="multipart/form-data" class="p-3">
     <h1>Tạo Tài Khoản Tạm Thời</h1>
     <a href="?act=QuanLyTaiKhoan"><button class="btn btn-primary">Quay về xem danh sách tài khoản khách hàng</button></a>
     <form action="" method="POST" enctype="multipart/form-data" class="p-3">

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Check if session dates are set and valid.
  * 
@@ -72,23 +71,21 @@ if ($sessionDates !== null) {
             <h2 class="mb-4">Khoảng thời gian đặt phòng</h2>
             <form action="" method="post">
                 <div class="mb-3">
-                    <label for="DateIn" class="form-label">Ngày Check-In:</label>
-                    <input type="date" class="form-control" id="DateIn" name="DateIn" value="<?php echo htmlspecialchars($_SESSION['DateIn'] ?? ''); ?>">
+                    <label for="checkin" class="form-label">Ngày Check-In:</label>
+                    <input type="date" class="form-control" id="checkin" name="checkin" value="<?php echo isset($_SESSION['DateIn']) ? $_SESSION['DateIn'] : ''; ?>">
                 </div>
                 <div class="mb-3">
-                    <label for="DateOut" class="form-label">Ngày Check-Out:</label>
-                    <input type="date" class="form-control" id="DateOut" name="DateOut" value="<?php echo htmlspecialchars($_SESSION['DateOut'] ?? ''); ?>">
+                    <label for="checkout" class="form-label">Ngày Check-Out:</label>
+                    <input type="date" class="form-control" id="checkout" name="checkout" value="<?php echo isset($_SESSION['DateOut']) ? $_SESSION['DateOut'] : ''; ?>">
                 </div>
                 <div class="mb-3">
                     <label for="AmountOfDay" class="form-label">Số ngày ở dựa trên ngày check</label>
-                    <input type="number" name="AmountOfDay" id="AmountOfDay" value="<?php echo htmlspecialchars($_SESSION['AmountOfDay'] ?? ''); ?>" disabled>
-                    <input type="hidden" name="AmountOfDay" value="<?php echo htmlspecialchars($_SESSION['AmountOfDay'] ?? ''); ?>">
+                    <input type="number" name="AmountOfDay" id="AmountOfDay" disabled>
                 </div>
-                <a href="index.php?act=XacNhanDonDatPhong" class="btn btn-secondary">Xác nhận lựa chọn</a>
+                <a href="index.php?act=XacNhanDonDatPhong">Xác nhận lựa chọn</a>
                 <button type="submit" class="btn btn-primary">Sửa lại khoảng thời gian</button>
             </form>
         </div>
-
         <!-- Room selection form -->
         <form action="">
             <?php if (!empty($results)): ?>
@@ -186,7 +183,4 @@ function removeDuplicateCards() {
         }
     });
 }
-
-
-
 </script>

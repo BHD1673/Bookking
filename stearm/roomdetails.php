@@ -23,8 +23,8 @@ body {
 img {
   max-width: 100%; }
 .container{
-    width: 1800px;
-    max-width: 1800px;
+    width: 1200px;
+    max-width: 1200px;
   
 }
   
@@ -236,18 +236,18 @@ img {
   <body>
    
 	
-	<div class="container">
 		<div class="card">
 			<div class="container-fliud">
 				<div class="wrapper row">
 					<div class="preview col-md-6">
 						
 						<div class="preview-pic tab-content">
-						  <div class="tab-pane active" id="pic-1"><img src="images/room1.jpg" alt="#"/></div>
-						  <div class="tab-pane" id="pic-2"><img src="images/room2.jpg" alt="#"/></div>
+              <?php echo '<div class="tab-pane active" id="pic-1"><img src="'.$AnhPhong.'" alt="#"/></div>' ?>
+						  
+						  <!-- <div class="tab-pane" id="pic-2"><img src="images/room2.jpg" alt="#"/></div>
 						  <div class="tab-pane" id="pic-3"><img src="images/room3.jpg" alt="#"/></div>
 						  <div class="tab-pane" id="pic-4"><img src="images/room4.jpg" alt="#"/></div>
-						  <div class="tab-pane" id="pic-5"><img src="images/room5.jpg" alt="#"/></div>
+						  <div class="tab-pane" id="pic-5"><img src="images/room5.jpg" alt="#"/></div> -->
 						</div>
 						<ul class="preview-thumbnail nav nav-tabs">
 						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="images/room1.jpg" alt="#"/></a></li>
@@ -259,7 +259,7 @@ img {
 						
 					</div>
 					<div class="details col-md-6">
-						<h3 class="product-title">DOUBLE ROOM </h3>
+						<h3 class="product-title"><?php echo $TenLoaiPhong?> </h3>
 						<div class="rating">
 							<div class="stars">
 								<span class="fa fa-star checked"></span>
@@ -270,8 +270,8 @@ img {
 							</div>
 							<span class="review-no">41 reviews</span>
 						</div>
-						<p class="product-description">Chào mừng bạn đến với Phòng Khách Sạn 2 Ngủ của chúng tôi – một không gian thoải mái và sang trọng, nơi bạn có thể trải nghiệm sự ấm áp của "đồng hành" và "thư giãn" đúng nghĩa..</p>
-						<h4 class="price">Giá: <span>1.000.000VNĐ/ NIGHT</span></h4>
+						<p class="product-description"><?php echo $MoTaLoaiPhong?></p>
+						<h4 class="price">Giá: <span><?php echo $GiaLoaiPhong?>/ NIGHT</span></h4>
 						<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
                         <h5 class="sizes">Amenities:
                             <span class="size" data-toggle="tooltip" title="Free Wi-Fi">Free Wi-Fi</span>
@@ -286,7 +286,7 @@ img {
                         <!-- Thêm các dịch vụ khác theo ý muốn -->
 </h5>
 						<div class="action">
-							<button class="add-to-cart btn btn-default" type="button" ><a href="index2.php?act=thongtin">>add to cart</a></button>
+							<button class="add-to-cart btn btn-default" type="button" ><a href="index.php?act=thongtin">>Đặt Phòng</a></button>
 							<button class="like btn btn-default" type="button" ><span class="fa fa-heart"></span></button>
 						</div>
 					</div>

@@ -36,7 +36,7 @@
                      <div class="book_room">
                         <h1>Hãy đặt một phòng lúc này !</h1>
                         <!-- action="index.php?act=roomlist" -->
-                        <form class="book_now" id="bookingForm" method="post" action="">
+                        <form class="book_now" id="bookingForm" method="post" action="index.php?act=roomlist">
                            <div class="row">
                               <div class="col-md-12">
                                     <span>Ngày đến</span>
@@ -60,7 +60,6 @@
             </div>
          </div>
       </section>
-      <!-- end banner -->
 <script>
    document.addEventListener("DOMContentLoaded", function () {
    // Lấy các phần tử input

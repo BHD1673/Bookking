@@ -29,6 +29,7 @@ if (isset($_GET['act'])) {
             include('LoaiPhong/LoaiPhong.Update.php');
         break;
         case 'AddPhong':
+            
             include('Phong/Phong.Create.php');
         break;
         case 'QuanLyPhong':
@@ -154,7 +155,6 @@ if (isset($_GET['act'])) {
             include('DatPhong/DatPhong.View.php');
         break;
         case 'AddDatPhong':
-
             include('DatPhong/DatPhong.Add.php');
         break;
         case 'UpdateDatPhong':

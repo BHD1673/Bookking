@@ -114,7 +114,6 @@ function getAllDatPhong() {
     $sql = "SELECT * FROM datphong";
     return pdo_query($sql);
 }
-
 //Hiển thị một đơn đặt phòng
 function getOneDatPhong() {
     $sql = "";

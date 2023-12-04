@@ -18,23 +18,8 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
     $act = $_GET['act'];
     switch ($act) {
         case 'roomlist':
-            function QuickInsert($DayCheckIn, $DayCheckOut, $SoNgayO, $TongTien) {
-                $sql = "INSERT INTO `datphong` (`NgayCheckIn`, `NgayCheckOut`, `SoNgayO`, `TongTien`, `TrangThaiDon`) VALUES (?, ?, ?, ?, 2)";
-                // Sử dụng hàm pdo_execute bạn đã cung cấp
-                pdo_execute($sql, $DayCheckIn, $DayCheckOut, $SoNgayO, $TongTien);
-            }
-
-            if (isset($_POST['quickbookRoom'])) {
-                $DayCheckIn = $_POST['NgayCheckIn'];
-                $DayCheckOut = $_POST['NgayCheckOut'];
-                $SoNgayO = $_POST['SoNgayO'];
-                $TongTien = $_POST['TongTien'];
-
-                // Thực hiện hàm QuickInsert
-                QuickInsert($DayCheckIn, $DayCheckOut, $SoNgayO, $TongTien);
-            }
             include('view/roomlist.php');
-        break;
+            break;
         case "sanpham":
             // lấy dữ liệu
             if (isset($_GET['ID']) && ($_GET['ID'] > 0)) {
@@ -46,10 +31,11 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             $tendm = loadall_room_home($iddm);
             include "view/room.php";
             break;
-        case "sanphamct":   
-            if (isset($_POST['ID']) && ($_POST['ID'] > 0)) {
-                $id = $_GET['ID'];
+        case "sanphamct":
+            if (isset($_GET['idsp']) && ($_GET['idsp'] > 0)) {
+                $id = $_GET['idsp'];
                 $onesp = loadone_zoom_home($id);
+                extract($onesp);
             }
             include "stearm/roomdetails.php";
             break;
@@ -61,9 +47,18 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             header('location: index.php');
             break;
         case "dangnhap":
-            if (isset($_POST['dangnhap'])) {
-                $login = dangnhap($_POST['email'], $_POST['pass']);
-                header('location: index.php');
+            if(isset($_POST['dangnhap'])&& ($_POST['dangnhap'])){
+                $email= $_POST['email'];
+                $pass= $_POST['pass'];
+                $checkemail = checkemail($email,$pass);
+                if(is_array($checkemail)){
+                    $_SESSION['email']=$checkemail;
+                    echo "<script>
+                    window.location.href='index.php';
+                    </script>";
+                }else{
+                    $thongbao="Tài khoản khồng tồn tại";
+                }
             }
             include "view/user/singup.php";
             break;
@@ -89,13 +84,62 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             }
             include "view/user/forgot.php";
             break;
+            // case 'doimatkhau':
+            //     if (isset($_POST['doimatkhau'])) {
+            //         $pass = trim($_POST['pass']);
+
+            //         $thongbao = "ĐỔI MẬT KHẨU THÀNH CÔNG";
+
+            //         update_matkhau($MatKhau, $id);
+            //         header('Location:index.php?act=doimatkhau');
+            //     }
+            //     include "view/user/doimatkhau.php";
+            //     break;
+        case 'thongtintk':
+            if (isset($_POST['capnhat'])) {
+                $user= trim($_POST['user']);
+                $email= trim($_POST['email']);
+                $address= trim($_POST['address']);
+                $tel= $_POST['tel'];
+                $date= $_POST['ngaysinh'];
+                $id= $_POST['id'];
+             
+                update_taikhoan($user, $email, $address, $id, $tel,$date);
+                $_SESSION['email'] = getUserByUsernameAndEmail($user, $email);
+                header('Location:index.php?act=thongtintk');
+            }
+            include "view/user/thongtintk.php";
+            break;
         case "thongtin":
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                // Kiểm tra xem các trường dữ liệu đã được gửi từ biểu mẫu hay chưa
+                if (isset($_POST['book']) && isset($_POST['book'])) {
+                    $name = $_POST['visitor_name'];
+                    $email = $_POST['visitor_email'];
+                    $phone = $_POST['visitor_phone'];
+                    $dateIn = $_POST['DateIn'];
+                    $dateOut = $_POST['DateOut'];
+
+                    $idkh = $_POST['IDKhachHang'];
+
+                    // Gọi hàm để thêm dữ liệu vào cơ sở dữ liệu
+                    // insertData($checkin, $checkout, $name, $email,$phone);
+                } else {
+                    echo "Invalid data submitted.";
+                }
+            }
             include "stearm/checkout.php";
             break;
+        case "bill":
+            if (isset($_GET['idkh']) && ($_GET['idkh'] > 0)) {
+                $id = $_GET['idkh'];
+            }
+            include "stearm/bill.php";
+            break;
+
         case "about":
             include "view/review.php";
-        break;
-        
+            break;
     }
 } else {
     include "view/banner.php";
@@ -112,5 +156,4 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
 
     include "view/home.php";
 }
-
 include "view/footer.php";
