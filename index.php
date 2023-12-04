@@ -118,6 +118,9 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     $name = $_POST['visitor_name'];
                     $email = $_POST['visitor_email'];
                     $phone = $_POST['visitor_phone'];
+                    $dateIn = $_POST['DateIn'];
+                    $dateOut = $_POST['DateOut'];
+
                     $idkh = $_POST['IDKhachHang'];
 
                     // Gọi hàm để thêm dữ liệu vào cơ sở dữ liệu

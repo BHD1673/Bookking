@@ -66,6 +66,7 @@
       border-radius: 4px;
       cursor: pointer;
       padding: 0 12px;
+      margin-left: 125px;
     }
 
     button:hover {
@@ -75,54 +76,40 @@
 </head>
 
 <body>
+<?php
+    if (isset($_SESSION['email'])) {
+        $email = $_SESSION['email'];
+    } else {
+        echo "Session 'user' is not set or empty.";
+    }
+    ?>
   <form class="booking-form" action="index.php?act=thongtin" method="post">
     <div class="elem-group">
       <label for="name">Your Name</label>
-      <input type="text" id="name" name="visitor_name" value="<?=$user_id['TenKhachHang']?>" required>
+      <input type="text" id="name" name="visitor_name" value="<?=$email['TenKhachHang']?>" >
     </div>
     <div class="elem-group">
       <label for="email">Your E-mail</label>
-      <input type="email" id="email" name="visitor_email" placeholder="john.doe@email.com" required>
+      <input type="email" id="email" name="visitor_email" value="<?=$email['Email']?>"  >
     </div>
     <div class="elem-group">
       <label for="phone">Your Phone</label>
-      <input type="tel" id="phone" name="visitor_phone" placeholder="498-348-3872" pattern=(\d{3})-?\s?(\d{3})-?\s?(\d{4}) required>
+      <input type="tel" id="phone" name="visitor_phone" value="<?=$email['tel']?>" required>
     </div>
     <hr>
     <div class="elem-group inlined">
-      <label for="adult">Adults</label>
-      <input type="number" id="adult" name="total_adults" placeholder="2" min="1" required>
-    </div>
-    <div class="elem-group inlined">
-      <label for="child">Children</label>
-      <input type="number" id="child" name="total_children" placeholder="2" min="0" required>
-    </div>
-    <div class="elem-group inlined">
       <label for="checkin-date">Check-in Date</label>
-      <input type="date" id="checkin-date" name="checkin" required>
+      <input type="date" id="checkin-date" name="DateIn" value="<?= isset($email['DateIn']) ? $email['DateIn'] : '' ?>">
     </div>
     <div class="elem-group inlined">
       <label for="checkout-date">Check-out Date</label>
-      <input type="date" id="checkout-date" name="checkout" required>
+      <input type="date" id="checkout-date" name="DateOut" value="<?= isset($email['DateOut']) ? $email['DateOut'] : '' ?>">
     </div>
-    <div class="elem-group">
-      <label for="room-selection">Select Room Preference</label>
-      <select id="room-selection" name="room_preference" required>
-        <option value="">Choose a Room from the List</option>
-        <option value="connecting">Connecting</option>
-        <option value="adjoining">Adjoining</option>
-        <option value="adjacent">Adjacent</option>
-      </select>
-    </div>
-    <hr>
-    <div class="elem-group">
-      <label for="message">Anything Else?</label>
-      <textarea id="message" name="visitor_message" placeholder="Tell us anything else that might be important." required></textarea>
-    </div>
+
     <?php
     // Lấy ID khách hàng từ session hoặc bất kỳ nguồn dữ liệu nào khác
     if (isset($_SESSION['user'])) {
-      $user_id = $_SESSION['user']['IDKhachHang'];
+      $user_id = $_SESSION['user']['ID'];
     } else {
       // Nếu không có ID khách hàng, bạn có thể xử lý điều này theo ý của bạn
       $user_id = 0; // Giả sử ID khách hàng mặc định là 0 khi không có thông tin người dùng
@@ -136,6 +123,7 @@
     // Tiếp theo, bạn có thể sử dụng $linkidkh để tạo liên kết
     echo '<a href="' . $linkidkh . '"><button type="button">Book The Rooms</button></a>';
     ?>
+    <a href="index.php?act=bill"><button type="button">Book The Rooms</button></a>
 
 
   </form>
