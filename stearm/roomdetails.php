@@ -236,8 +236,6 @@ img {
   <body>
    
 	
-  <div class="container">
-    <?php extract($onesp)?>
 		<div class="card">
 			<div class="container-fliud">
 				<div class="wrapper row">
@@ -296,7 +294,6 @@ img {
 			</div>
 		</div>
 	</div>
-
     <?php
     include "view/comment.php";
     ?>

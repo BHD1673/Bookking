@@ -41,15 +41,16 @@
                               <div class="col-md-12">
                                     <span>Ngày đến</span>
                                     <img class="date_cua" src="images/date.png">
-                                    <input class="online_book" placeholder="yyyy/mm/dd" type="date" name="DateIn">
+                                    <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="DateIn">
                               </div>
                               <div class="col-md-12">
                                     <span>Ngày đi</span>
                                     <img class="date_cua" src="images/date.png">
-                                    <input class="online_book" placeholder="yyyy/mm/dd" type="date" name="DateOut">
+                                    <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="DateOut">
+                                    <input type="hidden" name="AmountOfDay" class="AmountOfDay" value="">
                               </div>
                               <div class="col-md-12">
-                                    <button type="submit" class="book_btn">Tìm phòng ngay</button>
+                                    <a href="?act=roomlist"><button type="submit" class="book_btn">Tìm phòng ngay</button></a>
                               </div>
                            </div>
                         </form>
@@ -59,4 +60,27 @@
             </div>
          </div>
       </section>
-      <!-- end banner -->
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+   // Lấy các phần tử input
+   var dateIn = document.querySelector('input[name="DateIn"]');
+   var dateOut = document.querySelector('input[name="DateOut"]');
+   var amountOfDays = document.querySelector('input[name="AmountOfDay"]');
+
+   // Hàm tính toán và cập nhật số ngày
+   function updateDays() {
+      var inDate = new Date(dateIn.value);
+      var outDate = new Date(dateOut.value);
+      var timeDiff = outDate.getTime() - inDate.getTime();
+      var daysDiff = timeDiff / (1000 * 3600 * 24);
+
+      // Cập nhật giá trị vào input ẩn
+      amountOfDays.value = daysDiff;
+   }
+
+   // Thêm sự kiện 'onchange' vào các trường nhập ngày
+   dateIn.addEventListener('change', updateDays);
+   dateOut.addEventListener('change', updateDays);
+});
+
+</script>

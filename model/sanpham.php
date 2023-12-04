@@ -27,5 +27,4 @@ function loadone_zoom_home($id)
     $sp = pdo_query_one($sql);
     return $sp;
 }
-
 ?>
