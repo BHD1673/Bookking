@@ -84,6 +84,7 @@ function InsertRoomIntoDonDatPhong($idKhachHang, $ngayCheckIn, $ngayCheckOut, $s
     } finally {
         unset($conn);
     }
+    //Lí do phải tạo cái này vì câu truy vấn có phần transaction
 }
 
 
@@ -94,18 +95,43 @@ function getAllDatPhong() {
     return pdo_query($sql);
 }
 
-
-
-//Thêm một đơn đặt phòng mới
-function InsertDonDatPhong() {
-    $sql = "INSERT INTO";
-    pdo_execute($sql);
+//Hiển thị một đơn đặt phòng
+function getOneDatPhong() {
+    $sql = "";
+    return pdo_query($sql);
 }
 
-//Cập nhật trạng thái đơn đặt phòng
+//Cập nhật thông tin đơn đặt phòng 
 function UpdateDonDatPhong() {
-    $sql = "";
-    pdo_execute($sql);
+    $sql = 
+    "UPDATE
+    `datphong`
+    WHERE
+    ID = ?
+SET
+    `IDKhachHang` = ?,
+    `NgayCheckIn` = ?,
+    `NgayCheckOut` = ?,
+    `SoNgayO` = ?,
+    `TongSoPhong` = ?,
+    `TongTien` = ?,
+    `TienCoc` = ?,
+    `TrangThaiDon` = ?
+
+    ";
+return pdo_execute($sql);
+}
+
+//Cập nhật trạng thái đơn đặt phòng (Không cần phải nhấn cho phần "đơn hoàn thiện" vì lúc này đã set cho nó tự động cập nhât theo ngày)
+function UpdateTrangThaiDon($TrangThaiDon, $IDDatPhong) {
+    $sql = 
+"UPDATE
+    `datphong`
+SET
+    `TrangThaiDon` = ?
+WHERE
+    ID = ?";
+    pdo_execute($sql, $TrangThaiDon, $IDDatPhong);
 }
 
 //Xóa đơn đặt phòng 
