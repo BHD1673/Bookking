@@ -145,7 +145,7 @@ $loginMessage = isset($login) && $login != '' ? $login : '';
                         <?php if (!$loggedIn): ?>
                            <!-- Đoạn này xuất hiện khi người dùng chưa đăng nhập -->
                            <li class="nav-item">
-                              <a class="nav-link" href="index.php?act=dangnhap">Login</a>
+                              <a class="nav-link" href="index.php?act=dangnhap">Đăng nhập</a>
                            </li>
                            <?php echo $loginMessage; ?>
                         <?php else: ?>
