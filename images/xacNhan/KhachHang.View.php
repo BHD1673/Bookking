@@ -3,7 +3,6 @@
     <div class="card-header py-3">
         <h3 class="m-0 font-weight-bold text-primary">Hiển thị số khách hàng</h6>
         <p class="m-0">Những khách hàng có dữ liệu trong bảng tên tài khoản <br> là những khách hàng đã đăng ký từ trước</p>
-        <p class="m-0 font-weight-bold text-primary">GHI CHÚ: Khi tạo một đơn dặt mới, sẽ được chuyển hướng đến đây để lựa chọn khách hàng. </p>
         <a href="?act=AddTaiKhoan"><button class="btn btn-primary">Thêm khách hàng mới</button></a>
     </div>
     <div class="card-body">

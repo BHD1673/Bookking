@@ -1,11 +1,13 @@
-
 <?php 
+// session_start();
 include("PDO.php");
 include("Phong/Phong.Process.php");
 include("LoaiPhong/LoaiPhong.Process.php");
 include("DatPhong/DatPhong.Process.php");
-include("global.php");
 include("KhachHang/KhachHang.Process.php");
+//Biến điều hướng hình ảnh 
+$filePath = "images/";  //Chúa cứu. Chịu đoạn này.
+$filePathXacNhan = "images/XacNhan/"; //Biến này hiển thị hình ảnh xác nhận
 ?>
 <!-- Bắt đầu vào trang chính -->
 
@@ -34,25 +36,52 @@ if (isset($_GET['act'])) {
             include('Phong/Phong.View.php');
         break;
         case 'UpdatePhong':
-            // if (isset($_GET['id'])) {
-            //     $editID = $_GET['id'];
-                
-            // }
             include('Phong/Phong.Update.php');
         break; 
         case 'QuanLyDonDatPhong':
             include('DatPhong/DatPhong.View.php');
         break;
-        case 'AddPhongIntoAddNewDonHang':
-            include('DatPhong/DatPhong.Add.php');
+        case 'TimPhongTrong':
+            //Gán khoảng thời gian đặt phòng vào session, lưu giá trị khoảng thời gian
+            
+            
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    $NgayCheckInDuKien = $_POST["checkin"];
+                    $NgayCheckOutDuKien = $_POST["checkout"];
+                    $SoNgayO = $_POST["AmountOfDay"];
+                    $_SESSION['AmountOfDay'] = $SoNgayO;
+                    $_SESSION['NgayCheckIn'] = $NgayCheckInDuKien;
+                    $_SESSION['NgayCheckOut'] = $NgayCheckOutDuKien;
+                }
+
+                if (isset($_POST['ChoVaoDonDatPhong'])) {
+                // Sử dụng var_dump để in ra các dữ liệu từ form
+                echo '<h1>';
+                var_dump($_POST);
+                echo '</h1>';
+                
+                // Nếu bạn muốn xử lý thêm các thông tin, bạn có thể làm như sau:
+                // $idPhong = $_POST['idPhong'] ?? null;
+                // $checkin = $_POST['checkin'] ?? null;
+                // $checkout = $_POST['checkout'] ?? null;
+                // $soNgayO = $_POST['soNgayO'] ?? null;
+                // $soLuongPhong = $_POST['soLuongPhong'] ?? null;
+                }
+
+            include('DatPhong/DatPhong.Find.php');
+        break;
+        case 'XacNhanDonDatPhong':            
+            include('DatPhong/DatPhong.Confirm.php');
         break;
         case 'UpdateDonDatPhong':
             include('DatPhong/DatPhong.Update.php');
         break;
         case 'QuanLyTaiKhoan':
-
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $IDKhachHang = $_POST['IDKhachHang'];
+                $_SESSION['IDKhachHang'] = $IDKhachHang;
+            }
             include('KhachHang/KhachHang.View.php');
-
         break;
         case 'AddTaiKhoan':
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -65,7 +94,7 @@ if (isset($_GET['act'])) {
 
                 // Đường dẫn tệp tin được tải lên
                  
-                $FilePush = $filePath . basename($_FILES['AnhXacNhan']['name']);
+                $FilePush = $filePathXacNhan . basename($_FILES['AnhXacNhan']['name']);
                 $uploadOk = 1;
                 $imageFileType = strtolower(pathinfo($FilePush, PATHINFO_EXTENSION));
             
@@ -140,6 +169,11 @@ if (isset($_GET['act'])) {
         // case 'UpdateDichVu':
         //     include('DichVu/DichVu.Update.php');
         // break;
+        case 'PhaSession':
+            if (isset($_POST['logout'])) {
+                session_destroy();
+                exit();
+            }
         default:
             include('404/404.php');
         break;

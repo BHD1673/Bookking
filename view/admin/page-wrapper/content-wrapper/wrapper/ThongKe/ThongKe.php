@@ -79,40 +79,38 @@
             </div>
         </div>
     </div>
-
-    <devsite-iframe><iframe allow="clipboard-write https://developers-dot-devsite-v2-prod.appspot.com" allowfullscreen="" class="framebox inherit-locale " is-upgraded="" src="https://developers.google.com/frame/chart/interactive/docs/examples_c5eb06c860a8ceb732d164a921e94ed4cd2de0b722acefc00b30d1758f542cc3.frame?hl=vi"></iframe></devsite-iframe>
-</div>
 <script>
-  // barsVisualization must be global in our script tag to be able
-  // to get and set selection.
-  var barsVisualization;
+    <div class="container">
+        <canvas id="myChart"></canvas>
+    </div>
 
-  function drawMouseoverVisualization() {
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Year');
-    data.addColumn('number', 'Score');
-    data.addRows([
-      ['2005',3.6],
-      ['2006',4.1],
-      ['2007',3.8],
-      ['2008',3.9],
-      ['2009',4.6]
-    ]);
 
-    barsVisualization = new google.visualization.ColumnChart(document.getElementById('mouseoverdiv'));
-    barsVisualization.draw(data, null);
-
-    // Add our over/out handlers.
-    google.visualization.events.addListener(barsVisualization, 'onmouseover', barMouseOver);
-    google.visualization.events.addListener(barsVisualization, 'onmouseout', barMouseOut);
-  }
-
-  function barMouseOver(e) {
-    barsVisualization.setSelection([e]);
-  }
-
-  function barMouseOut(e) {
-    barsVisualization.setSelection([{'row': null, 'column': null}]);
-  }
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3'],
+            datasets: [{
+                label: 'Doanh số 3 tháng này',
+                data: [300, 300, 500, 500, 1200, 300, 300,300, 300, 200],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 </script>
+

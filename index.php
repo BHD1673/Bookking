@@ -60,7 +60,6 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 }else{
                     $thongbao="Tài khoản khồng tồn tại";
                 }
-
             }
             include "view/user/singup.php";
             break;
@@ -144,14 +143,15 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
     include "view/banner.php";
     // Check if the form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $dateIn = $_POST['DateIn'];
-        $dateOut = $_POST['DateOut'];
-        $_SESSION['DateIn'] = $dateIn;
-        $_SESSION['DateOut'] = $dateOut;
-        var_dump($_SESSION);
+       $dateIn = $_POST['DateIn'];
+       $dateOut = $_POST['DateOut']; 
+       $AmountOfDay = $_POST['AmountOfDay'];
+       $_SESSION['AmountOfDay'] = $AmountOfDay;
+       $_SESSION['DateIn'] = $dateIn;
+       $_SESSION['DateOut'] = $dateOut;
+       var_dump($_SESSION);
     }
 
     include "view/home.php";
 }
-
 include "view/footer.php";

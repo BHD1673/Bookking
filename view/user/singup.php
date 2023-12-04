@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -343,7 +342,6 @@
                     <h3>Don't have an account? Please Sign up!<h3>
                 </div>
                 <div class="img__text m--in">
-
                     <h3>If you already has an account, just sign in.<h3>
                 </div>
                 <div class="img__btn">
@@ -379,7 +377,6 @@
         document.querySelector('.img__btn').addEventListener('click', function() {
             document.querySelector('.cont').classList.toggle('s--signup');
         });
-
         function signIn() {
             var emailSignIn = document.getElementById('emailSignInInput').value;
             var passwordSignIn = document.getElementById('passwordSignInInput').value;
@@ -444,5 +441,4 @@
         }
     </script>
 </body>
-
 </html>
