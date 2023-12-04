@@ -43,9 +43,9 @@ function getUserByUsernameAndEmail($user, $email)
     return $sp;
 }
 
-function update_taikhoan($user, $email, $address, $id, $tel)
+function update_taikhoan($user, $email, $address, $id, $tel, $date)
 {
-    $sql = "UPDATE khachhang SET TenKhachHang='$user', Email='$email', tel='$tel', DiaChiNha='$address' WHERE ID=$id";
+    $sql = "UPDATE khachhang SET TenKhachHang='$user', Email='$email', NgaySinh='$date', tel='$tel', DiaChiNha='$address' WHERE ID=$id";
     pdo_execute($sql);
 }
 // function update_matkhau($MatKhau, $id)

@@ -106,6 +106,10 @@
             <input type="email" id="email" name="email" value="<?= $email['Email'] ?>">
         </div>
         <div class="elem-group">
+            <label for="address">Your Date of birth</label>
+            <input type="date" id="address" name="ngaysinh" value="<?= $email['NgaySinh'] ?>">
+        </div>
+        <div class="elem-group">
             <label for="phone">Your Phone</label>
             <input type="text" id="phone" name="tel" value="<?= $email['tel'] ?>">
         </div>

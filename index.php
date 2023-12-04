@@ -102,9 +102,10 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 $email= trim($_POST['email']);
                 $address= trim($_POST['address']);
                 $tel= $_POST['tel'];
+                $date= $_POST['ngaysinh'];
                 $id= $_POST['id'];
              
-                update_taikhoan($user, $email, $address, $id, $tel);
+                update_taikhoan($user, $email, $address, $id, $tel,$date);
                 $_SESSION['email'] = getUserByUsernameAndEmail($user, $email);
                 header('Location:index.php?act=thongtintk');
             }
