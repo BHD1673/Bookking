@@ -132,13 +132,7 @@
             <figure><img src="<?php echo $hinh ?>" alt="#" /></figure>
           </div>
           <div class="bed_room">
-            <a href="index.php?act=phongct">
-              <h3><?php echo $TenPhong ?></h3>
-            </a>
-            <a href="index.php?act=phongct">
-              <h3><?php echo $TenPhong ?></h3>
-            </a>
-            <a href="index.php?act=phongct">
+            <a href="index.php?act=sanphamct">
               <h3><?php echo $TenPhong ?></h3>
             </a>
             <p><?php echo $TrangThaiPhong ?></p>

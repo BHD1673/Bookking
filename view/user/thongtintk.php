@@ -111,7 +111,7 @@
         </div>
         <div class="elem-group">
             <label for="phone">Your Phone</label>
-            <input type="text" id="phone" name="tel" value="<?= $email['tel'] ?>">
+            <input type="text" id="phone" name="tel" value="<?= $email['SoDienThoai'] ?>">
         </div>
         <div class="elem-group">
             <label for="address">Your Address</label>
