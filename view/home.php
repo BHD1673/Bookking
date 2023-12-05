@@ -119,27 +119,26 @@
       </div>
     </div>
     <div class="row">
-      <?php
-         foreach ($roomnew as $room) {
-            extract($room);
-            $hinh = $img_path . $AnhPhong;
-
-
-         ?>
-      <div class="col-md-4 col-sm-6">
-        <div id="serv_hover" class="room">
-          <div class="room_img">
-            <figure><img src="<?php echo $hinh ?>" alt="#" /></figure>
-          </div>
-          <div class="bed_room">
-            <a href="index.php?act=sanphamct">
-              <h3><?php echo $TenPhong ?></h3>
-            </a>
-            <p><?php echo $TrangThaiPhong ?></p>
-          </div>
-        </div>
-      </div>
-      <?php } ?>
+    <?php
+            foreach ($roomnew as $room) {
+               $id = isset($room['ID']) ? $room['ID'] : null; // Gán giá trị mặc định nếu 'id' không tồn tại
+               extract($room);
+               $hinh = $img_path . $AnhPhong;
+               $linksp = "index.php?act=sanphamct&idsp=" . $id;
+               echo '<div class="col-md-4 col-sm-6">
+                       <div id="serv_hover" class="room">
+                           <div class="room_img">
+                               <figure><img src="' . $hinh . '" alt="#"/></figure>
+                           </div>
+                           <div class="bed_room">
+                           <a href="' . $linksp . '"><h3>' . $TenPhong . '</h3></a>
+                           <a href="' . $linksp . '"> <p>' . $TrangThaiPhong . '</p></a>
+                           </div>
+                       </div>
+                   </div>';
+           }
+           
+            ?>
       <!-- <div class="col-md-4 col-sm-6">
                   <div id="serv_hover"  class="room">
                      <div class="room_img">

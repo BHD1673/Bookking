@@ -93,7 +93,7 @@
     </div>
     <div class="elem-group">
       <label for="phone">Your Phone</label>
-      <input type="tel" id="phone" name="visitor_phone" value="<?=$email['tel']?>" required>
+      <input type="tel" id="phone" name="visitor_phone" value="<?=$email['SoDienThoai']?>" required>
     </div>
     <hr>
     <div class="elem-group inlined">
@@ -105,7 +105,7 @@
       <input type="date" id="checkout-date" name="DateOut" value="<?= isset($email['DateOut']) ? $email['DateOut'] : '' ?>">
     </div>
 
-    <?php
+    <!-- <?php
     // Lấy ID khách hàng từ session hoặc bất kỳ nguồn dữ liệu nào khác
     if (isset($_SESSION['user'])) {
       $user_id = $_SESSION['user']['ID'];
@@ -121,7 +121,7 @@
 
     // Tiếp theo, bạn có thể sử dụng $linkidkh để tạo liên kết
     echo '<a href="' . $linkidkh . '"><button type="button">Book The Rooms</button></a>';
-    ?>
+    ?> -->
     <a href="index.php?act=bill"><button type="button">Book The Rooms</button></a>
 
 

@@ -234,13 +234,16 @@ img {
   </head>
 
   <body>
+    <?php
+       $hinh = $img_path . $AnhPhong;
+    ?>
 		<div class="card">
 			<div class="container-fliud">
 				<div class="wrapper row">
 					<div class="preview col-md-6">
 						
 						<div class="preview-pic tab-content">
-              <?php echo '<div class="tab-pane active" id="pic-1"><img src="'.$AnhPhong.'" alt="#"/></div>' ?>
+              <?php echo '<div class="tab-pane active" id="pic-1"><img src="'.$hinh.'" alt="#"/></div>' ?>
 						  
 						  <!-- <div class="tab-pane" id="pic-2"><img src="images/room2.jpg" alt="#"/></div>
 						  <div class="tab-pane" id="pic-3"><img src="images/room3.jpg" alt="#"/></div>

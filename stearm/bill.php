@@ -52,7 +52,7 @@
 		if (isset($_SESSION['email'])) {
 			$name = $_SESSION['email']['TenKhachHang'];
 			$email = $_SESSION['email']['Email'];
-			$tel = $_SESSION['email']['tel'];
+			$tel = $_SESSION['email']['SoDienThoai'];
 			$address = $_SESSION['email']['DiaChiNha'];
 		
 		} else {
