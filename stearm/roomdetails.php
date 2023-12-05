@@ -234,8 +234,6 @@ img {
   </head>
 
   <body>
-   
-	
 		<div class="card">
 			<div class="container-fliud">
 				<div class="wrapper row">

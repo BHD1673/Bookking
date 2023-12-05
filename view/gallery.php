@@ -29,7 +29,7 @@
                         <figure><img src="<?php echo $hinh ?>" alt="#"/></figure>
                      </div> -->
           <div class="bed_room">
-            <a href="index2.php?act=danhmuc&ID=<?php echo $dm['ID']; ?>">
+            <a href="index.php?act=danhmuc&ID=<?php echo $dm['ID']; ?>">
               <h3><?php echo $Ten ?></h3>
             </a>
             <p><?php echo $MoTa ?></p>
