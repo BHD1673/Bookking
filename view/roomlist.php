@@ -61,6 +61,15 @@ if ($sessionDates !== null) {
         }
     }
 }
+// Giả sử đây là dữ liệu mẫu cho session
+$_SESSION['DateIn'] = '2023-12-01';
+$_SESSION['DateOut'] = '2023-12-05';
+
+// Tính toán số ngày ở dựa trên ngày check-in và check-out
+$checkin = new DateTime($_SESSION['DateIn']);
+$checkout = new DateTime($_SESSION['DateOut']);
+$interval = $checkin->diff($checkout);
+$_SESSION['AmountOfDay'] = $interval->days;
 ?>
 
 

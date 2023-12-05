@@ -12,6 +12,9 @@ function pdo_get_connection(){
         echo "Connection failed: " . $e->getMessage();
     }
 }
+// xử lý câu truy vấn (write)
+
+// phần này là xử lý câu đơn giản
 function pdo_execute($sql){
     $sql_args=array_slice(func_get_args(),1);
     try{
@@ -26,6 +29,21 @@ function pdo_execute($sql){
     finally{
         unset($conn);
     }
+}
+
+// xử lý transaction đặc biệt.
+function pdo_begin_transaction() {
+    $conn = pdo_get_connection();
+    $conn->beginTransaction();
+    return $conn;
+}
+
+function pdo_commit($conn) {
+    $conn->commit();
+}
+
+function pdo_rollback($conn) {
+    $conn->rollBack();
 }
 // truy vấn nhiều dữ liệu
 function pdo_query($sql){
@@ -64,4 +82,7 @@ function pdo_query_one($sql){
     }
 }
 pdo_get_connection();
+
+
+
 ?>
