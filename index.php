@@ -14,10 +14,84 @@ include "model/taikhoan.php";
 $roomnew = loadall_room_home();
 $roomdm = loadall_danhmuc_home();
 $sptheodm = loadall_sanphamtheodanhmuc_home();
+$AmountOfDay = "";
 if (isset($_GET['act']) && ($_GET['act'] != "")) {
     $act = $_GET['act'];
     switch ($act) {
         case 'roomlist':
+                //Khai báo lại cho trường hợp muốn sửa khoảng thời gian
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    $datetime1 = new DateTime($_POST['DateIn']);
+                    $datetime2 = new DateTime($_POST['DateOut']);
+                    $interval = $datetime1->diff($datetime2);
+                    $amountOfDay = $interval->days;
+                
+                    // Set the calculated value to the AmountOfDay field in the session
+                    $_SESSION['bookingInfor'] = array(
+                        'amountOfDay' => $amountOfDay,
+                        'dateIn' => $_POST['DateIn'],
+                        'dateOut' => $_POST['DateOut']
+                    );
+                    // Kiểm tra xem giỏ hàng đã tồn tại trong session chưa
+                    if (!isset($_SESSION['cart'])) {
+                        $_SESSION['cart'] = array();
+                    }
+
+                    // Tạo thông tin sản phẩm từ dữ liệu POST
+                    $productInfo = array(
+                        'idPhong' => $_POST['idPhong'],
+                        'tenLoaiPhong' => $_POST['tenLoaiPhong'],
+                        'giaPhongChung' => $_POST['giaPhong'],
+                        'soLuongPhong' => $_POST['soLuongPhong'],
+                        'dateIn' => $_POST['DateIn'],
+                        'dateOut' => $_POST['DateOut'],
+                        'soNgayO' => $_POST['soNgayO'],
+                        'totalPriceWithDay' => $_POST['totalPriceWithDay'],
+
+                    );
+
+                    // Kiểm tra xem loại phòng này đã có trong giỏ hàng chưa
+                    $found = false;
+                    foreach ($_SESSION['cart'] as $key => $item) {
+                        if ($item['idPhong'] == $productInfo['idPhong'] &&
+                            $item['dateIn'] == $productInfo['dateIn'] &&
+                            $item['dateOut'] == $productInfo['dateOut']) {
+                            // Cập nhật số lượng phòng nếu đã có
+                            $_SESSION['cart'][$key]['soLuongPhong'] += $productInfo['soLuongPhong'];
+                            $found = true;
+                            break;
+                        }
+                    }
+
+                    // Nếu loại phòng này chưa có trong giỏ hàng, thêm sản phẩm mới
+                    if (!$found) {
+                        array_push($_SESSION['cart'], $productInfo);
+                    }
+
+                    // Xử lý yêu cầu sửa
+                    if (isset($_POST['action']) && $_POST['action'] == 'update' && isset($_POST['index'])) {
+                        $index = $_POST['index'];
+                        if (isset($_SESSION['cart'][$index])) {
+                            // Cập nhật số lượng phòng
+                            $_SESSION['cart'][$index]['soLuongPhong'] = $_POST['soLuongPhong'][$index];
+                            // Bạn có thể thêm các cập nhật khác tại đây
+                        }
+                    }
+
+                    // Xử lý yêu cầu xóa
+                    if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['index'])) {
+                        $index = $_GET['index'];
+                        if (isset($_SESSION['cart'][$index])) {
+                            // Xóa mục khỏi giỏ hàng
+                            unset($_SESSION['cart'][$index]);
+                            // Cập nhật lại mảng để loại bỏ khoảng trống
+                            $_SESSION['cart'] = array_values($_SESSION['cart']);
+                        }
+                        header("LOCATION: index.php?act=roomlist");
+                    }
+
+                }
+
             include('view/roomlist.php');
             break;
         case "sanpham":
@@ -123,7 +197,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     $idkh = $_POST['IDKhachHang'];
 
                     // Gọi hàm để thêm dữ liệu vào cơ sở dữ liệu
-                    // insertData($checkin, $checkout, $name, $email,$phone);
+                    insertAccount($checkin, $checkout, $name, $email,$phone);
                 } else {
                     echo "Bạn đang viết sai.";
                 }
@@ -143,15 +217,19 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
     }
 } else {
     include "view/banner.php";
-    // Check if the form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-       $dateIn = $_POST['DateIn'];
-       $dateOut = $_POST['DateOut']; 
-       $AmountOfDay = $_POST['AmountOfDay'];
-       $_SESSION['AmountOfDay'] = $AmountOfDay;
-       $_SESSION['DateIn'] = $dateIn;
-       $_SESSION['DateOut'] = $dateOut;
-       var_dump($_SESSION);
+        $dateIn = $_POST['DateIn'];
+        $dateOut = $_POST['DateOut']; 
+        $amountOfDay = $_POST['AmountOfDay'];
+    
+        // Cho thông tin vào mảng default.
+        $_SESSION['bookingInfor'] = array(
+            'amountOfDay' => $amountOfDay,
+            'dateIn' => $dateIn,
+            'dateOut' => $dateOut
+        );
+        header("Location: index.php?act=roomlist&DateIn=$dateIn&DateOut=$dateOut");
+        exit();
     }
 
     include "view/home.php";
