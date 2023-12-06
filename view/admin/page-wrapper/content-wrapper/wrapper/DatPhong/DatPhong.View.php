@@ -31,28 +31,24 @@
                         </tr>
                     </thead>
                     <tfoot>
-                    <?php 
+                    <?php foreach ($allDonDatPhong as $rows): ?>
+                        <?php extract($rows); ?>
 
-                        $allDonDatPhong = getAllDatPhong();
+                        <tr>
+                            <td><?= $rows["ID"]; ?></td>
+                            <td><?= $rows["IDKhachHang"]; ?> <?= $rows["TenKhachHang"]; ?></td>
+                            <td><?= $rows["NgayCheckIn"]; ?></td>
+                            <td><?= $rows["NgayCheckOut"]; ?></td>
+                            <td><?= $rows["SoNgayO"]; ?></td>
+                            <td>2</td>
+                            <td>P101, P102</td>
+                            <td><?= $rows["TongTien"]; ?></td>
+                            <td><?= $rows["TienCoc"]; ?></td>
 
-                        foreach ($allDonDatPhong as $rows) {
-                            extract($rows);
-
-                            echo '<tr>';
-                            echo '<td>' . $rows["ID"] . '</td>';
-                            echo '<td>' . $rows["IDKhachHang"] . ' - John</td>';
-                            echo '<td>' . $rows["NgayCheckIn"] . '</td>';
-                            echo '<td>' . $rows["NgayCheckOut"] . '</td>';
-                            echo '<td>' . $rows["SoNgayO"] . '</td>';
-                            echo '<td>2</td>';
-                            echo '<td>P101, P102</td>';
-                            echo '<td>' . $rows["TongTien"] . '</td>';
-                            echo '<td>' . $rows["TienCoc"] . '</td>';
-
-                            // Xử lý trạng thái đơn
+                            <?php
                             $trangThaiDon = $rows["TrangThaiDon"];
                             $trangThaiText = '';
-                            switch($trangThaiDon) {
+                            switch ($trangThaiDon) {
                                 case 1:
                                     $trangThaiText = 'Đã hoàn thiện';
                                     break;
@@ -68,15 +64,26 @@
                                 default:
                                     $trangThaiText = 'Không xác định';
                             }
-                            echo '<td>' . $trangThaiText . '</td>';
+                            ?>
+                            <td><?= $trangThaiText; ?></td>
 
-                            // Các cột khác
-                            echo '<td>';
-                            echo '<a href="?act=UpdateDonDatPhong?ID=' . $rows["ID"] . '" class="btn btn-info">Sửa</a>';
-                            echo '</td>';
-                            echo '</tr>';
-                        }
-                        ?>
+                            <td>
+                                <form action="update_status.php" method="post">
+                                    <input type="hidden" name="idDon" value="<?= $rows["ID"]; ?>">
+                                    <select name="trangThaiMoi">
+                                        <option value="1" <?= $rows["TrangThaiDon"] == 1 ? 'selected' : '' ?>>Đã hoàn thiện</option>
+                                        <option value="2" <?= $rows["TrangThaiDon"] == 2 ? 'selected' : '' ?>>Đã hủy</option>
+                                        <option value="3" <?= $rows["TrangThaiDon"] == 3 ? 'selected' : '' ?>>Đã cọc</option>
+                                        <option value="4" <?= $rows["TrangThaiDon"] == 4 ? 'selected' : '' ?>>Đang thực hiện</option>
+                                        <option value="5" <?= $rows["TrangThaiDon"] == 5 ? 'selected' : '' ?>>Đơn mới, chờ xác nhận</option>
+                                    </select>
+                                    <button type="submit">Cập Nhật</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+
+                        
 
                         </tbody>
                         </table>

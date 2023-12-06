@@ -18,7 +18,7 @@ function insertBookingData($IDKhachHang, $ngayCheckIn, $ngayCheckOut, $soNgayO, 
                 `TongTien`,
                 `TrangThaiDon`
             )
-            VALUES (?, ?, ?, ?, ?, ?, 3)
+            VALUES (?, ?, ?, ?, ?, ?, 0)
         ";
 
         pdo_execute($sql_insert_datphong, $IDKhachHang, $ngayCheckIn, $ngayCheckOut, $soNgayO, $tongSoPhong, $tongTien);

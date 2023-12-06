@@ -79,12 +79,9 @@
             </div>
         </div>
     </div>
-<script>
     <div class="container">
         <canvas id="myChart"></canvas>
     </div>
-
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
     var ctx = document.getElementById('myChart').getContext('2d');

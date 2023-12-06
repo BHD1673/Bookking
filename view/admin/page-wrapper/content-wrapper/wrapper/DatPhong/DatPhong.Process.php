@@ -111,7 +111,7 @@ function InsertRoomIntoDonDatPhong($idKhachHang, $ngayCheckIn, $ngayCheckOut, $s
 //Hiển thị toàn bộ đơn đặt phòng
 $allDonDatPhong = getAllDatPhong();
 function getAllDatPhong() {
-    $sql = "SELECT * FROM datphong";
+    $sql = "SELECT datphong.*, khachhang.TenKhachHang FROM datphong JOIN khachhang";
     return pdo_query($sql);
 }
 //Hiển thị một đơn đặt phòng
