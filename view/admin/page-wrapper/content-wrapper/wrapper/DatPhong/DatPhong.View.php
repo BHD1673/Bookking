@@ -36,7 +36,7 @@
 
                         <tr>
                             <td><?= $rows["ID"]; ?></td>
-                            <td><?= $rows["IDKhachHang"]; ?> <?= $rows["TenKhachHang"]; ?></td>
+                            <td><?= $rows["IDKhachHang"]; ?> John</td>
                             <td><?= $rows["NgayCheckIn"]; ?></td>
                             <td><?= $rows["NgayCheckOut"]; ?></td>
                             <td><?= $rows["SoNgayO"]; ?></td>
@@ -57,6 +57,9 @@
                                     break;
                                 case 3:
                                     $trangThaiText = 'Đã cọc';
+                                    break;
+                                case 5:
+                                    $trangThaiText = "Đơn mới, đang chờ";
                                     break;
                                 case 0:
                                     $trangThaiText = 'Đang thực hiện';

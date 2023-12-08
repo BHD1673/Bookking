@@ -197,7 +197,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     $idkh = $_POST['IDKhachHang'];
 
                     // Gọi hàm để thêm dữ liệu vào cơ sở dữ liệu
-                    insertAccount($checkin, $checkout, $name, $email,$phone);
+                    //insertAccount($checkin, $checkout, $name, $email,$phone);
                 } else {
                     echo "Bạn đang viết sai.";
                 }
@@ -228,10 +228,12 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             'dateIn' => $dateIn,
             'dateOut' => $dateOut
         );
-        header("Location: index.php?act=roomlist&DateIn=$dateIn&DateOut=$dateOut");
+        header("Location: index.php?act=roomlist");
         exit();
     }
 
     include "view/home.php";
 }
 include "view/footer.php";
+
+?>

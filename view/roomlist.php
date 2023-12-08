@@ -79,17 +79,17 @@ $amountOfDay = "";
                         <tbody>
                         <?php foreach ($_SESSION['cart'] as $index => $item): ?>
                             <tr>
-                                <td><?= htmlspecialchars($item['idPhong']) ?></td>
-                                <td><?= htmlspecialchars($item['tenLoaiPhong']) ?></td>
-                                <td><?= htmlspecialchars($item['giaPhongChung']) ?></td>
-                                <td><?= htmlspecialchars($item['soLuongPhong']) ?></td>
-                                <td><?= htmlspecialchars($item['dateIn']) ?></td>
-                                <td><?= htmlspecialchars($item['dateOut']) ?></td>
-                                <td><?= htmlspecialchars($item['soNgayO']) ?></td>
-                                <td><?= htmlspecialchars($item['totalPriceWithDay']) ?>.000</td>
+                                <td><?= $item['idPhong'] ?></td>
+                                <td><?= $item['tenLoaiPhong'] ?></td>
+                                <td><?= $item['giaPhongChung'] ?></td>
+                                <td><?= $item['soLuongPhong'] ?></td>
+                                <td><?= $item['dateIn'] ?></td>
+                                <td><?= $item['dateOut'] ?></td>
+                                <td><?= $item['soNgayO'] ?></td>
+                                <td><?= $item['totalPriceWithDay'] ?>.000</td>
                                 <td>
                                     <form action="" method="post">
-                                        <input type="number" name="soLuongPhong[<?= $index ?>]" value="<?= htmlspecialchars($item['soLuongPhong']) ?>" min="1">
+                                        <input type="number" name="soLuongPhong[<?= $index ?>]" value="<?= $item['soLuongPhong'] ?>" min="1">
                                         <input type="hidden" name="action" value="update">
                                         <input type="hidden" name="index" value="<?= $index ?>">
                                         <button type="submit">Cập Nhật</button>
@@ -145,7 +145,7 @@ $amountOfDay = "";
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <p class="card-text">ID - <?= $roomTypeID; ?></p>
+                            <p class="card-text">ID loại phòng <?= $roomTypeID; ?></p>
                             <h5 class="card-title">Tên Loại Phòng: <?= $roomTypeName ?></h5>
                             <p class="card-text">Mô tả: <?= $roomTypeDes; ?></p>
                             <p class="card-text"><small class="text-muted">Giá Phòng: <?= $roomTypePrice; ?></small></p>

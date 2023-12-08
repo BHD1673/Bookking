@@ -51,7 +51,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Đơn hàng chờ</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">1</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -90,7 +90,7 @@
         data: {
             labels: ['Tháng 1', 'Tháng 2', 'Tháng 3'],
             datasets: [{
-                label: 'Doanh số 3 tháng này',
+                label: 'Doanh số 3 tháng gần nhất',
                 data: [300, 300, 500, 500, 1200, 300, 300,300, 300, 200],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)'
