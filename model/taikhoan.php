@@ -9,26 +9,16 @@ function insert_taikhoan($email, $user, $pass)
     $sql = "insert into khachhang(Email,TenDangNhap,MatKhau) values('$email','$user','$pass')";
     pdo_execute($sql);
 }
-function checkemail($email,$pass) {
-    $sql="select * from khachhang where Email='".$email."' AND  MatKhau='".$pass."'";
+function checkuser($user,$pass) {
+    $sql="select * from khachhang where TenDangNhap='".$user."' AND  MatKhau='".$pass."'";
     $sp=pdo_query_one($sql);
     return $sp;
 }
-// function checkemail($email)
-// {
-//     $sql = "select * from khachhang where email='" . $email . "'";
-//     $kq = pdo_query_one($sql);
-//     return $kq;
-// }
-function dangnhap($email, $pass)
+function checkemail($email)
 {
-    $sql = "SELECT * from khachhang where Email='$email' and MatKhau='$pass'";
-    $taikhoan = pdo_query_one($sql);
-    if ($taikhoan != false) {
-        $_SESSION['Email'] = $email;
-    } else {
-        return "Thong tin dang nhap bi sai";
-    }
+    $sql = "select * from khachhang where Email='" . $email . "'";
+    $kq = pdo_query_one($sql);
+    return $kq;
 }
 function dangxuat()
 {

@@ -89,8 +89,8 @@
 <body>
     <h2>CẬP NHẬT TÀI KHOẢN</h2>
     <?php
-    if (isset($_SESSION['email'])) {
-        $email = $_SESSION['email'];
+    if (isset($_SESSION['user'])) {
+        $user = $_SESSION['user'];
     } else {
         echo "Session 'user' is not set or empty.";
     }
@@ -99,28 +99,28 @@
     <form class="booking-form" action="index.php?act=thongtintk" method="post">
         <div class="elem-group">
             <label for="name">Your Name</label>
-            <input type="text" id="name" name="user" value="<?= $email['TenDangNhap'] ?>">
+            <input type="text" id="name" name="user" value="<?= $user['TenDangNhap'] ?>">
         </div>
         <div class="elem-group">
             <label for="email">Your E-mail</label>
-            <input type="email" id="email" name="email" value="<?= $email['Email'] ?>">
+            <input type="email" id="email" name="email" value="<?= $user['Email'] ?>">
         </div>
         <div class="elem-group">
             <label for="address">Your Date of birth</label>
-            <input type="date" id="address" name="ngaysinh" value="<?= $email['NgaySinh'] ?>">
+            <input type="date" id="address" name="ngaysinh" value="<?= $user['NgaySinh'] ?>">
         </div>
         <div class="elem-group">
             <label for="phone">Your Phone</label>
-            <input type="text" id="phone" name="tel" value="<?= $email['SoDienThoai'] ?>">
+            <input type="text" id="phone" name="tel" value="<?= $user['SoDienThoai'] ?>">
         </div>
         <div class="elem-group">
             <label for="address">Your Address</label>
-            <input type="text" id="address" name="address" value="<?= $email['DiaChiNha'] ?>">
+            <input type="text" id="address" name="address" value="<?= $user['DiaChiNha'] ?>">
         </div>
         <hr>
         <hr>
         <!-- Thêm input ẩn để truyền ID -->
-        <input type="hidden" name="id" value="<?= $email['ID'] ?>">
+        <input type="hidden" name="id" value="<?= $user['ID'] ?>">
         <button type="submit" name="capnhat">Lưu</button>
 
     </form>

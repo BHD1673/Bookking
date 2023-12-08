@@ -47,17 +47,27 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             header('location: index.php');
             break;
         case "dangnhap":
-            if(isset($_POST['dangnhap'])&& ($_POST['dangnhap'])){
-                $email= $_POST['email'];
-                $pass= $_POST['pass'];
-                $checkemail = checkemail($email,$pass);
-                if(is_array($checkemail)){
-                    $_SESSION['email']=$checkemail;
-                    echo "<script>
-                    window.location.href='index.php';
-                    </script>";
-                }else{
-                    $thongbao="Tài khoản khồng tồn tại";
+            if (isset($_POST['dangnhap']) && ($_POST['dangnhap'])) {
+                $user = $_POST['user'];
+                $pass = $_POST['pass'];
+                $checkuser = checkuser($user, $pass);
+                if (is_array($checkuser)) {
+                    $_SESSION['user'] = $checkuser;
+
+                    // Kiểm tra vai trò
+                    if ($checkuser['Role'] == 1) {
+                        // Nếu vai trò là 1 (admin), chuyển hướng đến trang quản trị admin
+                        echo "<script>
+                            window.location.href='admin.php';
+                        </script>";
+                    } else {
+                        // Nếu vai trò là người dùng thông thường, chuyển hướng đến trang chính
+                        echo "<script>
+                            window.location.href='index.php';
+                        </script>";
+                    }
+                } else {
+                    $thongbao = "Tài khoản không tồn tại";
                 }
             }
             include "view/user/singup.php";
@@ -97,15 +107,15 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             //     break;
         case 'thongtintk':
             if (isset($_POST['capnhat'])) {
-                $user= trim($_POST['user']);
-                $email= trim($_POST['email']);
-                $address= trim($_POST['address']);
-                $tel= $_POST['tel'];
-                $date= $_POST['ngaysinh'];
-                $id= $_POST['id'];
-             
-                update_taikhoan($user, $email, $address, $id, $tel,$date);
-                $_SESSION['email'] = getUserByUsernameAndEmail($user, $email);
+                $user = trim($_POST['user']);
+                $email = trim($_POST['email']);
+                $address = trim($_POST['address']);
+                $tel = $_POST['tel'];
+                $date = $_POST['ngaysinh'];
+                $id = $_POST['id'];
+
+                update_taikhoan($user, $email, $address, $id, $tel, $date);
+                $_SESSION['user'] = getUserByUsernameAndEmail($user, $email);
                 header('Location:index.php?act=thongtintk');
             }
             include "view/user/thongtintk.php";
@@ -119,8 +129,6 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     $phone = $_POST['visitor_phone'];
                     $dateIn = $_POST['DateIn'];
                     $dateOut = $_POST['DateOut'];
-
-                    $idkh = $_POST['IDKhachHang'];
 
                     // Gọi hàm để thêm dữ liệu vào cơ sở dữ liệu
                     // insertData($checkin, $checkout, $name, $email,$phone);
@@ -145,13 +153,13 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
     include "view/banner.php";
     // Check if the form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-       $dateIn = $_POST['DateIn'];
-       $dateOut = $_POST['DateOut']; 
-       $AmountOfDay = $_POST['AmountOfDay'];
-       $_SESSION['AmountOfDay'] = $AmountOfDay;
-       $_SESSION['DateIn'] = $dateIn;
-       $_SESSION['DateOut'] = $dateOut;
-       var_dump($_SESSION);
+        $dateIn = $_POST['DateIn'];
+        $dateOut = $_POST['DateOut'];
+        $AmountOfDay = $_POST['AmountOfDay'];
+        $_SESSION['AmountOfDay'] = $AmountOfDay;
+        $_SESSION['DateIn'] = $dateIn;
+        $_SESSION['DateOut'] = $dateOut;
+        var_dump($_SESSION);
     }
 
     include "view/home.php";
