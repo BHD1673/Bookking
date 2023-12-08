@@ -39,6 +39,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             }
             include "stearm/roomdetails.php";
             break;
+        //Phần này đang chả biết nó làm gì
         case "danhmuc":
             include "view/gallery.php";
             break;
@@ -165,3 +166,4 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
     include "view/home.php";
 }
 include "view/footer.php";
+?>
