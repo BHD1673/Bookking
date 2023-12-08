@@ -52,7 +52,7 @@
           </div>
           <div class="bed_room">
             <h3><?php echo $sp['TenPhong'] ?></h3>
-            <p><?php echo $dm['Ten']?></p>
+            <!-- <p><?php echo $dm['GiaPhongChung']?></p> -->
           </div>
         </div>
       </div>

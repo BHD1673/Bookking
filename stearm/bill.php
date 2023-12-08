@@ -50,11 +50,8 @@
 	<div class="container">
 		<?php
 		if (isset($_SESSION['email'])) {
-			$name = $_SESSION['email']['TenKhachHang'];
-			$email = $_SESSION['email']['Email'];
-			$tel = $_SESSION['email']['SoDienThoai'];
-			$address = $_SESSION['email']['DiaChiNha'];
-		
+			$email = $_SESSION['email'];
+			
 		} else {
 			$name = "";
 			$email = "";
@@ -73,10 +70,11 @@
 					<div class="col-xs-6">
 						<address>
 							<strong>Billed To:</strong><br>
-							Người đặt hàng: <?php echo $name ?> <br>
-							Email: <?php echo $email ?> <br>
-							Số điện thoại: <?php echo $tel ?> <br>
-							Địa chỉ: <?php echo $address ?> <br>
+							Người đặt hàng: <?php echo $email['TenKhachHang'] ?> <br>
+							Email: <?php echo $email['Email'] ?> <br>
+							Số điện thoại: <?php echo $email['Email'] ?> <br>
+							Địa chỉ: <?php echo $email['Email'] ?> <br>
+							Ngày đến: <?php echo $email['NgayCheckIn'] ?> <br>
 						</address>
 					</div>
 				</div>
