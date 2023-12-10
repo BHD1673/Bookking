@@ -192,13 +192,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								<?php  foreach ($_SESSION['cart'] as $item): ?>
 									<tr>
 										<td><?= htmlspecialchars($item['idPhong']) ?></td>
-										<td class="text-center"><?= htmlspecialchars($item['tenLoaiPhong']) ?></td>
-										<td class="text-center"><?php echo htmlspecialchars($item['giaPhongChung']) ?> .000 VND</td>
-										<td class="text-center"><?= htmlspecialchars($item['soLuongPhong']) ?></td>
-										<td class="text-center"><?= htmlspecialchars($item['soNgayO']) ?></td>
-										<td class="text-center"><?= htmlspecialchars($item['dateIn']) ?></td>
-										<td class="text-center"><?= htmlspecialchars($item['dateOut']) ?></td>
-										<td class="text-right totalOneRoomPrice"><?= htmlspecialchars($item['totalPriceWithDay']) ?> .000 VND</td>
+										<td class="text-center"><?= $item['tenLoaiPhong'] ?></td>
+										<td class="text-center"><?php echo $item['giaPhongChung'] ?> .000 VND</td>
+										<td class="text-center"><?= $item['soLuongPhong'] ?></td>
+										<td class="text-center"><?= $item['soNgayO'] ?></td>
+										<td class="text-center"><?= $item['dateIn'] ?></td>
+										<td class="text-center"><?= $item['dateOut'] ?></td>
+										<td class="text-right totalOneRoomPrice"><?= $item['totalPriceWithDay'] ?> .000 VND</td>
 									</tr>
 								<?php endforeach; ?>
 
@@ -219,7 +219,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<input type="hidden" name="email" value="<?php echo $email ; echo $_SESSION['visitor_data']['email'];?>">
 						<input type="hidden" name="tel" value="<?php echo $tel; echo $_SESSION['visitor_data']['phone']; ?>">
 						<input type="hidden" name="adress" value="Địa chỉ: <?php echo $address; echo $_SESSION['visitor_data']['name']; ?> <br>">
-						<input type="hidden" name="soNgayO" value="<?= htmlspecialchars($item['soNgayO']) ?>">
+						<input type="hidden" name="soNgayO" value="<?= $item['soNgayO'] ?>">
 						<input type="hidden" name="dateIn" value="<?= htmlspecialchars($item['dateIn']) ?>">
 						<input type="hidden" name="dateOut" value="<?= htmlspecialchars($item['dateOut']) ?>">
 						<input type="hidden" name="soLuongPhong" value="<?= htmlspecialchars($item['soLuongPhong']) ?>">
