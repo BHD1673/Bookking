@@ -69,10 +69,9 @@ $amountOfDay = "";
                                 <th>Tên loại phòng</th>
                                 <th>Giá một phòng</th>
                                 <th>Số Lượng Phòng</th>
-                                <th>Ngày Check-In</th>
-                                <th>Ngày Check-Out</th>
+                                <th>Phòng đã chọn</th>
                                 <th>Số Ngày Ở</th>
-                                <th>Tổng giá trị dựa trên ngày ở</th>
+                                <th>Tổng tiền cho loại phòng</th>
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
@@ -83,17 +82,33 @@ $amountOfDay = "";
                                 <td><?= $item['tenLoaiPhong'] ?></td>
                                 <td><?= $item['giaPhongChung'] ?></td>
                                 <td><?= $item['soLuongPhong'] ?></td>
-                                <td><?= $item['dateIn'] ?></td>
-                                <td><?= $item['dateOut'] ?></td>
+                                <td> </td>
                                 <td><?= $item['soNgayO'] ?></td>
                                 <td><?= $item['totalPriceWithDay'] ?>.000</td>
                                 <td>
-                                    <form action="" method="post">
-                                        <input type="number" name="soLuongPhong[<?= $index ?>]" value="<?= $item['soLuongPhong'] ?>" min="1">
-                                        <input type="hidden" name="action" value="update">
-                                        <input type="hidden" name="index" value="<?= $index ?>">
-                                        <button type="submit">Cập Nhật</button>
-                                    </form>
+                                <form action="" method="post" class="form-inline">
+                                    <!-- Minus Button -->
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <button type="button" class="btn btn-outline-secondary" onclick="decrementValue(<?= $index ?>)">-</button>
+                                        </div>
+
+                                        <!-- Amount Display -->
+                                        <input type="number" name="soLuongPhong[<?= $index ?>]" id="amount<?= $index ?>" value="<?= $item['soLuongPhong'] ?>" min="1" readonly class="form-control">
+
+                                        <!-- Plus Button -->
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-outline-secondary" onclick="incrementValue(<?= $index ?>)">+</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Hidden Inputs -->
+                                    <input type="hidden" name="action" value="update">
+                                    <input type="hidden" name="index" value="<?= $index ?>">
+
+                                    <!-- Submit Button -->
+                                    <button type="submit" class="btn btn-primary ml-2">Cập Nhật</button>
+                                </form>
                                 </td>
                                 <td>
                                     <a href="index.php?act=roomlist&action=delete&index=<?= $index ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa mục này?');">Xóa</a>
@@ -104,12 +119,11 @@ $amountOfDay = "";
                     </table>
                     <form action="" method="post">
                         <input type="hidden" name="cartDeleteAll" value="q">
-                        <button class="btn btn-danger" type="submit">Xóa toàn bộ trong giỏ hàng</button><br><br>
+                        <button class="btn btn-danger" type="submit">Xóa toàn bộ giỏ hàng</button><br><br>
                     </form>
                     <?php 
                     if (isset($_POST['cartDeleteAll'])) {
                         unset($_SESSION['cart']);
-                        var_dump($_SESSION['cart']);
                         header('LOCATION: index.php?act=roomlist');
                         exit();
                     }
@@ -130,9 +144,8 @@ $amountOfDay = "";
             $roomTypeDes = $row['MoTa'];
             $roomTypePrice = $row['GiaPhongChung'];
             $roooTypeAmountLeft = $row['RoomCount'];
-            $totalPriceWithDay = $roomTypePrice * $_SESSION['bookingInfor']['amountOfDay'];
-            $amountOfDay = $_SESSION['bookingInfor']['amountOfDay'];
-            
+            $amountOfDay = isset($_SESSION['bookingInfor']['amountOfDay']) ? $_SESSION['bookingInfor']['amountOfDay'] : '';
+            $totalPriceWithDay = $roomTypePrice * $amountOfDay;
         ?>
         
         <div class="col-fluid">
@@ -149,9 +162,10 @@ $amountOfDay = "";
                             <h5 class="card-title">Tên Loại Phòng: <?= $roomTypeName ?></h5>
                             <p class="card-text">Mô tả: <?= $roomTypeDes; ?></p>
                             <p class="card-text"><small class="text-muted">Giá Phòng: <?= $roomTypePrice; ?></small></p>
-                            <p class="card-text"><small class="text-muted">Giá Phòng cho <?= isset($_SESSION['bookingInfor']['amountOfDay']) ? $_SESSION['bookingInfor']['amountOfDay'] : ''; ?> ngày là: <?= $totalPriceWithDay ?></small></p>
+                            <p class="card-text"><small class="text-muted">Giá Phòng cho <?= isset($_SESSION['bookingInfor']['amountOfDay']) ? $_SESSION['bookingInfor']['amountOfDay'] : ''; ?> ngày là: <?= $totalPriceWithDay ?>.000</small></p>
 
                             <!-- Lựa chọn số lượng phòng, để từ đây chuẩn bị câu lệnh truy vấn tìm ID phòng  -->
+                            <p class="card-text">Hãy chọn số lượng phòng</p>
                             <form action="" method="post">
                                 <div class="mb-3">
                                     <select name="soLuongPhong" class="form-select">
@@ -191,6 +205,19 @@ $amountOfDay = "";
 
 
 <script>
+    function incrementValue(index) {
+        var value = parseInt(document.getElementById('amount' + index).value, 10);
+        value = isNaN(value) ? 1 : value;
+        value++;
+        document.getElementById('amount' + index).value = value;
+    }
+
+    function decrementValue(index) {
+        var value = parseInt(document.getElementById('amount' + index).value, 10);
+        value = isNaN(value) ? 1 : value;
+        value = value > 1 ? value - 1 : 1;
+        document.getElementById('amount' + index).value = value;
+    }
 document.addEventListener('DOMContentLoaded', (event) => {
     const checkInInput = document.getElementById('DateIn');
     const checkOutInput = document.getElementById('DateOut');
