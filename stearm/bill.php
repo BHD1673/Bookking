@@ -41,21 +41,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     insertBookingData($IDKhachHang, $ngayCheckIn, $ngayCheckOut, $soNgayO, $tongSoPhong, $tongTien);
 }
 
-
 ?>
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Hóa đơn</title>
 </head>
 <style>
 	.invoice-title h2,
@@ -101,11 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	<div class="container">
 		<?php
 		if (isset($_SESSION['email'])) {
-			$name = $_SESSION['email']['TenKhachHang'];
-			$email = $_SESSION['email']['Email'];
-			$tel = $_SESSION['email']['SoDienThoai'];
-			$address = $_SESSION['email']['DiaChiNha'];
-		
+			$email = $_SESSION['email'];
+			
 		} else {
 			$name = "";
 			$email = "";
@@ -127,11 +116,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<div class="col-xs-6">
 						<address>
 							<strong>Hóa đơn tới:</strong><br>
-							Người đặt hàng: <?php echo $name; echo $_SESSION['visitor_data']['name']; ?> <br>
-							Email: <?php echo $email ; echo $_SESSION['visitor_data']['email'];?> <br>
-							Số điện thoại: <?php echo $tel; echo $_SESSION['visitor_data']['phone']; ?> <br>
-							Địa chỉ: <?php echo $address; echo $_SESSION['visitor_data']['name']; ?> <br>
-
+							Người đặt hàng: <?php echo $email['TenKhachHang'] ?> <br>
+							Email: <?php echo $email['Email'] ?> <br>
+							Số điện thoại: <?php echo $email['Email'] ?> <br>
+							Địa chỉ: <?php echo $email['Email'] ?> <br>
+							Ngày đến: <?php echo $email['NgayCheckIn'] ?> <br>
 						</address>
 					</div>
 				</div>

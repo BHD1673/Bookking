@@ -155,7 +155,6 @@ $loginMessage = isset($login) && $login != '' ? $login : '';
                                  <a href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
                                  <div class="dropdown-content">
                                     <a href="index.php?act=thongtintk">Tài khoản</a>
-                                    <a href="admin.php">Admin</a>
                                     <a href="index.php?act=thoat">Đăng Xuất</a>
                                  </div>
                               </div>

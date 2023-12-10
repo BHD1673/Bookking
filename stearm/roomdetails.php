@@ -251,11 +251,11 @@ img {
 						  <div class="tab-pane" id="pic-5"><img src="images/room5.jpg" alt="#"/></div> -->
 						</div>
 						<ul class="preview-thumbnail nav nav-tabs">
-						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="images/room1.jpg" alt="#"/></a></li>
+						  <!-- <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="images/room1.jpg" alt="#"/></a></li>
 						  <li><a data-target="#pic-2" data-toggle="tab"><img src="images/room2.jpg" alt="#"/></a></li>
 						  <li><a data-target="#pic-3" data-toggle="tab"><img src="images/room3.jpg" alt="#"/></a></li>
 						  <li><a data-target="#pic-4" data-toggle="tab"><img src="images/room4.jpg" alt="#"/></a></li>
-						  <li><a data-target="#pic-5" data-toggle="tab"><img src="images/room5.jpg" alt="#"/></a></li>
+						  <li><a data-target="#pic-5" data-toggle="tab"><img src="images/room5.jpg" alt="#"/></a></li> -->
 						</ul>
 						
 					</div>

@@ -319,8 +319,8 @@
        
             <form action="index.php?act=dangnhap" method="post" >
             <label>
-                <span>Email</span>
-                <input type="email" name="email" id="emailSignInInput" />
+                <span>Name</span>
+                <input type="text" name="user" id="emailSignInInput" />
                 <p class="error-message" id="emailSignInError"></p>
             </label>
             <label>

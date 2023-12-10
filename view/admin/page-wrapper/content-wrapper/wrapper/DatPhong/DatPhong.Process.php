@@ -12,7 +12,6 @@ function getAllPhongTrong() {
             lp.Ten, 
             lp.MoTa, 
             lp.GiaPhongChung,
-            GROUP_CONCAT(p.AnhPhong) AS AnhPhong,
             GROUP_CONCAT(p.ID) AS InRaIDPhong,
             COUNT(p.ID) AS DemSoPhong
         FROM 

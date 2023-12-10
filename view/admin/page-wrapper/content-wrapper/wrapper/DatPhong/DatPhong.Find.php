@@ -1,16 +1,8 @@
 <div class="container md-6">
 <div class="row">
         <!-- Form Section (Left Side) -->
-        <div class="col-md-8">
-            <?php 
-            $HienThiThongTin = HienThiThongTinKhach();
+        <div class="col-md-4">
 
-            // Kiểm tra nếu kết quả là một mảng và lấy giá trị cần thiết từ mảng
-            if (is_array($HienThiThongTin)) {
-                $TenKhachHang = $HienThiThongTin[0]['TenKhachHang'];
-            ?>
-            <h2 class="mb-4">Tên khách hàng muốn đặt phòng</h2>
-            <input type="text" class="form-control" name="TenKhachHang" id="TenKhachHang" value="<?php echo $TenKhachHang; } ?>"><br><br>
             <h2 class="mb-4">Khoảng thời gian đặt phòng</h2>
             <form action="" method="post">
             <div class="mb-3">
@@ -23,8 +15,8 @@
             </div>
             <div class="mb-3">
                 <label for="AmountOfDay" class="form-label">Số ngày ở dựa trên ngày check</label>
-                <input type="number" name="AmountOfDay"  value="<?php echo isset($_SESSION["AmountOfDay"]) ? $_SESSION["AmountOfDay"] : ''; ?>" disabled>
-                <input type="number" name="AmountOfDay"  value="<?php echo isset($_SESSION["AmountOfDay"]) ? $_SESSION["AmountOfDay"] : ''; ?>" style="display: none;">
+                <input type="number" name="AmountOfDay"  value="<?php echo isset($_SESSION["SoNgayO"]) ? $_SESSION["SoNgayO"] : ''; ?>" disabled>
+                <input type="hidden" name="AmountOfDay"  value="<?php echo isset($_SESSION["SoNgayO"]) ? $_SESSION["SoNgayO"] : ''; ?>">
             </div>
             <button type="submit" class="btn btn-primary">Tìm khoảng phòng mới</button><br>
             <?php 
@@ -33,8 +25,11 @@
         </form>
         </div>
         <div class="col-md-8">
-            <div class="room">
-                
+            <div class="container">
+                <h2 class="mt-4" id="title">Thông tin khách hàng đã chọn</h2>
+                <div class="row" id="userInfoContainer">
+                    <!-- User info will be added here using JavaScript -->
+                </div>
             </div>
         </div>  
     </div>
@@ -54,7 +49,6 @@
                             <th>Mô tả phòng</th>
                             <th>ID phòng còn trống</th>
                             <th>Số lượng phòng muốn đặt</th>
-                            <th>Ảnh phòng</th>
                             <th>Phần này để trống để xuất ra nút xác nhận</th>
                             
                         </tr>
@@ -66,20 +60,19 @@
                             if (is_array($allPhongTrong) || is_object($allPhongTrong)): 
                                 foreach ($allPhongTrong as $room): 
                                     $roomIDs = is_string($room['InRaIDPhong']) ? explode(',', $room['InRaIDPhong']) : [];
-                                    $roomImages = is_string($room['AnhPhong']) ? explode(',', $room['AnhPhong']) : [];
                         ?>
                                     <tr>
-                                        <td><?= htmlspecialchars($room['ID']); ?></td>
-                                        <td><?= htmlspecialchars($room['Ten']); ?></td>
+                                        <td><?= $room['ID']; ?></td>
+                                        <td><?= $room['Ten']; ?></td>
                                         <td>
                                             <div class="container">
-                                                [<div id="dayamount"><?= $_SESSION["AmountOfDay"]; ?></div> * <div id="roomprice"><?= $room['GiaPhongChung']; ?></div> ] = <div class="finalPrice"></div>
+                                                <?= $_SESSION["AmountOfDay"]; ?> <?= $room['GiaPhongChung']; ?>
                                             </div>
                                         </td>
-                                        <td><?= htmlspecialchars($room['MoTa']); ?></td>
+                                        <td><?= $room['MoTa']; ?></td>
                                         <td>
                                             <?php foreach ($roomIDs as $id): ?>
-                                                <?= htmlspecialchars($id); ?><br>
+                                                <?= $id; ?><br>
                                             <?php endforeach; ?>
                                         </td>
                                         <td>            
@@ -90,18 +83,13 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <?php foreach ($roomImages as $image): ?>
-                                                <img src="<?= htmlspecialchars($filePath . $image); ?>" alt="Ảnh phòng" style="width:100px; height:auto;"><br>
-                                            <?php endforeach; ?>
-                                        </td>
-                                        <td>
                                         <form action="" method="post" name="ChoVaoDonDatPhong">
-                                            <input type="hidden" name="IDKhachHang" value="<?= $_SESSION["IDKhachHang"]; ?>">
-                                            <input type="hidden" name="IDLoaiPhong" value="<?= htmlspecialchars($room['ID']); ?>">
+                                            <input type="hidden" name="IDKhachHang" value="<?= $_SESSION["userChoiceToBook"]['IDKhachHang']; ?>">
+                                            <input type="hidden" name="IDLoaiPhong" value="<?= $room['ID']; ?>">
                                             <input type="hidden" name="CheckIn" value="<?= $_SESSION["NgayCheckIn"]; ?>">
                                             <input type="hidden" name="CheckOut" value="<?= $_SESSION["NgayCheckOut"]; ?>">
                                             <input type="hidden" name="SoNgayO" value="<?= $_SESSION["AmountOfDay"]; ?>">
-                                            <input type="hidden" name="TongTien" value="<?= $_SESSION["AmountOfDay"]; ?>">
+                                            <input type="hidden" name="TongTien" value="">
                                             <input type="hidden" name="soLuongPhong" value="<?= $room['DemSoPhong']; ?>">
 
                                             <button type="submit" class="btn btn-info">Chọn phòng này</button>
@@ -139,54 +127,70 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Hàm tính khoảng thời gian giữa ngày vào và ra
-function calculateDays() {
-    var checkinDate = new Date(document.getElementById('checkin').value);
-    var checkoutDate = new Date(document.getElementById('checkout').value);
+document.getElementById('yourFormId').addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent the default form submission
 
-    var timeDifference = checkoutDate - checkinDate;
+    // Get the check-in and check-out dates
+    var checkinDate = document.getElementById('checkin').value;
+    var checkoutDate = document.getElementById('checkout').value;
 
-    var numberOfDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+    // Convert the dates to JavaScript Date objects
+    var checkin = new Date(checkinDate);
+    var checkout = new Date(checkoutDate);
 
-    var visibleAmountInput = document.querySelector('input[name="AmountOfDay"]:not([style*="display: none"])');
-    visibleAmountInput.value = numberOfDays;
+    // Calculate the difference in milliseconds
+    var difference = checkout - checkin;
 
-    var hiddenAmountInput = document.querySelector('input[name="AmountOfDay"][style*="display: none"]');
-    hiddenAmountInput.value = numberOfDays;
-}
+    // Convert milliseconds to days
+    var numberOfDays = difference / (1000 * 3600 * 24);
 
-document.getElementById('checkin').addEventListener('change', calculateDays);
-document.getElementById('checkout').addEventListener('change', calculateDays);
+    // Display or use the number of days as needed
+    document.getElementsByName('AmountOfDay')[0].value = numberOfDays;
 });
+});
+<?php 
+if (isset($_SESSION['userChoiceToBook'])) {
+    $userInfor = $_SESSION['userChoiceToBook'];
+    echo json_encode($userInfor);} ?>
 
-function calculateDateRange() {
-    var checkinDate = new Date(document.getElementById('checkin').value);
-    var checkoutDate = new Date(document.getElementById('checkout').value);
+var userInfor = <?php echo json_encode($userInfor); ?>;
+document.addEventListener('DOMContentLoaded', function () {
+// Assuming userInfor is passed correctly from PHP to JavaScript
+if (userInfor && typeof userInfor === 'object') {
+    var container = document.getElementById('userInfoContainer');
 
-    if (!isNaN(checkinDate.getTime()) && !isNaN(checkoutDate.getTime())) {
-        var timeDiff = Math.abs(checkoutDate.getTime() - checkinDate.getTime());
-        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    for (var key in userInfor) {
+        if (userInfor.hasOwnProperty(key)) {
+            var colDiv = document.createElement('div');
+            colDiv.className = 'col-md-4 mb-4';
 
-        // Cập nhật giá trị cho ô input ẩn
-        document.getElementById('HiddenAmountOfDay').value = diffDays;
+            var cardDiv = document.createElement('div');
+            cardDiv.className = 'card';
+
+            var cardBody = document.createElement('div');
+            cardBody.className = 'card-body';
+
+            var title = document.createElement('h5');
+            title.className = 'card-title';
+            title.textContent = key;
+
+            var text = document.createElement('p');
+            text.className = 'card-text';
+            text.textContent = userInfor[key];
+
+            cardBody.appendChild(title);
+            cardBody.appendChild(text);
+            cardDiv.appendChild(cardBody);
+            colDiv.appendChild(cardDiv);
+            container.appendChild(colDiv);
+        }
     }
 }
+});
 
-function calculateTotal() {
-    var elements = document.querySelectorAll('.container');
-
-    elements.forEach(function (element) {
-        var dayAmount = parseInt(element.querySelector('.dayamount').innerText);
-        var roomPrice = parseInt(element.querySelector('.roomprice').innerText.replace(',', ''));
-        var finalPrice = dayAmount * roomPrice;
-
-        // In kết quả vào div finalPrice trong mỗi container
-        element.querySelector('.finalPrice').innerText = finalPrice.toLocaleString(); // Định dạng số có dấu phẩy ngăn cách hàng nghìn
-    });
-}
-
-// Gọi hàm tính tổng khi trang được tải
-calculateTotal();
 </script>
+
+
+
 
 

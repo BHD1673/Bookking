@@ -21,10 +21,11 @@ function updateLoaiPhong($ID, $Ten, $MoTa, $GiaPhongChung){
 
 
 // Lấy tất cả dữ liệu
-function getAllLoaiPhong(){
-    $sql = "SELECT * FROM loaiphong";
+function getAllLoaiPhong($limit = PHP_INT_MAX) {
+    $sql = "SELECT * FROM loaiphong LIMIT $limit";
     return pdo_query($sql);
 }
+
 
 // Lấy một bản ghi
 function getLoaiPhongByID($ID){

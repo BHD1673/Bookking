@@ -1,3 +1,13 @@
+<?php 
+
+?>
+    <div class="container">
+        <h2 class="mt-4" id="title">Thông tin khách hàng đã chọn</h2>
+        <div class="row" id="userInfoContainer">
+            <!-- User info will be added here using JavaScript -->
+        </div>
+        <a href="?act=TimPhongTrong"><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Chuyển đến trang chọn phòng</button></a>
+    </div>
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -5,6 +15,22 @@
         <p class="m-0">Những khách hàng có dữ liệu trong bảng tên tài khoản <br> là những khách hàng đã đăng ký từ trước</p>
         <p class="m-0 font-weight-bold text-primary">GHI CHÚ: Khi tạo một đơn dặt mới, sẽ được chuyển hướng đến đây để lựa chọn khách hàng. </p>
         <a href="?act=AddTaiKhoan"><button class="btn btn-primary">Thêm khách hàng mới</button></a>
+            <!-- Nút giới hạn data in-->
+        <a href="?act=QuanLyTaiKhoan&limit=500">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal" >
+                In ra toàn bộ thông tin khách hàng.
+            </button>
+        </a>   
+        <a href="?act=QuanLyTaiKhoan&limit=50">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal" >
+                Chỉ lấy 50 khách hàng
+            </button>
+        </a>   
+        <a href="?act=QuanLyTaiKhoan&limit=10">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+                Chỉ lấy 10 khách hàng
+            </button>
+        </a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -23,7 +49,9 @@
                 </thead>
                 <tfoot>
                 <?php 
-                $allKhachang = getAllKhachHang();
+
+                $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 25;
+                $allKhachang = getAllKhachHang($limit);
                 foreach ($allKhachang as $row) {
                     extract($row);
                     ?>
@@ -36,21 +64,24 @@
                         <td><?php echo $row['Email']; ?></td>
                         <td><?php echo $row['TenDangNhap']; ?></td>
                         
-                        <td><img src="<?php echo $filePathXacNhan; ?><?php echo $row['AnhXacNhan']; ?>" alt="Hình ảnh xác nhận" style="width: 50%;"></td>
+                        <td><img src="<?php echo $filePathXacNhan; ?><?php echo $row['AnhXacNhan']; ?>" alt="Hình ảnh xác nhận" style="width: 90%;"></td>
                 
                         <td>
-                            <form action="" method="post">
-                                <input type="text" name="IDKhachHang" value="<?php echo $row['ID']; ?>" style="display: none;">
-                                <button type="submit" class="btn btn-primary">Chuyển khách hàng <br> này sang bảng đặt phòng</button>
+                            <form action method="post" class="hidden-form">
+                                <input type="hidden" name="IDKhachHang" value="<?php echo $row['ID']; ?>">
+                                <input type="hidden" name="TenKhachHang" value="<?php echo $row['TenKhachHang']; ?>">
+                                <input type="hidden" name="NgaySinh" value="<?php echo $row['NgaySinh'] ?>">
+                                <input type="hidden" name="DiaChiNha" value="<?php echo $row['DiaChiNha']?>"><input type="hidden" name="Email" value="<?php echo $row['Email'] ?>">
+                                <button type="submit" class="btn btn-primary show-hidden">Chọn khách hàng sang đặt phòng </button><br>
                             </form>
-                            <a href="?act=?updateID='<?php echo $row['ID']; ?>'" class="btn btn-info">Sửa</a>
-                            <a href="?act=?deleteID='<?php echo $row['ID']; ?>'" class="btn btn-danger">Xóa</a>
+                            <a href="?act=CapNhatThongTinKhach?updateID='<?php echo $row['ID']; ?>'" class="btn btn-info">Sửa </a>
+                            <a href="?act=XoaKhach?deleteID='<?php echo $row['ID']; ?>'" class="btn btn-danger">Xóa</a>
                         </td>
                     </tr>
-                
                 <?php } ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+

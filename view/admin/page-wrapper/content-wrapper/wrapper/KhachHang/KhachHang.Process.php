@@ -6,8 +6,8 @@ function getKhachHangById($id){
 }
 
 //Lấy tất cả dữ liệu 
-function getAllKhachHang() {
-    $sql = "SELECT * FROM khachhang";
+function getAllKhachHang($limit = PHP_INT_MAX) {
+    $sql = "SELECT * FROM khachhang LIMIT $limit";
     return pdo_query($sql);
 }
 

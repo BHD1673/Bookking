@@ -8,8 +8,6 @@ include "model/sanphamtheodanhmuc.php";
 include "model/redirect.php";
 include "global.php";
 include "view/header.php";
-
-
 include "model/taikhoan.php";
 $roomnew = loadall_room_home();
 $roomdm = loadall_danhmuc_home();
@@ -113,25 +111,41 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             }
             include "stearm/roomdetails.php";
             break;
+        //Phần này đang chả biết nó làm gì
         case "danhmuc":
             include "view/gallery.php";
             break;
         case "thoat":
-            session_unset();
-            header('location: index.php');
+            unset($_SESSION['user']);
+            unset($_SESSION['pass']);
+            unset($_SESSION['role']);
+            header('Location: index.php');
+            exit();
             break;
         case "dangnhap":
-            if(isset($_POST['dangnhap'])&& ($_POST['dangnhap'])){
-                $email= $_POST['email'];
-                $pass= $_POST['pass'];
-                $checkemail = checkemail($email,$pass);
-                if(is_array($checkemail)){
-                    $_SESSION['email']=$checkemail;
-                    echo "<script>
-                    window.location.href='index.php';
-                    </script>";
-                }else{
-                    $thongbao="Tài khoản khồng tồn tại";
+            if (isset($_POST['dangnhap']) && ($_POST['dangnhap'])) {
+                $user = $_POST['user'];
+                $pass = $_POST['pass'];
+                $checkuser = checkuser($user, $pass);
+                if (is_array($checkuser)) {
+                    $_SESSION['user'] = $checkuser;
+
+                    // Kiểm tra vai trò
+                    if ($checkuser['Role'] == 1) {
+                        $_SESSION['role'] = 1;
+                        // Nếu vai trò là 1 (admin), chuyển hướng đến trang quản trị admin
+                        echo "<script>
+                            window.location.href='admin.php';
+                        </script>";
+                    } else {
+                        $_SESSION['role'] = 0;
+                        // Nếu vai trò là người dùng thông thường, chuyển hướng đến trang chính
+                        echo "<script>
+                            window.location.href='index.php';
+                        </script>";
+                    }
+                } else {
+                    $thongbao = "Tài khoản không tồn tại";
                 }
             }
             include "view/user/singup.php";
@@ -158,6 +172,49 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             }
             include "view/user/forgot.php";
             break;
+        case "doimk":
+            if (isset($_POST['submit']) && ($_POST['submit'])) {
+                $password = $_POST['password'];
+                $newpassword = $_POST['newpassword'];
+                $repassword = $_POST['repassword'];
+                if (empty($password) || empty($newpassword) || empty($repassword)) {
+                    $thongbao = "VUI LÒNG NHẬP ĐỦ THÔNG TIN";
+                } else {
+                    $checkpass = checkpass($password);
+
+                    if (!password_verify($password, $checkpass['MatKhau'])) {
+                        $thongbao = "MẬT KHẨU HIỆN TẠI KHÔNG ĐÚNG";
+                    } else if ($newpassword != $repassword) {
+                        $thongbao = "MẬT KHẨU KHÔNG TRÙNG KHỚP";
+                    } else if (strlen($newpassword) < 6) {
+                        $thongbao = "MẬT KHẨU MỚI PHẢI CÓ ÍT NHẤT 6 KÝ TỰ";
+                    } else {
+                        $hashedNewPassword = password_hash($newpassword, PASSWORD_DEFAULT);
+
+                        $stmt = $mysqli->prepare("SELECT * FROM khachhang WHERE TenDangNhap = ? LIMIT 1");
+                        $stmt->bind_param("s", $_SESSION['user']);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $count = $result->num_rows;
+
+                        if ($count > 0) {
+                            $stmtUpdate = $mysqli->prepare("UPDATE khachhang SET MatKhau = '" . $newpassword . "' WHERE TenDangNhap = ? LIMIT 1");
+                            $stmtUpdate->bind_param("ss", $hashedNewPassword, $_SESSION['user']);
+                            $stmtUpdate->execute();
+
+                            $thongbao = "MẬT KHẨU ĐÃ ĐƯỢC THAY ĐỔI";
+                        } else {
+                            $thongbao = "MẬT KHẨU HIỆN TẠI KHÔNG ĐÚNG";
+                        }
+                    }
+                }
+            }
+
+
+            include "view/user/doimk.php";
+            break;
+
+
             // case 'doimatkhau':
             //     if (isset($_POST['doimatkhau'])) {
             //         $pass = trim($_POST['pass']);
@@ -171,15 +228,15 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             //     break;
         case 'thongtintk':
             if (isset($_POST['capnhat'])) {
-                $user= trim($_POST['user']);
-                $email= trim($_POST['email']);
-                $address= trim($_POST['address']);
-                $tel= $_POST['tel'];
-                $date= $_POST['ngaysinh'];
-                $id= $_POST['id'];
-             
-                update_taikhoan($user, $email, $address, $id, $tel,$date);
-                $_SESSION['email'] = getUserByUsernameAndEmail($user, $email);
+                $user = trim($_POST['user']);
+                $email = trim($_POST['email']);
+                $address = trim($_POST['address']);
+                $tel = $_POST['tel'];
+                $date = $_POST['ngaysinh'];
+                $id = $_POST['id'];
+
+                update_taikhoan($user, $email, $address, $id, $tel, $date);
+                $_SESSION['user'] = getUserByUsernameAndEmail($user, $email);
                 header('Location:index.php?act=thongtintk');
             }
             include "view/user/thongtintk.php";
@@ -193,9 +250,8 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     $phone = $_POST['visitor_phone'];
                     $dateIn = $_POST['DateIn'];
                     $dateOut = $_POST['DateOut'];
-
-                    $idkh = $_POST['IDKhachHang'];
-
+                    $id_kh = bill($id_kh);
+                    // Lấy id_kh từ bảng đặt phòng
                     // Gọi hàm để thêm dữ liệu vào cơ sở dữ liệu
                     //insertAccount($checkin, $checkout, $name, $email,$phone);
                 } else {
@@ -236,4 +292,5 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
 }
 include "view/footer.php";
 
+?>
 ?>

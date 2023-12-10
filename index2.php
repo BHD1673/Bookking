@@ -1,65 +1,228 @@
 <?php
+session_start();
+ob_start();
 include "model/pdo.php";
 include "model/sanpham.php";
 include "model/danhmuc.php";
 include "model/sanphamtheodanhmuc.php";
-include "model/form.php";
+include "model/redirect.php";
 include "global.php";
+
 include "view/header.php";
+
+
 $roomnew = loadall_room_home();
 $roomdm = loadall_danhmuc_home();
 $sptheodm = loadall_sanphamtheodanhmuc_home();
-if (isset($_GET['act']) && ($_GET['act'] != "")) {
-    $act = $_GET['act'];
-    switch ($act) {
-        case "about":
-            include "view/review.php";
-            break;
-        case "sanpham":
-            // lấy dữ liệu
-            if (isset($_GET['iddm']) && ($_GET['iddm'] > 0)) {
-                $iddm = ($_GET['iddm']);
-            } else {
-                $iddm = 0;
-            }
-            $tendm = loadall_room_home($iddm);
-            include "view/room.php";
-            break;
-        case "sanphamct":
-            include "stearm/roomdetails.php";
-            break;
-        case "danhmuc":
-            include "view/gallery.php";
-            break;
-        case "hoadon":
-            include "stearm/bill.php";
-            break;
-        case "dangnhap":
-            include "view/user/singup.php";
-            break;
-        case "forgot":
-            include "view/user/forgot.php";
-            break;
-        case "thongtin":
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                // Kiểm tra xem các trường dữ liệu đã được gửi từ biểu mẫu hay chưa
-                if (isset($_POST['book']) && isset($_POST['book'])) {
-                    $name = $_POST['visitor_name'];
-                    $email = $_POST['visitor_email'];
-                    $phone = $_POST['visitor_phone'];
-                    
-                    // Gọi hàm để thêm dữ liệu vào cơ sở dữ liệu
-                    // insertData($checkin, $checkout, $name, $email,$phone);
-                } else {
-                    echo "Invalid data submitted.";
-                }
-            }
-            include "stearm/checkout.php";
-            break;
-    }
+
+// Phần điều hướng sản phẩm chính
+if (isset($_GET['act'])) {
+    $hanhDong = $_GET['act'];
+    xuLyHanhDong($hanhDong);
 } else {
-    include "view/home.php";
+    hienThiTrangChu();
 }
 
+// Bao gồm phần cuối trang
 include "view/footer.php";
+
+// Hàm để xử lý điều hướng hành động
+function xuLyHanhDong($hanhDong) {
+    switch ($hanhDong) {
+        case 'roomlist':
+            include('view/roomlist.php');
+            break;
+        case 'phong':
+            hienThiPhong();
+            break;
+        case 'chitietphong':
+            hienThiChiTietPhong();
+            break;
+        case 'danhmuc':
+            include "view/thuvien.php";
+            break;
+        case 'dangxuat':
+            dangXuatNguoiDung();
+            break;
+        case 'dangnhap':
+            dangNhapNguoiDung();
+            break;
+        case 'dangky':
+            dangKyNguoiDung();
+            break;
+        case 'quenmatkhau':
+            quenMatKhau();
+            break;
+        case 'chitiettaikhoan':
+            chitiettaikhoan();
+            break;
+        case 'capnhatthongtin':
+            capNhatThongTinCaNhan();
+            break;
+        case 'datphong':
+            xuLyDatPhong();
+            break;
+        case 'hoadon':
+            hienThiHoaDon();
+            break;
+        case 'gioithieu':
+            include "view/danhgia.php";
+            break;
+        default:
+            hienThiTrangChu();
+            break;
+    }
+}
+
+function chiTietTaiKhoan() {
+    if (isset($_POST['capnhat'])) {
+        $user = trim($_POST['user']);
+        $email = trim($_POST['email']);
+        $address = trim($_POST['address']);
+        $tel = $_POST['tel'];
+        $date = $_POST['ngaysinh'];
+        $id = $_POST['id'];
+
+        update_taikhoan($user, $email, $address, $id, $tel, $date);
+        $_SESSION['user'] = getUserByUsernameAndEmail($user, $email);
+        header('Location:index.php?act=thongtintk');
+    }
+    include "view/user/thongtintk.php";
+}
+
+function hienThiTrangChu() {
+    include "view/banner.php";
+    xuLyFormTimPhong();
+    include "view/trangchu.php";
+}
+
+//Phần này là triển khai để hiển thị loại phòng sau khi tìm
+//kiếm, nếu không tìm kiếm khoảng phòng thì phần này sẽ không hiển thị
+//Có thể đặt validate session chưa được gán cho ngày vào và ngày ra.
+//Phần này tồn tại các biến như sau
+//Thời gian vào
+//Thời gian đi
+//Khoảng cách giữa ngày vào và ngày đi
+function xuLyformTimPhong() {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $dateIn = $_POST['DateIn'];
+        $dateOut = $_POST['DateOut'];
+        $AmountOfDay = $_POST['AmountOfDay'];
+        $_SESSION['AmountOfDay'] = $AmountOfDay;
+        $_SESSION['DateIn'] = $dateIn;
+        $_SESSION['DateOut'] = $dateOut;
+        var_dump($_SESSION);
+    }
+}
+
+//Đang không hiểu phần này để làm gì.
+function hienThiPhong() { }
+
+//Cái này chắc không cần giải thích :v 
+function hienThiChiTietPhong() {
+    if (isset($_GET['idsp']) && ($_GET['idsp'] > 0)) {
+        $id = $_GET['idsp'];
+        $onesp = loadone_zoom_home($id);
+        extract($onesp);
+    }
+    include "stearm/roomdetails.php";
+}
+
+//unset thế này toác hết cả site đấy :v
+//Hiệp xem sửa lại chỗ này
+function dangXuatNguoiDung() {
+    session_unset();
+    header('Location: index.php');
+}
+
+
+//Cần Hiệp ghi chú lại phần này
+function dangNhapNguoiDung() {
+    if (isset($_POST['dangnhap']) && ($_POST['dangnhap'])) {
+        $user = $_POST['user'];
+        $pass = $_POST['pass'];
+        $checkuser = checkuser($user, $pass);
+        if (is_array($checkuser)) {
+            $_SESSION['user'] = $checkuser;
+
+            // Kiểm tra vai trò
+            if ($checkuser['Role'] == 1) {
+                // Nếu vai trò là 1 (admin), chuyển hướng đến trang quản trị admin
+                echo "<script>
+                    window.location.href='admin.php';
+                </script>";
+            } else {
+                // Nếu vai trò là người dùng thông thường, chuyển hướng đến trang chính
+                echo "<script>
+                    window.location.href='index.php';
+                </script>";
+            }
+        } else {
+            $thongbao = "Tài khoản không tồn tại";
+        }
+    }
+    include "view/user/singup.php";
+}
+
+
+
+function dangKyNguoiDung() {
+    if (isset($_POST['dangky']) && ($_POST['dangky'])) {
+        $email = $_POST['email'];
+        $pass = $_POST['pass'];
+        $user = $_POST['user'];
+        insert_taikhoan($email, $user, $pass);
+    }
+    include "view/user/singup.php";
+}
+
+function quenMatKhau() {
+    if (isset($_POST['guiemail']) && ($_POST['guiemail'])) {
+        $email = $_POST['email'];
+
+        $checkemail = checkemail($email);
+        if (is_array($checkemail)) {
+            $thongbao = "Mật khẩu của bạn là: " . $checkemail['MatKhau'];
+        } else {
+            $thongbao = "Email này không tồn tại";
+        }
+    }
+    include "view/user/forgot.php";
+}
+
+function capNhatThongTinCaNhan() {
+    // Triển khai logic cập nhật thông tin cá nhân
+}
+
+function xacNhanThongTin() {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Kiểm tra xem các trường dữ liệu đã được gửi từ biểu mẫu hay chưa
+        if (isset($_POST['book']) && isset($_POST['book'])) {
+            $name = $_POST['visitor_name'];
+            $email = $_POST['visitor_email'];
+            $phone = $_POST['visitor_phone'];
+            $dateIn = $_POST['DateIn'];
+            $dateOut = $_POST['DateOut'];
+
+            // Gọi hàm để thêm dữ liệu vào cơ sở dữ liệu
+            // insertData($checkin, $checkout, $name, $email,$phone);
+        } else {
+            echo "Bạn đang viết sai.";
+        }
+    }
+    include "stearm/checkout.php";
+}
+
+
+function hienThiHoaDon() {
+    if (isset($_GET['idkh']) && ($_GET['idkh'] > 0)) {
+        $id = $_GET['idkh'];
+    }
+    include "stearm/bill.php";
+}
+
+function aboutUs() {
+    include "view/review.php";
+}
+
 ?>

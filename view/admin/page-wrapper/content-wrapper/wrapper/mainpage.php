@@ -1,17 +1,18 @@
-<?php 
+<?php
 // session_start();
 include("PDO.php");
 include("Phong/Phong.Process.php");
 include("LoaiPhong/LoaiPhong.Process.php");
 include("DatPhong/DatPhong.Process.php");
 include("KhachHang/KhachHang.Process.php");
+include("ThongKe/ThongKe.Process.php");
 //Biến điều hướng hình ảnh 
 $filePath = "images/";  //Chúa cứu. Chịu đoạn này.
 $filePathXacNhan = "images/XacNhan/"; //Biến này hiển thị hình ảnh xác nhận
 ?>
 <!-- Bắt đầu vào trang chính -->
 
-<?php 
+<?php
 
 // Kiểm tra xem biến 'act' có được đặt hay không
 if (isset($_GET['act'])) {
@@ -21,68 +22,78 @@ if (isset($_GET['act'])) {
     switch ($act) {
         case 'QuanLyLoaiPhong':
             include('LoaiPhong/LoaiPhong.View.php');
-        break;
+            break;
         case 'AddLoaiPhong':
             include('LoaiPhong/LoaiPhong.Create.php');
-        break;
+            break;
         case 'UpdateLoaiPhong':
             include('LoaiPhong/LoaiPhong.Update.php');
-        break;
+            break;
         case 'AddPhong':
-            
             include('Phong/Phong.Create.php');
-        break;
+            break;
         case 'QuanLyPhong':
             include('Phong/Phong.View.php');
-        break;
+            break;
         case 'UpdatePhong':
             include('Phong/Phong.Update.php');
-        break; 
+            break;
         case 'QuanLyDonDatPhong':
             include('DatPhong/DatPhong.View.php');
-        break;
+            break;
         case 'TimPhongTrong':
             //Gán khoảng thời gian đặt phòng vào session, lưu giá trị khoảng thời gian
-            
-            
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    $NgayCheckInDuKien = $_POST["checkin"];
-                    $NgayCheckOutDuKien = $_POST["checkout"];
-                    $SoNgayO = $_POST["AmountOfDay"];
-                    $_SESSION['AmountOfDay'] = $SoNgayO;
-                    $_SESSION['NgayCheckIn'] = $NgayCheckInDuKien;
-                    $_SESSION['NgayCheckOut'] = $NgayCheckOutDuKien;
-                }
+                $NgayCheckInDuKien = $_POST["checkin"];
+                $NgayCheckOutDuKien = $_POST["checkout"];
+                $SoNgayO = $_POST["AmountOfDay"];
+                $_SESSION['AmountOfDay'] = $SoNgayO;
+                $_SESSION['NgayCheckIn'] = $NgayCheckInDuKien;
+                $_SESSION['NgayCheckOut'] = $NgayCheckOutDuKien;
+            }
 
-                if (isset($_POST['ChoVaoDonDatPhong'])) {
+            if (isset($_POST['ChoVaoDonDatPhong'])) {
                 // Sử dụng var_dump để in ra các dữ liệu từ form
                 echo '<h1>';
                 var_dump($_POST);
                 echo '</h1>';
-                
+
                 // Nếu bạn muốn xử lý thêm các thông tin, bạn có thể làm như sau:
                 // $idPhong = $_POST['idPhong'] ?? null;
                 // $checkin = $_POST['checkin'] ?? null;
                 // $checkout = $_POST['checkout'] ?? null;
                 // $soNgayO = $_POST['soNgayO'] ?? null;
                 // $soLuongPhong = $_POST['soLuongPhong'] ?? null;
-                }
+            }
 
             include('DatPhong/DatPhong.Find.php');
-        break;
-        case 'XacNhanDonDatPhong':            
+            break;
+        case 'XacNhanDonDatPhong':
             include('DatPhong/DatPhong.Confirm.php');
-        break;
+            break;
         case 'UpdateDonDatPhong':
             include('DatPhong/DatPhong.Update.php');
-        break;
+            break;
         case 'QuanLyTaiKhoan':
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $IDKhachHang = $_POST['IDKhachHang'];
-                $_SESSION['IDKhachHang'] = $IDKhachHang;
-            }
+                $userInfor = array(
+                    "IDKhachHang" => $_POST["IDKhachHang"],
+                    "TenKhachHang" => $_POST["TenKhachHang"],
+                    "NgaySinh" => $_POST["NgaySinh"],
+                    "DiaChiNha" => $_POST["DiaChiNha"],
+                    "Email" => $_POST["Email"]
+                );
+                $_SESSION['userChoiceToBook'] = $userInfor;
+                ?>
+                
+                <?php
+                // var_dump( $_SESSION['userChoiceToBook']);
+            } 
+            // else {
+            //     echo "<h1>LỖI</h1>";
+            // }
             include('KhachHang/KhachHang.View.php');
-        break;
+            break;
         case 'AddTaiKhoan':
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 // Gán thông tin vào biến sau khi làm sạch để tránh XSS
@@ -93,34 +104,34 @@ if (isset($_GET['act'])) {
                 $fileName = "";  // Thêm đường fileName
 
                 // Đường dẫn tệp tin được tải lên
-                 
+
                 $FilePush = $filePathXacNhan . basename($_FILES['AnhXacNhan']['name']);
                 $uploadOk = 1;
                 $imageFileType = strtolower(pathinfo($FilePush, PATHINFO_EXTENSION));
-            
+
                 // Kiểm tra xem có phải là file ảnh
-                if(isset($_POST['submit'])) {
+                if (isset($_POST['submit'])) {
                     $check = getimagesize($_FILES['AnhXacNhan']['tmp_name']);
-                    if($check !== false) {
+                    if ($check !== false) {
                         echo "File là ảnh - " . $check["mime"] . ".<br>";
                     } else {
                         echo "File không phải là ảnh.<br>";
                         $uploadOk = 0;
                     }
                 }
-            
+
                 // Kiểm tra kích thước file ảnh
                 if ($_FILES['AnhXacNhan']['size'] > 5000000) {
                     echo "File quá lớn.<br>";
                     $uploadOk = 0;
                 }
-            
+
                 // Chỉ cho phép một số định dạng ảnh cụ thể
-                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+                if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
                     echo "Chỉ chấp nhận file JPG, JPEG, PNG & GIF.<br>";
                     $uploadOk = 0;
                 }
-            
+
                 // Thử tải file lên nếu không có lỗi
                 if ($uploadOk == 0) {
                     echo "File không thể được tải lên.<br>";
@@ -132,7 +143,7 @@ if (isset($_GET['act'])) {
                         echo "Có lỗi khi tải file.<br>";
                     }
                 }
-            
+
                 // Kiểm tra xem các trường bắt buộc có được điền không
                 if (empty($TenKhachHang) || empty($NgaySinh) || empty($DiaChiNha) || empty($Email)) {
                     echo "Vui lòng điền đầy đủ thông tin.<br>";
@@ -141,34 +152,37 @@ if (isset($_GET['act'])) {
                     InsertKhachHang($TenKhachHang, $NgaySinh, $DiaChiNha, $fileName, $Email);
                     echo "Thông tin khách hàng đã được nhập thành công.<br>";
                 }
-            
+
                 // Hiển thị thông tin để kiểm tra
                 var_dump($TenKhachHang, $NgaySinh, $DiaChiNha, $Email, $fileName);
             }
-            
+
             include('KhachHang/KhachHang.Add.php');
-        break;
+            break;
         case 'UpdateTaiKhoan':
             include('KhacHang/KhachHang.Update.php');
-        break;
+            break;
         case 'QuanLyDatPhong':
             include('DatPhong/DatPhong.View.php');
-        break;
+            break;
         case 'AddDatPhong':
             include('DatPhong/DatPhong.Add.php');
-        break;
+            break;
         case 'UpdateDatPhong':
             include('DatPhong/DatPhong.Update.php');
-        break;
-        // case 'AddDichVu':
-        //     include('DichVu/DichVu.Add.php');
-        // break;
-        // case 'QuanLyDichVu':
-        //     include('DichVu/DichVu.View.php');
-        // break;
-        // case 'UpdateDichVu':
-        //     include('DichVu/DichVu.Update.php');
-        // break;
+        case 'ThongKe':
+           
+            include('ThongKe/ThongKe.php');
+            break;
+            // case 'AddDichVu':
+            //     include('DichVu/DichVu.Add.php');
+            // break;
+            // case 'QuanLyDichVu':
+            //     include('DichVu/DichVu.View.php');
+            // break;
+            // case 'UpdateDichVu':
+            //     include('DichVu/DichVu.Update.php');
+            // break;
         case 'PhaSession':
             if (isset($_POST['logout'])) {
                 session_destroy();
@@ -176,7 +190,7 @@ if (isset($_GET['act'])) {
             }
         default:
             include('404/404.php');
-        break;
+            break;
     }
 } else {
     include('ThongKe/ThongKe.php');
@@ -185,3 +199,40 @@ if (isset($_GET['act'])) {
 ?>
 
 <!-- /.container-fluid -->
+<script>
+    
+    var userInfor = <?php echo json_encode($userInfor); ?>;
+    document.addEventListener('DOMContentLoaded', function () {
+    // Assuming userInfor is passed correctly from PHP to JavaScript
+    if (userInfor && typeof userInfor === 'object') {
+        var container = document.getElementById('userInfoContainer');
+
+        for (var key in userInfor) {
+            if (userInfor.hasOwnProperty(key)) {
+                var colDiv = document.createElement('div');
+                colDiv.className = 'col-md-4 mb-4';
+
+                var cardDiv = document.createElement('div');
+                cardDiv.className = 'card';
+
+                var cardBody = document.createElement('div');
+                cardBody.className = 'card-body';
+
+                var title = document.createElement('h5');
+                title.className = 'card-title';
+                title.textContent = key;
+
+                var text = document.createElement('p');
+                text.className = 'card-text';
+                text.textContent = userInfor[key];
+
+                cardBody.appendChild(title);
+                cardBody.appendChild(text);
+                cardDiv.appendChild(cardBody);
+                colDiv.appendChild(cardDiv);
+                container.appendChild(colDiv);
+            }
+        }
+    }
+});
+</script>
