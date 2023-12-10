@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Xác nhận thông tin</title>
   <style>
     .booking-form {
       width: 500px;
@@ -76,13 +76,13 @@
 
 <body>
 <?php
-    if (isset($_SESSION['email'])) {
-        $email = $_SESSION['email'];
-    } else {
-        echo "Session 'user' is not set or empty.";
-    }
+    // if (isset($_SESSION['email'])) {
+    //     $email = $_SESSION['email'];
+    // } else {
+    //     echo "Session 'user' is not set or empty.";
+    // }
     ?>
-  <form class="booking-form" action="index.php?act=thongtin" method="post">
+  <!-- <form class="booking-form" action="index.php?act=thongtin" method="post">
     <div class="elem-group">
       <label for="name">Your Name</label>
       <input type="text" id="name" name="visitor_name" value="<?=$email['TenKhachHang']?>" >
@@ -116,8 +116,6 @@
 
     // Tạo đường dẫn dựa trên ID khách hàng
     $linkidkh = "index.php?act=bill&idkh=" . $id_kh;
-
-   
 
     // Tiếp theo, bạn có thể sử dụng $linkidkh để tạo liên kết
     echo '<a href="' . $linkidkh . '"><button type="button" name = "book">Book The Rooms</button></a>';
