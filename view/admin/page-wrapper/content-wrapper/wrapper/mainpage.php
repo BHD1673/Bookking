@@ -30,7 +30,6 @@ if (isset($_GET['act'])) {
             include('LoaiPhong/LoaiPhong.Update.php');
             break;
         case 'AddPhong':
-
             include('Phong/Phong.Create.php');
             break;
         case 'QuanLyPhong':
@@ -44,8 +43,6 @@ if (isset($_GET['act'])) {
             break;
         case 'TimPhongTrong':
             //Gán khoảng thời gian đặt phòng vào session, lưu giá trị khoảng thời gian
-
-
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $NgayCheckInDuKien = $_POST["checkin"];
                 $NgayCheckOutDuKien = $_POST["checkout"];
@@ -79,9 +76,22 @@ if (isset($_GET['act'])) {
             break;
         case 'QuanLyTaiKhoan':
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $IDKhachHang = $_POST['IDKhachHang'];
-                $_SESSION['IDKhachHang'] = $IDKhachHang;
-            }
+                $userInfor = array(
+                    "IDKhachHang" => $_POST["IDKhachHang"],
+                    "TenKhachHang" => $_POST["TenKhachHang"],
+                    "NgaySinh" => $_POST["NgaySinh"],
+                    "DiaChiNha" => $_POST["DiaChiNha"],
+                    "Email" => $_POST["Email"]
+                );
+                $_SESSION['userChoiceToBook'] = $userInfor;
+                ?>
+                
+                <?php
+                // var_dump( $_SESSION['userChoiceToBook']);
+            } 
+            // else {
+            //     echo "<h1>LỖI</h1>";
+            // }
             include('KhachHang/KhachHang.View.php');
             break;
         case 'AddTaiKhoan':
@@ -189,3 +199,40 @@ if (isset($_GET['act'])) {
 ?>
 
 <!-- /.container-fluid -->
+<script>
+    
+    var userInfor = <?php echo json_encode($userInfor); ?>;
+    document.addEventListener('DOMContentLoaded', function () {
+    // Assuming userInfor is passed correctly from PHP to JavaScript
+    if (userInfor && typeof userInfor === 'object') {
+        var container = document.getElementById('userInfoContainer');
+
+        for (var key in userInfor) {
+            if (userInfor.hasOwnProperty(key)) {
+                var colDiv = document.createElement('div');
+                colDiv.className = 'col-md-4 mb-4';
+
+                var cardDiv = document.createElement('div');
+                cardDiv.className = 'card';
+
+                var cardBody = document.createElement('div');
+                cardBody.className = 'card-body';
+
+                var title = document.createElement('h5');
+                title.className = 'card-title';
+                title.textContent = key;
+
+                var text = document.createElement('p');
+                text.className = 'card-text';
+                text.textContent = userInfor[key];
+
+                cardBody.appendChild(title);
+                cardBody.appendChild(text);
+                cardDiv.appendChild(cardBody);
+                colDiv.appendChild(cardDiv);
+                container.appendChild(colDiv);
+            }
+        }
+    }
+});
+</script>
