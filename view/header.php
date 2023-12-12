@@ -139,7 +139,9 @@ $loginMessage = isset($login) && $login != '' ? $login : '';
                   <div class="collapse navbar-collapse" id="navbarsExample04">
                      <ul class="navbar-nav mr-auto">
                         <!-- Đặt các mục menu tại đây -->
+                        <li class="nav-item active"><a class="nav-link" href="index.php?act=chitiettk">Chi tiết tài khoản</a></li>
                         <li class="nav-item active"><a class="nav-link" href="index.php">Trang chủ</a></li>
+                       
                         <!-- Các mục khác -->
 
                         <?php if (!$loggedIn): ?>
