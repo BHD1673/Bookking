@@ -6,31 +6,45 @@ require 'PHPMailer-master/src/Exception.php';
 require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
 
-// Create a new PHPMailer instance
-$mail = new PHPMailer(true);
+//Hàm này 
+function sendEmail($recipientEmail, $recipientName, $subject, $body) {
+    $mail = new PHPMailer(true);
 
-try {
-    // Server settings
-    $mail->isSMTP();
-    $mail->Host       = 'smtp.gmail.com';  // Specify your SMTP server
-    $mail->SMTPAuth   = true;                 // Enable SMTP authentication
-    $mail->Username   = 'banhaiduong167@gmail.com'; // SMTP username
-    $mail->Password   = 'ngunguoi2004@gmail.com';           // SMTP password
-    $mail->SMTPSecure = 'tls';                 // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-    $mail->Port       = 587;                   // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+    try {
+        // Cài đặt biến server
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'banhaiduong167@gmail.com';
+        $mail->Password   = 'hqyy knyy eeio irdj';
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = 587;
 
-    // Recipients
-    $mail->setFrom('banhaiduong167@gmail.com', 'Hải Dương');
-    $mail->addAddress('ladiga8557@lanxi8.com', 'Tên khách hàng'); // Add the recipient email address
+        // Phần in hóa đơn
+        $mail->setFrom('banhaiduong167@gmail.com', 'Hải Dương');
+        $mail->addAddress($recipientEmail, $recipientName);
 
-    // Content
-    $mail->isHTML(true);  // Set email format to HTML
-    $mail->Subject = 'Test Subject';
-    $mail->Body    = 'This is a test email';
+        // Nội dung
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
 
-    $mail->send();
-    echo 'Message has been sent';
-} catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        $mail->send();
+        echo 'Hóa đơn đã được gửi';
+    } catch (Exception $e) {
+        echo "Mail không thể gửi, lỗi File: {$mail->ErrorInfo}";
+    }
 }
+
+
+function generateEmailBody() {
+    ob_start();
+    include "stearm/bill.php";
+    return ob_get_clean();
+}
+
+$emailBody = generateEmailBody();
+$userEmail = "fekoso9219@lanxi8.com";
+// Now call your sendEmail function
+sendEmail($userEmail = $recipientEmail, 'Recipient Name', 'Your Booking Details', $emailBody);
 ?>

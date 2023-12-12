@@ -1,14 +1,14 @@
 <?php 
 function getMostRecentAccount() {
-	$sql = "SELECT *
+	$sql = "SELECT ID
 	FROM khachhang
 	ORDER BY ThoiGianTao DESC
 	LIMIT 1;";
 	return pdo_query($sql);
 }
 
-// Convert the random number to a string
-$IDKhachHang = getMostRecentAccount();
+$accountData = getMostRecentAccount();
+$IDKhachHang = $accountData['ID']; // Replace 'ID' with the actual column name for the account ID
 
 function insertBookingData($IDKhachHang, $ngayCheckIn, $ngayCheckOut, $soNgayO, $tongSoPhong, $tongTien) {
 
@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$address = "";
 		}
 
-		// var_dump($_SESSION['visitor_data']);
+		
 		?>
 		
 		<div class="row">
@@ -114,10 +114,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<div class="col-xs-6">
 						<address>
 							<strong>Hóa đơn tới:</strong><br>
-							Người đặt hàng: <?php //echo $email['TenKhachHang'] ?> <br>
-							Email: <?php //echo $email['Email'] ?> <br>
-							Số điện thoại: <?php //echo $email['Email'] ?> <br>
-							Địa chỉ: <?php //echo $email['Email'] ?> <br>
+							Người đặt hàng: <?php 
+								echo !empty($email['TenKhachHang']) ? $email['TenKhachHang'] : 
+									(!empty($user_info['visitor_name']) ? $user_info['visitor_name'] : 'Bàn Hải Dương'); 
+							?> <br>
+							Email: <?php 
+								echo !empty($email['email']) ? $email['email'] : 
+									(!empty($_SESSION['user_info']['visitor_email']) ? $_SESSION['user_info']['visitor_email'] : '.com'); 
+							?> <br>
+							Số điện thoại: <?php 
+								echo !empty($email['email']) ? $email['email'] : 
+									(!empty($_SESSION['user_info']['visitor_phone']) ? $_SESSION['user_info']['visitor_phone'] : 'banhaiduong167@gmail.com'); 
+							?> <br><br>
+							Địa chỉ: <?php 
+								echo !empty($email['email']) ? $email['email'] : 
+									(!empty($_SESSION['user_info']['visitor_address']) ? $_SESSION['user_info']['visitor_address'] : 'ThanhSon-SonDong-BacGiang'); 
+							?> <br>
 							Ngày đến: <?php //echo $email['NgayCheckIn'] ?> <br>
 						</address>
 					</div>
@@ -157,7 +169,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title"><strong>Chi tiết đơn đặt phòng</strong></h3>
+						<h3 class="panel-title"><strong>Chi tiết đơn đặt phòng</strong> --- ID đơn:</h3>
 					</div>
 					<div class="panel-body">
 						<div class="table-responsive">
@@ -207,10 +219,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<input type="hidden" name="tel" value="<?php echo $tel; echo $_SESSION['visitor_data']['phone']; ?>">
 						<input type="hidden" name="adress" value="Địa chỉ: <?php echo $address; echo $_SESSION['visitor_data']['name']; ?> <br>">
 						<input type="hidden" name="soNgayO" value="<?= $item['soNgayO'] ?>">
-						<input type="hidden" name="dateIn" value="<?= htmlspecialchars($item['dateIn']) ?>">
-						<input type="hidden" name="dateOut" value="<?= htmlspecialchars($item['dateOut']) ?>">
-						<input type="hidden" name="soLuongPhong" value="<?= htmlspecialchars($item['soLuongPhong']) ?>">
-						<input type="hidden" name="totalPriceWithDay" value="<?= htmlspecialchars($item['totalPriceWithDay']) ?>">
+						<input type="hidden" name="dateIn" value="<?= $item['dateIn'] ?>">
+						<input type="hidden" name="dateOut" value="<?= $item['dateOut'] ?>">
+						<input type="hidden" name="soLuongPhong" value="<?= $item['soLuongPhong'] ?>">
+						<input type="hidden" name="totalPriceWithDay" value="<?= $item['totalPriceWithDay'] ?>">
 						<button class="payment-button" type="submit">Thanh toán</button>
 					</form>
 				</div>

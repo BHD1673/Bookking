@@ -22,23 +22,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'visitor_address' => $visitor_address,
         'visitor_image' => $visitor_image,
     ];
+    var_dump($user_info);
+
 
     // Add user information to the session
     $_SESSION['user_info'] = $user_info;
+    var_dump($_SESSION['user_info']);
     
     // Handle file upload (you need to specify a directory to save the file)
     $upload_dir = 'your_upload_directory/'; // Replace with your actual directory
     $upload_path = $upload_dir . $visitor_image;
 
     if (move_uploaded_file($_FILES['visitor_image']['tmp_name'], $upload_path)) {
-        // File uploaded successfully
+        var_dump($_FILES);
     } else {
         // Handle the case where file upload fails
+        var_dump($_FILES);
+}
     }
     // Redirect to another page or perform other actions as needed
-    header('Location: index.php?act=bill');
-    exit;
-}
+    // header('Location: index.php?act=bill');
+    // exit;
 // Update shopping cart item
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_SESSION['cart'])) {
@@ -87,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <hr class="mb-4">
                 <button type="submit" class="btn btn-primary">Gửi thông tin</button>
+
             </form>
         </div>
         <div class="col-md-8">

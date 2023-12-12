@@ -66,15 +66,20 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                         array_push($_SESSION['cart'], $productInfo);
                     }
 
-                    // Xử lý yêu cầu sửa
-                    if (isset($_POST['action']) && $_POST['action'] == 'update' && isset($_POST['index'])) {
-                        $index = $_POST['index'];
-                        if (isset($_SESSION['cart'][$index])) {
-                            // Cập nhật số lượng phòng
-                            $_SESSION['cart'][$index]['soLuongPhong'] = $_POST['soLuongPhong'][$index];
-                            // Bạn có thể thêm các cập nhật khác tại đây
-                        }
+                    $index = $_POST['index']; // Get the index of the item to update
+
+                    // Ensure that the index exists in the cart
+                    if (isset($_SESSION['cart'][$index])) {
+                        // Update the quantity of the room
+                        $_SESSION['cart'][$index]['soLuongPhong'] = $_POST['soLuongPhong'][$index];
+                
+                        // You can add additional update logic here if needed
+                
+                        // Redirect to prevent form resubmission
+                        header('Location: ' . $_SERVER['PHP_SELF']);
+                        exit;
                     }
+                
 
 
 
