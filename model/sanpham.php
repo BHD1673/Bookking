@@ -1,5 +1,5 @@
 <?php
-// hiển thị các phòng
+//Hiển thị loại phòng
 function loadall_room_home(){
     $sql = "SELECT * FROM phong";
     $listroom = pdo_query($sql);
@@ -14,8 +14,6 @@ function showsp($ID){
     $sql.=" ORDER BY id desc";
     $listroom=pdo_query($sql);
     return  $listroom;
-
-
 }
 function loadone_zoom_home($id)
 {

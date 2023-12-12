@@ -1,11 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php 
+function getMostRecentAccount() {
+	$sql = "SELECT *
+	FROM khachhang
+	ORDER BY ThoiGianTao DESC
+	LIMIT 1;";
+	return pdo_query($sql);
+}
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
+// Convert the random number to a string
+$IDKhachHang = getMostRecentAccount();
+
+function insertBookingData($IDKhachHang, $ngayCheckIn, $ngayCheckOut, $soNgayO, $tongSoPhong, $tongTien) {
+
+        // Insert into 'datphong' table
+        $sql_insert_datphong = "
+            INSERT INTO `datphong` (
+                `IDKhachHang`,
+                `NgayCheckIn`,
+                `NgayCheckOut`,
+                `SoNgayO`,
+                `TongSoPhong`,
+                `TongTien`,
+                `TrangThaiDon`
+            )
+            VALUES (?, ?, ?, ?, ?, ?, 0)
+        ";
+
+        pdo_execute($sql_insert_datphong, $IDKhachHang, $ngayCheckIn, $ngayCheckOut, $soNgayO, $tongSoPhong, $tongTien);
+}
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $soDienThoai = $_POST['tel'] ?? '';
+    $diaChiNha = $_POST['address'] ?? '';
+    $ngayCheckIn = $_POST['dateIn'] ?? '';
+    $ngayCheckOut = $_POST['dateOut'] ?? '';
+    $soNgayO = $_POST['soNgayO'] ?? '';
+    $tongSoPhong = $_POST['soLuongPhong'] ?? 0;
+    $tongTien = $_POST['totalPriceWithDay'] ?? 0.0;
+    // $ngaySinh and $anhXacNhan are not provided in the form
+
+    // Validate the data as needed
+
+    // Call the insertBookingData function
+    insertBookingData($IDKhachHang, $ngayCheckIn, $ngayCheckOut, $soNgayO, $tongSoPhong, $tongTien);
+}
+
+?>
+
 <style>
 	.invoice-title h2,
 	.invoice-title h3 {
@@ -41,7 +83,6 @@
 	}
 </style>
 
-<body>
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -58,7 +99,10 @@
 			$tel = "";
 			$address = "";
 		}
+
+		// var_dump($_SESSION['visitor_data']);
 		?>
+		
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="invoice-title">
@@ -69,29 +113,39 @@
 				<div class="row">
 					<div class="col-xs-6">
 						<address>
-							<strong>Billed To:</strong><br>
-							Người đặt hàng: <?php echo $email['TenKhachHang'] ?> <br>
-							Email: <?php echo $email['Email'] ?> <br>
-							Số điện thoại: <?php echo $email['Email'] ?> <br>
-							Địa chỉ: <?php echo $email['Email'] ?> <br>
-							Ngày đến: <?php echo $email['NgayCheckIn'] ?> <br>
+							<strong>Hóa đơn tới:</strong><br>
+							Người đặt hàng: <?php //echo $email['TenKhachHang'] ?> <br>
+							Email: <?php //echo $email['Email'] ?> <br>
+							Số điện thoại: <?php //echo $email['Email'] ?> <br>
+							Địa chỉ: <?php //echo $email['Email'] ?> <br>
+							Ngày đến: <?php //echo $email['NgayCheckIn'] ?> <br>
 						</address>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-6">
 						<address>
-							<strong>Payment Method:</strong><br>
-							Thanh toán Online
+							<strong>Phương thức thanh toán:</strong><br>
+							<select name="ThanhToan" id="form-control">
+								<option value="">Vui lòng chọn phương thức thanh toán</option>
+								<option value="1">Thanh toán trực tiếp</option>
+							</select>
 						</address>
 					</div>
 					<div class="col-xs-6 text-right">
 						<address>
-							<strong>Order Date:</strong><br>
+							<strong>Ngày đặt phòng:</strong><br>
 							<?php
-							// Lấy ngày hiện tại và định dạng nó
-							$orderDate = date("F, j, Y");
-							echo $orderDate;
+							$formatter = new IntlDateFormatter(
+								'vi_VN', 
+								IntlDateFormatter::FULL, 
+								IntlDateFormatter::NONE,
+								'Asia/Ho_Chi_Minh', // Bạn có thể chỉ định múi giờ phù hợp
+								IntlDateFormatter::GREGORIAN
+							);
+							
+							echo $formatter->format(time());
+							
 							?><br><br>
 						</address>
 					</div>
@@ -103,66 +157,63 @@
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title"><strong>Order summary</strong></h3>
+						<h3 class="panel-title"><strong>Chi tiết đơn đặt phòng</strong></h3>
 					</div>
 					<div class="panel-body">
 						<div class="table-responsive">
 							<table class="table table-condensed">
-								<thead>
+							<thead>
+								<tr>
+									<td><strong>ID phòng</strong></td>
+									<td class="text-center"><strong>Loại phòng</strong></td>
+									<td class="text-center"><strong>Giá 1 phòng</strong></td>
+									<td class="text-center"><strong>Số lượng phòng</strong></td>
+									<td class="text-center"><strong>Số ngày ở</strong></td>
+									<td class="text-center"><strong>Ngày checkin</strong></td>
+									<td class="text-center"><Strong>Ngày checkout</Strong></td>
+									<td class="text-right"><strong>Tổng</strong></td>
+								</tr>
+							</thead>
+							<tbody>
+								
+								<?php  foreach ($_SESSION['cart'] as $item): ?>
 									<tr>
-										<td><strong>Item</strong></td>
-										<td class="text-center"><strong>Price</strong></td>
-										<td class="text-center"><strong>Quantity</strong></td>
-										<td class="text-right"><strong>Totals</strong></td>
+										<td><?= htmlspecialchars($item['idPhong']) ?></td>
+										<td class="text-center"><?= $item['tenLoaiPhong'] ?></td>
+										<td class="text-center"><?php echo $item['giaPhongChung'] ?> .000 VND</td>
+										<td class="text-center"><?= $item['soLuongPhong'] ?></td>
+										<td class="text-center"><?= $item['soNgayO'] ?></td>
+										<td class="text-center"><?= $item['dateIn'] ?></td>
+										<td class="text-center"><?= $item['dateOut'] ?></td>
+										<td class="text-right totalOneRoomPrice"><?= $item['totalPriceWithDay'] ?> .000 VND</td>
 									</tr>
-								</thead>
-								<tbody>
-									<!-- foreach ($order->lineItems as $line) or some such thing here -->
-									<tr>
-										<td></td>
-										<td class="text-center">$10.99</td>
-										<td class="text-center">1</td>
-										<td class="text-right">$10.99</td>
-									</tr>
-									<tr>
-										<td>BS-400</td>
-										<td class="text-center">$20.00</td>
-										<td class="text-center">3</td>
-										<td class="text-right">$60.00</td>
-									</tr>
-									<tr>
-										<td>BS-1000</td>
-										<td class="text-center">$600.00</td>
-										<td class="text-center">1</td>
-										<td class="text-right">$600.00</td>
-									</tr>
-									<tr>
-										<td class="thick-line"></td>
-										<td class="thick-line"></td>
-										<td class="thick-line text-center"><strong>Subtotal</strong></td>
-										<td class="thick-line text-right">$670.99</td>
-									</tr>
-									<tr>
-										<td class="no-line"></td>
-										<td class="no-line"></td>
-										<td class="no-line text-center"><strong>Shipping</strong></td>
-										<td class="no-line text-right">$15</td>
-									</tr>
-									<tr>
-										<td class="no-line"></td>
-										<td class="no-line"></td>
-										<td class="no-line text-center"><strong>Total</strong></td>
-										<td class="no-line text-right">$685.99</td>
-									</tr>
-								</tbody>
+								<?php endforeach; ?>
+
+								<!-- Tính toán và hiển thị tổng cộng tại đây -->
+								<tr>
+									<td class="no-line"></td>
+									<td class="no-line"></td>
+									<td class="no-line text-center"><strong>Tổng giá trị đơn</strong></td>
+									<td class="no-line text-right totalAllPrice"> <span>.000 VND</span></td>
+								</tr>
+							</tbody>
+
 							</table>
 						</div>
 					</div>
-					<button class="payment-button"><a href="index.php">Thanh Toán</a></button>
+					<form action="" method="post">
+						<input type="hidden" name="name" value="<?php echo $name; echo $_SESSION['visitor_data']['name']; ?>">
+						<input type="hidden" name="email" value="<?php echo $email ; echo $_SESSION['visitor_data']['email'];?>">
+						<input type="hidden" name="tel" value="<?php echo $tel; echo $_SESSION['visitor_data']['phone']; ?>">
+						<input type="hidden" name="adress" value="Địa chỉ: <?php echo $address; echo $_SESSION['visitor_data']['name']; ?> <br>">
+						<input type="hidden" name="soNgayO" value="<?= $item['soNgayO'] ?>">
+						<input type="hidden" name="dateIn" value="<?= htmlspecialchars($item['dateIn']) ?>">
+						<input type="hidden" name="dateOut" value="<?= htmlspecialchars($item['dateOut']) ?>">
+						<input type="hidden" name="soLuongPhong" value="<?= htmlspecialchars($item['soLuongPhong']) ?>">
+						<input type="hidden" name="totalPriceWithDay" value="<?= htmlspecialchars($item['totalPriceWithDay']) ?>">
+						<button class="payment-button" type="submit">Thanh toán</button>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-
-</body>
-</html>

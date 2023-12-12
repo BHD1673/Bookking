@@ -64,7 +64,7 @@
                         <td><?php echo $row['Email']; ?></td>
                         <td><?php echo $row['TenDangNhap']; ?></td>
                         
-                        <td><img src="<?php echo $filePathXacNhan; ?><?php echo $row['AnhXacNhan']; ?>" alt="Hình ảnh xác nhận" style="width: 90%;"></td>
+                        <td><img src="<?php //echo $filePathXacNhan; ?><?php echo $row['AnhXacNhan']; ?>" alt="Hình ảnh xác nhận" style="width: 90%;"></td>
                 
                         <td>
                             <form action method="post" class="hidden-form">

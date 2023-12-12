@@ -36,21 +36,21 @@
                      <div class="book_room">
                         <h1>Hãy đặt một phòng lúc này !</h1>
                         <!-- action="index.php?act=roomlist" -->
-                        <form class="book_now" id="bookingForm" method="post" action="index.php?act=roomlist">
+                        <form class="book_now" id="bookingForm" method="post" action="">
                            <div class="row">
                               <div class="col-md-12">
                                     <span>Ngày đến</span>
                                     <img class="date_cua" src="images/date.png">
-                                    <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="DateIn">
+                                    <input class="online_book" type="date" name="DateIn">
                               </div>
                               <div class="col-md-12">
                                     <span>Ngày đi</span>
                                     <img class="date_cua" src="images/date.png">
-                                    <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="DateOut">
+                                    <input class="online_book" type="date" name="DateOut">
                                     <input type="hidden" name="AmountOfDay" class="AmountOfDay" value="">
                               </div>
                               <div class="col-md-12">
-                                    <a href="?act=roomlist"><button type="submit" class="book_btn">Tìm phòng ngay</button></a>
+                                    <button type="submit" class="book_btn">Tìm phòng ngay</button>
                               </div>
                            </div>
                         </form>
@@ -60,27 +60,53 @@
             </div>
          </div>
       </section>
-<script>
-   document.addEventListener("DOMContentLoaded", function () {
-   // Lấy các phần tử input
-   var dateIn = document.querySelector('input[name="DateIn"]');
-   var dateOut = document.querySelector('input[name="DateOut"]');
-   var amountOfDays = document.querySelector('input[name="AmountOfDay"]');
+      <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Lấy các phần tử input ngày
+    var dateInInput = document.querySelector('input[name="DateIn"]');
+    var dateOutInput = document.querySelector('input[name="DateOut"]');
+    var amountOfDayInput = document.querySelector('.AmountOfDay');
 
-   // Hàm tính toán và cập nhật số ngày
-   function updateDays() {
-      var inDate = new Date(dateIn.value);
-      var outDate = new Date(dateOut.value);
-      var timeDiff = outDate.getTime() - inDate.getTime();
-      var daysDiff = timeDiff / (1000 * 3600 * 24);
+    // Sự kiện thay đổi ngày đến
+    dateInInput.addEventListener("change", function () {
+      // Kiểm tra xem ngày đến có được chọn chưa
+      if (dateInInput.value) {
+        // Lấy giá trị ngày đến và ngày đi
+        var dateIn = new Date(dateInInput.value);
+        var dateOut = dateOutInput.value ? new Date(dateOutInput.value) : null;
 
-      // Cập nhật giá trị vào input ẩn
-      amountOfDays.value = daysDiff;
-   }
+        // Kiểm tra nếu ngày đi đã được chọn và ngày đến lớn hơn ngày đi
+        if (dateOut && dateIn > dateOut) {
+          alert("Ngày đến không thể lớn hơn ngày đi");
+          dateInInput.value = ""; // Xóa giá trị ngày đến
+        } else {
+          // Tính và cập nhật số ngày lưu trú
+          var timeDiff = Math.abs(dateOut - dateIn);
+          var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+          amountOfDayInput.value = diffDays;
+        }
+      }
+    });
 
-   // Thêm sự kiện 'onchange' vào các trường nhập ngày
-   dateIn.addEventListener('change', updateDays);
-   dateOut.addEventListener('change', updateDays);
-});
+    // Sự kiện thay đổi ngày đi
+    dateOutInput.addEventListener("change", function () {
+      // Kiểm tra xem ngày đi và ngày đến có được chọn chưa
+      if (dateOutInput.value && dateInInput.value) {
+        // Lấy giá trị ngày đến và ngày đi
+        var dateIn = new Date(dateInInput.value);
+        var dateOut = new Date(dateOutInput.value);
 
+        // Kiểm tra nếu ngày đi nhỏ hơn ngày đến
+        if (dateOut < dateIn) {
+          alert("Ngày đi không thể nhỏ hơn ngày đến");
+          dateOutInput.value = ""; // Xóa giá trị ngày đi
+        } else {
+          // Tính và cập nhật số ngày lưu trú
+          var timeDiff = Math.abs(dateOut - dateIn);
+          var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+          amountOfDayInput.value = diffDays;
+        }
+      }
+    });
+  });
 </script>
