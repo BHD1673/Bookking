@@ -30,6 +30,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['index'
 }
 
 // Redirect về trang giỏ hàng
-header("Location: index.php?act=roomlist"); 
-exit;
+// header("Location: index.php?act=roomlist"); 
+// exit;
 ?>

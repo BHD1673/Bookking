@@ -24,6 +24,7 @@ if (isset($_GET['act'])) {
             include('LoaiPhong/LoaiPhong.View.php');
             break;
         case 'AddLoaiPhong':
+            if(isset($_POST['']))
             include('LoaiPhong/LoaiPhong.Create.php');
             break;
         case 'UpdateLoaiPhong':

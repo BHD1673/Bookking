@@ -57,7 +57,37 @@ $amountOfDay = "";
                 <button type="submit" class="btn btn-primary">Sửa lại khoảng thời gian</button>
             </form>
         </div>
-         
+<?php 
+    // Xử lý yêu cầu xóa
+    if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['index'])) {
+    $index = $_GET['index'];
+    if (isset($_SESSION['cart'][$index])) {
+        // Display debugging information
+        echo "Xóa phòng $index";
+
+        // Xóa mục khỏi giỏ hàng
+        unset($_SESSION['cart'][$index]);
+        // Cập nhật lại mảng để loại bỏ khoảng trống
+        $_SESSION['cart'] = array_values($_SESSION['cart']);
+
+        // Redirect to the cart page
+        header("LOCATION: index.php?act=roomlist");
+        exit();
+    } else {
+        // Display debugging information
+        echo "Phòng không tồn tại trong giỏ hàng";
+    }
+}
+// Xử lý yêu cầu sửa
+if (isset($_POST['action']) && $_POST['action'] == 'update' && isset($_POST['index'])) {
+    $index = $_POST['index'];
+    if (isset($_SESSION['cart'][$index])) {
+        // Cập nhật số lượng phòng
+        $_SESSION['cart'][$index]['soLuongPhong'] = $_POST['soLuongPhong'][$index];
+        // Bạn có thể thêm các cập nhật khác tại đây
+    }
+}
+?>
         <div class="col-md-9">
                 <?php if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0): ?>
                 <h2>Thông Tin Giỏ Hàng</h2>
@@ -102,11 +132,9 @@ $amountOfDay = "";
                                         </div>
                                     </div>
 
-                                    <!-- Hidden Inputs -->
                                     <input type="hidden" name="action" value="update">
                                     <input type="hidden" name="index" value="<?= $index ?>">
 
-                                    <!-- Submit Button -->
                                     <button type="submit" class="btn btn-primary ml-2">Cập Nhật</button>
                                 </form>
                                 </td>

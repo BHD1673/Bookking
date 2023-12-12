@@ -76,17 +76,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                         }
                     }
 
-                    // Xử lý yêu cầu xóa
-                    if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['index'])) {
-                        $index = $_GET['index'];
-                        if (isset($_SESSION['cart'][$index])) {
-                            // Xóa mục khỏi giỏ hàng
-                            unset($_SESSION['cart'][$index]);
-                            // Cập nhật lại mảng để loại bỏ khoảng trống
-                            $_SESSION['cart'] = array_values($_SESSION['cart']);
-                        }
-                        header("LOCATION: index.php?act=roomlist");
-                    }
+
 
                 }
 
@@ -110,10 +100,6 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 extract($onesp);
             }
             include "stearm/roomdetails.php";
-            break;
-        //Phần này đang chả biết nó làm gì
-        case "danhmuc":
-            include "view/gallery.php";
             break;
         case "thoat":
             unset($_SESSION['user']);
@@ -242,22 +228,21 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             include "view/user/thongtintk.php";
             break;
         case "thongtin":
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                // Kiểm tra xem các trường dữ liệu đã được gửi từ biểu mẫu hay chưa
-                if (isset($_POST['book']) && isset($_POST['book'])) {
-                    $name = $_POST['visitor_name'];
-                    $email = $_POST['visitor_email'];
-                    $phone = $_POST['visitor_phone'];
-                    $dateIn = $_POST['DateIn'];
-                    $dateOut = $_POST['DateOut'];
-                    $id_kh = bill($id_kh);
-                    // Lấy id_kh từ bảng đặt phòng
-                    // Gọi hàm để thêm dữ liệu vào cơ sở dữ liệu
-                    //insertAccount($checkin, $checkout, $name, $email,$phone);
-                } else {
-                    echo "Bạn đang viết sai.";
-                }
-            }
+            // if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            //     // Kiểm tra xem các trường dữ liệu đã được gửi từ biểu mẫu hay chưa
+            //     if (isset($_POST['book']) && isset($_POST['book'])) {
+            //         $name = $_POST['visitor_name'];
+            //         $email = $_POST['visitor_email'];
+            //         $phone = $_POST['visitor_phone'];
+            //         $dateIn = $_POST['DateIn'];
+            //         $dateOut = $_POST['DateOut'];
+            //         // Lấy id_kh từ bảng đặt phòng
+            //         // Gọi hàm để thêm dữ liệu vào cơ sở dữ liệu
+            //         taoTaiKhoanKhongDangKy($name, $email, $phone, $address, $date_of_birth, $image_path);
+            //     } else {
+            //         echo "Bạn đang viết sai.";
+            //     }
+            // }
             include "stearm/checkout.php";
             break;
         case "bill":

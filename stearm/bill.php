@@ -1,9 +1,14 @@
 <?php 
-// Generate a random number
-$randomNumber = rand();
+function getMostRecentAccount() {
+	$sql = "SELECT *
+	FROM khachhang
+	ORDER BY ThoiGianTao DESC
+	LIMIT 1;";
+	return pdo_query($sql);
+}
 
 // Convert the random number to a string
-$IDKhachHang = strval($randomNumber);
+$IDKhachHang = getMostRecentAccount();
 
 function insertBookingData($IDKhachHang, $ngayCheckIn, $ngayCheckOut, $soNgayO, $tongSoPhong, $tongTien) {
 
@@ -42,13 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Hóa đơn</title>
-</head>
+
 <style>
 	.invoice-title h2,
 	.invoice-title h3 {
@@ -84,7 +83,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 </style>
 
-<body>
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -116,11 +114,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<div class="col-xs-6">
 						<address>
 							<strong>Hóa đơn tới:</strong><br>
-							Người đặt hàng: <?php echo $email['TenKhachHang'] ?> <br>
-							Email: <?php echo $email['Email'] ?> <br>
-							Số điện thoại: <?php echo $email['Email'] ?> <br>
-							Địa chỉ: <?php echo $email['Email'] ?> <br>
-							Ngày đến: <?php echo $email['NgayCheckIn'] ?> <br>
+							Người đặt hàng: <?php //echo $email['TenKhachHang'] ?> <br>
+							Email: <?php //echo $email['Email'] ?> <br>
+							Số điện thoại: <?php //echo $email['Email'] ?> <br>
+							Địa chỉ: <?php //echo $email['Email'] ?> <br>
+							Ngày đến: <?php //echo $email['NgayCheckIn'] ?> <br>
 						</address>
 					</div>
 				</div>
@@ -219,6 +217,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			</div>
 		</div>
 	</div>
-
-</body>
-</html>

@@ -1,9 +1,9 @@
 <?php
-// function loadall_taikhoan() {
-//     $sql = "select * from taikhoan order by id desc";
-//     $listtaikhoan=pdo_query($sql);
-//     return  $listtaikhoan;
-// }
+
+function taoTaiKhoanKhongDangKy($name, $email, $phone, $address, $date_of_birth, $image_path) {
+    $sql = "INSERT INTO khachhang(Ten";
+}
+
 function insert_taikhoan($email, $user, $pass)
 {
     $sql = "insert into khachhang(Email,TenDangNhap,MatKhau) values('$email','$user','$pass')";

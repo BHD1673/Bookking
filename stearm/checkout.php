@@ -1,74 +1,64 @@
 <?php
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['act']) && $_GET['act'] === 'thongtin') {
-    $visitor_data = array(
-        'name' => $_POST['visitor_name'],
-        'email' => $_POST['visitor_email'],
-        'phone' => $_POST['visitor_phone'],
-        'address' => $_POST['visitor_address'],
-        'date_of_birth' => $_POST['visitor_date_of_birth']
-    );
-
-    // Move image handling to a separate function
-    $image_path = handleImageUpload();
-
-    // Add the image path to visitor data
-    $visitor_data['image_path'] = $image_path;
-
-    // Save visitor data into session (if needed)
-    $_SESSION['visitor_data'] = $visitor_data;
-
-    // Insert data into the database
-    if (createNewData($visitor_data)) {
-        // Redirect to the next step after successful insertion
-        header('Location: index.php?act=bill');
-        exit();
-    } else {
-        // Handle the error as needed
-        echo "Error in database insertion.";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Initialize the session cart if it doesn't exist
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
     }
+
+    // Collect user information from the form
+    $visitor_name = $_POST['visitor_name'];
+    $dob = $_POST['dob'];
+    $visitor_email = $_POST['visitor_email'];
+    $visitor_phone = $_POST['visitor_phone'];
+    $visitor_address = $_POST['visitor_address'];
+    $visitor_image = $_FILES['visitor_image']['name']; // Assuming you want to store the filename
+
+    // Create an array with user information
+    $user_info = [
+        'visitor_name' => $visitor_name,
+        'dob' => $dob,
+        'visitor_email' => $visitor_email,
+        'visitor_phone' => $visitor_phone,
+        'visitor_address' => $visitor_address,
+        'visitor_image' => $visitor_image,
+    ];
+
+    // Add user information to the session
+    $_SESSION['user_info'] = $user_info;
+    
+    // Handle file upload (you need to specify a directory to save the file)
+    $upload_dir = 'your_upload_directory/'; // Replace with your actual directory
+    $upload_path = $upload_dir . $visitor_image;
+
+    if (move_uploaded_file($_FILES['visitor_image']['tmp_name'], $upload_path)) {
+        // File uploaded successfully
+    } else {
+        // Handle the case where file upload fails
+    }
+    // Redirect to another page or perform other actions as needed
+    header('Location: index.php?act=bill');
+    exit;
 }
+// Update shopping cart item
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_SESSION['cart'])) {
+        if ($_POST['action'] === 'update') {
+            $index = $_POST['index'];
+            $new_quantity = $_POST['soLuongPhong'][$index];
 
-function handleImageUpload() {
-    if (isset($_FILES['visitor_image']['error']) && $_FILES['visitor_image']['error'] == UPLOAD_ERR_OK) {
-        $uploadDir = 'images/'; // Change this to your desired directory
-        $uploadFile = $uploadDir . basename($_FILES['visitor_image']['name']);
+            // Update the quantity for the item in the cart
+            $_SESSION['cart'][$index]['soLuongPhong'] = $new_quantity;
 
-        // Move the uploaded image to the destination directory
-        if (move_uploaded_file($_FILES['visitor_image']['tmp_name'], $uploadFile)) {
-            return $uploadFile;
-        } else {
-            // Handle image upload error
-            echo "Error uploading image.";
+            // Perform any other cart-related updates as needed
         }
     }
-
-    return null; // Return null if no image is uploaded
-}
-
-function createNewData($visitor_data) {
-    // Modify your SQL query based on your database schema
-    $sql = "INSERT INTO `khachhang`(
-        `TenKhachHang`,
-        `NgaySinh`,
-        `DiaChiNha`,
-        `SoDienThoai`,
-        `AnhXacNhan`,
-        `Email`
-    ) VALUES (?, ?, ?, ?, ?, ?)";
-
-
-    return true;
 }
 ?>
-
-
 <div class="container">
     <div class="row">
         <div class="col-md-4">
             <h1 class="text-center">Xác nhận thông tin</h1>
-            <script>alert("Hãy đăng ký tài khoản của chúng tôi ngay hôm nay để có các ưu đãi đặc biệt")</script>
+            
 
             <form class="booking-form" action="" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
@@ -99,8 +89,8 @@ function createNewData($visitor_data) {
                 <button type="submit" class="btn btn-primary">Gửi thông tin</button>
             </form>
         </div>
-        <div class="col-md-6">
-                <?php if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0): ?>
+        <div class="col-md-8">
+            <?php if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0): ?>
                 <h2>Thông Tin Giỏ Hàng</h2>
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -110,73 +100,59 @@ function createNewData($visitor_data) {
                                 <th>Tên loại phòng</th>
                                 <th>Giá một phòng</th>
                                 <th>Số Lượng Phòng</th>
-                                <th>Phòng đã chọn</th>
-                                <th>Số Ngày Ở</th>
                                 <th>Tổng tiền cho loại phòng</th>
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($_SESSION['cart'] as $index => $item): ?>
-                            <tr>
-                                <td><?= $item['idPhong'] ?></td>
-                                <td><?= $item['tenLoaiPhong'] ?></td>
-                                <td><?= $item['giaPhongChung'] ?></td>
-                                <td><?= $item['soLuongPhong'] ?></td>
-                                <td> </td>
-                                <td><?= $item['soNgayO'] ?></td>
-                                <td><?= $item['totalPriceWithDay'] ?>.000</td>
-                                <td>
-                                <form action="" method="post" class="form-inline">
-                                    <!-- Minus Button -->
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <button type="button" class="btn btn-outline-secondary" onclick="decrementValue(<?= $index ?>)">-</button>
-                                        </div>
+                            <?php foreach ($_SESSION['cart'] as $index => $item): ?>
+                                <tr>
+                                    <td><?= $item['idPhong'] ?></td>
+                                    <td><?= $item['tenLoaiPhong'] ?></td>
+                                    <td><?= $item['giaPhongChung'] ?></td>
+                                    <td>
+                                        <form action="" method="post" class="form-inline">
+                                            <!-- Minus Button -->
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <button type="button" class="btn btn-outline-secondary" onclick="decrementValue(<?= $index ?>)">-</button>
+                                                </div>
+                                                <input type="number" name="soLuongPhong[<?= $index ?>]" id="amount<?= $index ?>" value="<?= $item['soLuongPhong'] ?>" min="1" readonly class="form-control">
+                                                <div class="input-group-append">
+                                                    <button type="button" class="btn btn-outline-secondary" onclick="incrementValue(<?= $index ?>)">+</button>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="action" value="update">
+                                            <input type="hidden" name="index" value="<?= $index ?>">
 
-                                        <!-- Amount Display -->
-                                        <input type="number" name="soLuongPhong[<?= $index ?>]" id="amount<?= $index ?>" value="<?= $item['soLuongPhong'] ?>" min="1" readonly class="form-control">
-
-                                        <!-- Plus Button -->
-                                        <div class="input-group-append">
-                                            <button type="button" class="btn btn-outline-secondary" onclick="incrementValue(<?= $index ?>)">+</button>
-                                        </div>
-                                    </div>
-
-                                    <!-- Hidden Inputs -->
-                                    <input type="hidden" name="action" value="update">
-                                    <input type="hidden" name="index" value="<?= $index ?>">
-
-                                    <!-- Submit Button -->
-                                    <button type="submit" class="btn btn-primary ml-2">Cập Nhật</button>
-                                </form>
-                                </td>
-                                <td>
-                                    <a href="index.php?act=roomlist&action=delete&index=<?= $index ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa mục này?');">Xóa</a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
+                                            <!-- Submit Button -->
+                                            <button type="submit" class="btn btn-primary ml-2">Cập Nhật</button>
+                                        </form>
+                                    </td>
+                                    <td><?= $item['totalPriceWithDay'] ?>.000</td>
+                                    <td>
+                                        <a href="index.php?act=roomlist&action=delete&index=<?= $index ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa mục này?');">Xóa</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
+                    <?php 
+                    if (isset($_POST['cartDeleteAll'])) {
+                        unset($_SESSION['cart']);
+                    }
+                    ?>
                     <form action="" method="post">
                         <input type="hidden" name="cartDeleteAll" value="q">
                         <button class="btn btn-danger" type="submit">Xóa toàn bộ giỏ hàng</button><br><br>
                     </form>
-                    <?php 
-                    if (isset($_POST['cartDeleteAll'])) {
-                        unset($_SESSION['cart']);
-                        header('LOCATION: index.php?act=roomlist');
-                        exit();
-                    }
-                    ?>
                 </div>
             <?php else: ?>
                 <p>Giỏ hàng trống.</p>
             <?php endif; ?>
         </div>
-        </div>
-    </div>
 </div>
+
 
 
 

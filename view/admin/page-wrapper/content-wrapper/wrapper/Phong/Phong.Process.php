@@ -18,14 +18,40 @@ function getAllPhong(){
 }
 
 //Thêm mới
-function InsertPhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $LoaiPhongID) {
-    $sql = "INSERT INTO TenBang (TenPhong, ViTriPhong, TrangThaiPhong, AnhPhong, LoaiPhongID) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    pdo_execute($sql, $TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $LoaiPhongID);
+function InsertPhong($TenPhong, $AnhPhong, $LoaiPhongID) {
+    try {
+        if ($_FILES["AnhPhong"]["error"] === UPLOAD_ERR_OK) {
+            $targetDir = "uploads/"; // Replace with your desired directory
+            $targetFile = $targetDir . basename($_FILES["AnhPhong"]["name"]);
 
-    // Thêm thành công, có thể thực hiện các hành động khác nếu cần
-    echo "Thêm phòng thành công!";
+            // Check if the file already exists in the target directory
+            if (file_exists($targetFile)) {
+                echo "File already exists.";
+            } else {
+                // Check if the file was successfully moved to the target directory
+                if (move_uploaded_file($_FILES["AnhPhong"]["tmp_name"], $targetFile)) {
+                    // Define the SQL statement with placeholders
+                    $sql = "INSERT INTO TenBang (TenPhong, AnhPhong, LoaiPhongID) 
+                            VALUES (?, ?, ?)";
+                    
+                    // Call your pdo_execute function to execute the query with parameters
+                    pdo_execute($sql, $TenPhong, $targetFile, $LoaiPhongID);
+
+                    // Thêm thành công, có thể thực hiện các hành động khác nếu cần
+                    echo "Thêm phòng thành công!";
+                } else {
+                    echo "Có lỗi khi lưu tệp ảnh.";
+                }
+            }
+        } else {
+            echo "Có lỗi khi tải lên tệp ảnh.";
+        }
+    } catch (PDOException $e) {
+        // Handle any database errors here
+        echo "Thêm phòng thất bại: " . $e->getMessage();
+    }
 }
+
 
 //Cập nhật
 function UpdatePhong($TenPhong, $ViTriPhong, $TrangThaiPhong, $AnhPhong, $LoaiPhongID) {
