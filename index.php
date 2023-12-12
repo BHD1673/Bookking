@@ -106,6 +106,10 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             }
             include "stearm/roomdetails.php";
             break;
+            //Phần này đang chả biết nó làm gì
+        case "danhmuc":
+            include "view/gallery.php";
+            break;
         case "thoat":
             unset($_SESSION['user']);
             unset($_SESSION['pass']);
@@ -138,8 +142,20 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 } else {
                     $thongbao = "Tài khoản không tồn tại";
                 }
+                if($count>0){
+                    $row_data = mysqli_fetch_array($row);
+                    $_SESSION['dangky'] = $row_data['TenKhachHang'];
+                    $_SESSION['email'] = $row_data['Email'];
+                    $_SESSION['IDKhachHang'] = $row_data['ID'];
+                    
+                }else{
+                    echo "Mật khẩu hoặc Email sai vui lòng nhập lại";
+                }
             }
             include "view/user/singup.php";
+            break;
+        case "chitiettk":
+            include "view/user/chitiettk.php";
             break;
         case "dangky":
             if (isset($_POST['dangky']) && ($_POST['dangky'])) {
@@ -163,59 +179,46 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             }
             include "view/user/forgot.php";
             break;
-        case "doimk":
-            if (isset($_POST['submit']) && ($_POST['submit'])) {
-                $password = $_POST['password'];
-                $newpassword = $_POST['newpassword'];
-                $repassword = $_POST['repassword'];
-                if (empty($password) || empty($newpassword) || empty($repassword)) {
-                    $thongbao = "VUI LÒNG NHẬP ĐỦ THÔNG TIN";
-                } else {
-                    $checkpass = checkpass($password);
+            // case "doimk":
+            //     if (isset($_POST['submit']) && ($_POST['submit'])) {
+            //         $password = $_POST['password'];
+            //         $newpassword = $_POST['newpassword'];
+            //         $repassword = $_POST['repassword'];
+            //         if (empty($password) || empty($newpassword) || empty($repassword)) {
+            //             $thongbao = "VUI LÒNG NHẬP ĐỦ THÔNG TIN";
+            //         } else {
+            //             $checkpass = checkpass($password);
 
-                    if (!password_verify($password, $checkpass['MatKhau'])) {
-                        $thongbao = "MẬT KHẨU HIỆN TẠI KHÔNG ĐÚNG";
-                    } else if ($newpassword != $repassword) {
-                        $thongbao = "MẬT KHẨU KHÔNG TRÙNG KHỚP";
-                    } else if (strlen($newpassword) < 6) {
-                        $thongbao = "MẬT KHẨU MỚI PHẢI CÓ ÍT NHẤT 6 KÝ TỰ";
-                    } else {
-                        $hashedNewPassword = password_hash($newpassword, PASSWORD_DEFAULT);
+            //             if (!password_verify($password, $checkpass['MatKhau'])) {
+            //                 $thongbao = "MẬT KHẨU HIỆN TẠI KHÔNG ĐÚNG";
+            //             } else if ($newpassword != $repassword) {
+            //                 $thongbao = "MẬT KHẨU KHÔNG TRÙNG KHỚP";
+            //             } else if (strlen($newpassword) < 6) {
+            //                 $thongbao = "MẬT KHẨU MỚI PHẢI CÓ ÍT NHẤT 6 KÝ TỰ";
+            //             } else {
+            //                 $hashedNewPassword = password_hash($newpassword, PASSWORD_DEFAULT);
 
-                        $stmt = $mysqli->prepare("SELECT * FROM khachhang WHERE TenDangNhap = ? LIMIT 1");
-                        $stmt->bind_param("s", $_SESSION['user']);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        $count = $result->num_rows;
+            //                 $stmt = $mysqli->prepare("SELECT * FROM khachhang WHERE TenDangNhap = ? LIMIT 1");
+            //                 $stmt->bind_param("s", $_SESSION['user']);
+            //                 $stmt->execute();
+            //                 $result = $stmt->get_result();
+            //                 $count = $result->num_rows;
 
-                        if ($count > 0) {
-                            $stmtUpdate = $mysqli->prepare("UPDATE khachhang SET MatKhau = '" . $newpassword . "' WHERE TenDangNhap = ? LIMIT 1");
-                            $stmtUpdate->bind_param("ss", $hashedNewPassword, $_SESSION['user']);
-                            $stmtUpdate->execute();
+            //                 if ($count > 0) {
+            //                     $stmtUpdate = $mysqli->prepare("UPDATE khachhang SET MatKhau = '" . $newpassword . "' WHERE TenDangNhap = ? LIMIT 1");
+            //                     $stmtUpdate->bind_param("ss", $hashedNewPassword, $_SESSION['user']);
+            //                     $stmtUpdate->execute();
 
-                            $thongbao = "MẬT KHẨU ĐÃ ĐƯỢC THAY ĐỔI";
-                        } else {
-                            $thongbao = "MẬT KHẨU HIỆN TẠI KHÔNG ĐÚNG";
-                        }
-                    }
-                }
-            }
-
-
-            include "view/user/doimk.php";
-            break;
-
-
-            // case 'doimatkhau':
-            //     if (isset($_POST['doimatkhau'])) {
-            //         $pass = trim($_POST['pass']);
-
-            //         $thongbao = "ĐỔI MẬT KHẨU THÀNH CÔNG";
-
-            //         update_matkhau($MatKhau, $id);
-            //         header('Location:index.php?act=doimatkhau');
+            //                     $thongbao = "MẬT KHẨU ĐÃ ĐƯỢC THAY ĐỔI";
+            //                 } else {
+            //                     $thongbao = "MẬT KHẨU HIỆN TẠI KHÔNG ĐÚNG";
+            //                 }
+            //             }
+            //         }
             //     }
-            //     include "view/user/doimatkhau.php";
+
+
+            //     include "view/user/doimk.php";
             //     break;
         case 'thongtintk':
             if (isset($_POST['capnhat'])) {
@@ -233,21 +236,21 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             include "view/user/thongtintk.php";
             break;
         case "thongtin":
-            // if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            //     // Kiểm tra xem các trường dữ liệu đã được gửi từ biểu mẫu hay chưa
-            //     if (isset($_POST['book']) && isset($_POST['book'])) {
-            //         $name = $_POST['visitor_name'];
-            //         $email = $_POST['visitor_email'];
-            //         $phone = $_POST['visitor_phone'];
-            //         $dateIn = $_POST['DateIn'];
-            //         $dateOut = $_POST['DateOut'];
-            //         // Lấy id_kh từ bảng đặt phòng
-            //         // Gọi hàm để thêm dữ liệu vào cơ sở dữ liệu
-            //         taoTaiKhoanKhongDangKy($name, $email, $phone, $address, $date_of_birth, $image_path);
-            //     } else {
-            //         echo "Bạn đang viết sai.";
-            //     }
-            // }
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                // Kiểm tra xem các trường dữ liệu đã được gửi từ biểu mẫu hay chưa
+                if (isset($_POST['book']) && isset($_POST['book'])) {
+                    $name = $_POST['visitor_name'];
+                    $email = $_POST['visitor_email'];
+                    $phone = $_POST['visitor_phone'];
+                    $dateIn = $_POST['DateIn'];
+                    $dateOut = $_POST['DateOut'];
+                    // Lấy id_kh từ bảng đặt phòng
+                    // Gọi hàm để thêm dữ liệu vào cơ sở dữ liệu
+                    // insertData($checkin, $checkout, $name, $email,$phone);
+                } else {
+                    echo "Bạn đang viết sai.";
+                }
+            }
             include "stearm/checkout.php";
             break;
         case "bill":
@@ -281,6 +284,3 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
     include "view/home.php";
 }
 include "view/footer.php";
-
-?>
-?>

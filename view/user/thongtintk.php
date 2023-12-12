@@ -66,7 +66,7 @@
             border-radius: 4px;
             cursor: pointer;
             padding: 0 12px;
-            margin-left: 175px;
+           
         }
 
         button:hover {
@@ -122,6 +122,7 @@
         <!-- Thêm input ẩn để truyền ID -->
         <input type="hidden" name="id" value="<?= $user['ID'] ?>">
         <button type="submit" name="capnhat">Lưu</button>
+        <a href="index.php?act=doimk"><button type="button" name="doimk" >Đổi mật khẩu</button></a>
 
     </form>
   
