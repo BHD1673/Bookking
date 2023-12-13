@@ -3,7 +3,8 @@ function getAvailableRoomTypes($dateIn, $dateOut) {
     $sql = "
         SELECT 
             lp.ID, lp.Ten, lp.MoTa, lp.GiaPhongChung,
-            COUNT(p.ID) AS RoomCount
+            COUNT(p.ID) AS RoomCount,
+            GROUP_CONCAT(p.ID) As RoomArray
         FROM 
             loaiphong lp
         LEFT JOIN 
@@ -167,13 +168,21 @@ if (isset($_POST['action']) && $_POST['action'] == 'update' && isset($_POST['ind
         $results = getAvailableRoomTypes($dateIn, $dateOut);
 
         foreach ($results as $row):
+            $roomGroup = $row['RoomArray'];
             $roomTypeID = $row['ID'];
             $roomTypeName = $row['Ten'];
             $roomTypeDes = $row['MoTa'];
             $roomTypePrice = $row['GiaPhongChung'];
-            $roooTypeAmountLeft = $row['RoomCount'];
+            $roomTypeAmountLeft = $row['RoomCount'];
             $amountOfDay = isset($_SESSION['bookingInfor']['amountOfDay']) ? $_SESSION['bookingInfor']['amountOfDay'] : '';
             $totalPriceWithDay = $roomTypePrice * $amountOfDay;
+            // Random room selection logic
+            $roomArray = explode(', ', $roomGroup);
+            $numOfRoomsToSelect = isset($_POST['numOfRoomsRequested']) && is_numeric($_POST['numOfRoomsRequested']) ? (int)$_POST['numOfRoomsRequested'] : 1;
+            $selectedRooms = (count($roomArray) >= $numOfRoomsToSelect) ? array_rand($roomArray, $numOfRoomsToSelect) : $roomArray;
+
+            // Convert selectedRooms to a string if it's an array
+            $selectedRoomString = is_array($selectedRooms) ? implode(', ', array_intersect_key($roomArray, array_flip($selectedRooms))) : $roomArray[$selectedRooms];
         ?>
         
         <div class="col-fluid">
@@ -197,7 +206,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'update' && isset($_POST['ind
                             <form action="" method="post">
                                 <div class="mb-3">
                                     <select name="soLuongPhong" class="form-select">
-                                        <?php for ($i = 1; $i <= $roooTypeAmountLeft; $i++): ?>
+                                        <?php for ($i = 1; $i <= $roomTypeAmountLeft; $i++): ?>
                                             <option value="<?= $i; ?>"><?= $i; ?></option>
                                         <?php endfor; ?>
                                     </select>
