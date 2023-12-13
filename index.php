@@ -17,68 +17,67 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
     $act = $_GET['act'];
     switch ($act) {
         case 'roomlist':
-                //Khai báo lại cho trường hợp muốn sửa khoảng thời gian
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    $datetime1 = new DateTime($_POST['DateIn']);
-                    $datetime2 = new DateTime($_POST['DateOut']);
-                    $interval = $datetime1->diff($datetime2);
-                    $amountOfDay = $interval->days;
-                
-                    // Set the calculated value to the AmountOfDay field in the session
-                    $_SESSION['bookingInfor'] = array(
-                        'amountOfDay' => $amountOfDay,
-                        'dateIn' => $_POST['DateIn'],
-                        'dateOut' => $_POST['DateOut']
-                    );
-                    // Kiểm tra xem giỏ hàng đã tồn tại trong session chưa
-                    if (!isset($_SESSION['cart'])) {
-                        $_SESSION['cart'] = array();
-                    }
+            //Khai báo lại cho trường hợp muốn sửa khoảng thời gian
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $datetime1 = new DateTime($_POST['DateIn']);
+                $datetime2 = new DateTime($_POST['DateOut']);
+                $interval = $datetime1->diff($datetime2);
+                $amountOfDay = $interval->days;
 
-                    // Tạo thông tin sản phẩm từ dữ liệu POST
-                    $productInfo = array(
-                        'idPhong' => $_POST['idPhong'],
-                        'tenLoaiPhong' => $_POST['tenLoaiPhong'],
-                        'giaPhongChung' => $_POST['giaPhong'],
-                        'soLuongPhong' => $_POST['soLuongPhong'],
-                        'dateIn' => $_POST['DateIn'],
-                        'dateOut' => $_POST['DateOut'],
-                        'soNgayO' => $_POST['soNgayO'],
-                        'totalPriceWithDay' => $_POST['totalPriceWithDay'],
-
-                    );
-
-                    // Kiểm tra xem loại phòng này đã có trong giỏ hàng chưa
-                    $found = false;
-                    foreach ($_SESSION['cart'] as $key => $item) {
-                        if ($item['idPhong'] == $productInfo['idPhong'] &&
-                            $item['dateIn'] == $productInfo['dateIn'] &&
-                            $item['dateOut'] == $productInfo['dateOut']) {
-                            // Cập nhật số lượng phòng nếu đã có
-                            $_SESSION['cart'][$key]['soLuongPhong'] += $productInfo['soLuongPhong'];
-                            $found = true;
-                            break;
-                        }
-                    }
-
-                    // Nếu loại phòng này chưa có trong giỏ hàng, thêm sản phẩm mới
-                    if (!$found) {
-                        array_push($_SESSION['cart'], $productInfo);
-                    }
-
-                    // Xử lý yêu cầu sửa
-                    if (isset($_POST['action']) && $_POST['action'] == 'update' && isset($_POST['index'])) {
-                        $index = $_POST['index'];
-                        if (isset($_SESSION['cart'][$index])) {
-                            // Cập nhật số lượng phòng
-                            $_SESSION['cart'][$index]['soLuongPhong'] = $_POST['soLuongPhong'][$index];
-                            // Bạn có thể thêm các cập nhật khác tại đây
-                        }
-                    }
-
-
-
+                // Set the calculated value to the AmountOfDay field in the session
+                $_SESSION['bookingInfor'] = array(
+                    'amountOfDay' => $amountOfDay,
+                    'dateIn' => $_POST['DateIn'],
+                    'dateOut' => $_POST['DateOut']
+                );
+                // Kiểm tra xem giỏ hàng đã tồn tại trong session chưa
+                if (!isset($_SESSION['cart'])) {
+                    $_SESSION['cart'] = array();
                 }
+
+                // Tạo thông tin sản phẩm từ dữ liệu POST
+                $productInfo = array(
+                    'idPhong' => $_POST['idPhong'],
+                    'tenLoaiPhong' => $_POST['tenLoaiPhong'],
+                    'giaPhongChung' => $_POST['giaPhong'],
+                    'soLuongPhong' => $_POST['soLuongPhong'],
+                    'dateIn' => $_POST['DateIn'],
+                    'dateOut' => $_POST['DateOut'],
+                    'soNgayO' => $_POST['soNgayO'],
+                    'totalPriceWithDay' => $_POST['totalPriceWithDay'],
+
+                );
+
+                // Kiểm tra xem loại phòng này đã có trong giỏ hàng chưa
+                $found = false;
+                foreach ($_SESSION['cart'] as $key => $item) {
+                    if (
+                        $item['idPhong'] == $productInfo['idPhong'] &&
+                        $item['dateIn'] == $productInfo['dateIn'] &&
+                        $item['dateOut'] == $productInfo['dateOut']
+                    ) {
+                        // Cập nhật số lượng phòng nếu đã có
+                        $_SESSION['cart'][$key]['soLuongPhong'] += $productInfo['soLuongPhong'];
+                        $found = true;
+                        break;
+                    }
+                }
+
+                // Nếu loại phòng này chưa có trong giỏ hàng, thêm sản phẩm mới
+                if (!$found) {
+                    array_push($_SESSION['cart'], $productInfo);
+                }
+
+                // Xử lý yêu cầu sửa
+                if (isset($_POST['action']) && $_POST['action'] == 'update' && isset($_POST['index'])) {
+                    $index = $_POST['index'];
+                    if (isset($_SESSION['cart'][$index])) {
+                        // Cập nhật số lượng phòng
+                        $_SESSION['cart'][$index]['soLuongPhong'] = $_POST['soLuongPhong'][$index];
+                        // Bạn có thể thêm các cập nhật khác tại đây
+                    }
+                }
+            }
 
             include('view/roomlist.php');
             break;
@@ -115,8 +114,8 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         case "dangnhap":
             if (isset($_POST['dangnhap']) && ($_POST['dangnhap'])) {
                 $user = $_POST['user'];
-                $pass = $_POST['pass'];
-                $checkuser = checkuser($user, $pass);
+                $password = $_POST['pass'];
+                $checkuser = checkuser($user, $password);
                 if (is_array($checkuser)) {
                     $_SESSION['user'] = $checkuser;
 
@@ -137,15 +136,6 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 } else {
                     $thongbao = "Tài khoản không tồn tại";
                 }
-                if($count>0){
-                    $row_data = mysqli_fetch_array($row);
-                    $_SESSION['dangky'] = $row_data['TenKhachHang'];
-                    $_SESSION['email'] = $row_data['Email'];
-                    $_SESSION['IDKhachHang'] = $row_data['ID'];
-                    
-                }else{
-                    echo "Mật khẩu hoặc Email sai vui lòng nhập lại";
-                }
             }
             include "view/user/singup.php";
             break;
@@ -155,9 +145,9 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         case "dangky":
             if (isset($_POST['dangky']) && ($_POST['dangky'])) {
                 $email = $_POST['email'];
-                $pass = $_POST['pass'];
+                $password = $_POST['pass'];
                 $user = $_POST['user'];
-                insert_taikhoan($email, $user, $pass);
+                insert_taikhoan($email, $user, $password);
             }
             include "view/user/singup.php";
             break;
@@ -174,47 +164,46 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             }
             include "view/user/forgot.php";
             break;
-            // case "doimk":
-            //     if (isset($_POST['submit']) && ($_POST['submit'])) {
-            //         $password = $_POST['password'];
-            //         $newpassword = $_POST['newpassword'];
-            //         $repassword = $_POST['repassword'];
-            //         if (empty($password) || empty($newpassword) || empty($repassword)) {
-            //             $thongbao = "VUI LÒNG NHẬP ĐỦ THÔNG TIN";
-            //         } else {
-            //             $checkpass = checkpass($password);
+        case "doimk":
+            if (isset($_POST['doimk']) && ($_POST['doimk'])) {
+                $password = trim($_POST['password']);
+                $newpassword = $_POST['newpassword'];
+                $repassword = $_POST['repassword'];
+                if (empty($password) || empty($newpassword) || empty($repassword)) {
+                    $thongbao = "VUI LÒNG NHẬP ĐỦ THÔNG TIN";
+                } else {
+                    $checkpass = checkpass($password);
+                    // var_dump($checkpass);
 
-            //             if (!password_verify($password, $checkpass['MatKhau'])) {
-            //                 $thongbao = "MẬT KHẨU HIỆN TẠI KHÔNG ĐÚNG";
-            //             } else if ($newpassword != $repassword) {
-            //                 $thongbao = "MẬT KHẨU KHÔNG TRÙNG KHỚP";
-            //             } else if (strlen($newpassword) < 6) {
-            //                 $thongbao = "MẬT KHẨU MỚI PHẢI CÓ ÍT NHẤT 6 KÝ TỰ";
-            //             } else {
-            //                 $hashedNewPassword = password_hash($newpassword, PASSWORD_DEFAULT);
+                    // Kiểm tra xem $checkpass có phải là mảng và có phần tử 'MatKhau' không
+                    if (!is_array($checkpass) || !isset($checkpass['MatKhau'])) {
+                        $thongbao = "LỖI TRONG QUÁ TRÌNH KIỂM TRA MẬT KHẨU";
+                    } else {
+                        // Kiểm tra mật khẩu hiện tại
 
-            //                 $stmt = $mysqli->prepare("SELECT * FROM khachhang WHERE TenDangNhap = ? LIMIT 1");
-            //                 $stmt->bind_param("s", $_SESSION['user']);
-            //                 $stmt->execute();
-            //                 $result = $stmt->get_result();
-            //                 $count = $result->num_rows;
-
-            //                 if ($count > 0) {
-            //                     $stmtUpdate = $mysqli->prepare("UPDATE khachhang SET MatKhau = '" . $newpassword . "' WHERE TenDangNhap = ? LIMIT 1");
-            //                     $stmtUpdate->bind_param("ss", $hashedNewPassword, $_SESSION['user']);
-            //                     $stmtUpdate->execute();
-
-            //                     $thongbao = "MẬT KHẨU ĐÃ ĐƯỢC THAY ĐỔI";
-            //                 } else {
-            //                     $thongbao = "MẬT KHẨU HIỆN TẠI KHÔNG ĐÚNG";
-            //                 }
-            //             }
-            //         }
-            //     }
+                        if (!hash_equals($checkpass['MatKhau'], $password)) {
+                            $thongbao = "MẬT KHẨU HIỆN TẠI KHÔNG ĐÚNG";
+                        }
+                         else {
+                            // Kiểm tra mật khẩu mới và xác nhận mật khẩu
+                            if ($newpassword != $repassword) {
+                                $thongbao = "MẬT KHẨU KHÔNG TRÙNG KHỚP";
+                            } else if (strlen($newpassword) < 6) {
+                                $thongbao = "MẬT KHẨU MỚI PHẢI CÓ ÍT NHẤT 6 KÝ TỰ";
+                            } else {
+                                // Nếu tất cả đều hợp lệ, bạn có thể thực hiện các hành động khác ở đây
+                                // Ví dụ: cập nhật mật khẩu trong cơ sở dữ liệu
+                                // ...
+                                $thongbao = "ĐỔI MẬT KHẨU THÀNH CÔNG";
+                            }
+                        }
+                    }
+                }
+            }
 
 
-            //     include "view/user/doimk.php";
-            //     break;
+            include "view/user/doimk.php";
+            break;
         case 'thongtintk':
             if (isset($_POST['capnhat'])) {
                 $user = trim($_POST['user']);
@@ -263,9 +252,9 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
     include "view/banner.php";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dateIn = $_POST['DateIn'];
-        $dateOut = $_POST['DateOut']; 
+        $dateOut = $_POST['DateOut'];
         $amountOfDay = $_POST['AmountOfDay'];
-    
+
         // Cho thông tin vào mảng default.
         $_SESSION['bookingInfor'] = array(
             'amountOfDay' => $amountOfDay,

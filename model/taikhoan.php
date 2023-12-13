@@ -4,19 +4,25 @@ function taoTaiKhoanKhongDangKy($name, $email, $phone, $address, $date_of_birth,
     $sql = "INSERT INTO khachhang(Ten";
 }
 
-function insert_taikhoan($email, $user, $pass)
+function insert_taikhoan($email, $user, $password)
 {
-    $sql = "insert into khachhang(Email,TenDangNhap,MatKhau) values('$email','$user','$pass')";
+    $sql = "insert into khachhang(Email,TenDangNhap,MatKhau) values('$email','$user','$password')";
     pdo_execute($sql);
 }
-function checkuser($user,$pass) {
-    $sql="select * from khachhang where TenDangNhap='".$user."' AND  MatKhau='".$pass."'";
+function checkuser($user,$password) {
+    $sql="select * from khachhang where TenDangNhap='".$user."' AND  MatKhau='".$password."'";
     $sp=pdo_query_one($sql);
     return $sp;
 }
 function checkemail($email)
 {
     $sql = "select * from khachhang where Email='" . $email . "'";
+    $kq = pdo_query_one($sql);
+    return $kq;
+}
+function checkpass($password)
+{
+    $sql = "select * from khachhang where MatKhau='" . $password . "'";
     $kq = pdo_query_one($sql);
     return $kq;
 }
